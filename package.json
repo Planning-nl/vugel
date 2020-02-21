@@ -1,0 +1,20 @@
+{
+  "name": "vugel",
+  "version": "0.0.1",
+  "description": "Vue3 webgl renderer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "author": "Bas van Meurs, Robbin Baauw",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/estree": "0.0.42",
+    "@vue/compiler-core": "^3.0.0-alpha.5",
+    "@vue/compiler-sfc": "^3.0.0-alpha.5",
+    "@vue/reactivity": "^3.0.0-alpha.5",
+    "@vue/runtime-core": "^3.0.0-alpha.5"
+  }
+}
