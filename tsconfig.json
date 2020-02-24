@@ -10,7 +10,7 @@
         "declaration": true,
         "allowJs": false,
         "allowSyntheticDefaultImports": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "strictNullChecks": true,
         "noImplicitAny": true,
         "removeComments": false,
