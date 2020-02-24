@@ -1,10 +1,10 @@
-import Base from './Base'
+import Base from "./Base";
 
 export default class Comment extends Base {
-  public readonly text: string
+    public readonly text: string;
 
-  constructor(text: string) {
-    super(undefined)
-    this.text = text
-  }
+    constructor(text: string) {
+        super(undefined);
+        this.text = text;
+    }
 }
