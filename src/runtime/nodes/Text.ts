@@ -1,16 +1,21 @@
-import Node, { ensureFloat } from "./Node";
+import Node, { ensureFloat } from './Node';
+import Stage from 'tree2d/dist/tree/Stage';
+import TextTexture from 'tree2d/dist/textures/text/TextTexture';
 
 export default class Text extends Node {
-    constructor(stage: typeof lng.Stage) {
+    private tex: TextTexture;
+
+    constructor(stage: Stage) {
         super(stage);
-        this.element.texture = new lng.textures.TextTexture(stage);
+        this.tex = new TextTexture(stage);
+        this.el.texture = this.tex;
     }
 
     set text(value: string) {
-        this.element.texture.text = value;
+        this.tex.text = value;
     }
 
     set fontSize(value: number) {
-        this.element.texture.fontSize = ensureFloat(value);
+        this.tex.fontSize = ensureFloat(value);
     }
 }

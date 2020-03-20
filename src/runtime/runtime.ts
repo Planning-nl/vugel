@@ -1,13 +1,15 @@
-import { createRenderer, RootRenderFunction } from "@vue/runtime-core";
-import { nodeOps } from "./nodeOps";
-import { patchProp } from "./patchProp";
+import { createRenderer, RootRenderFunction } from '@vue/runtime-core';
+import { nodeOps } from './nodeOps';
+import { patchProp } from './patchProp';
+import Stage from 'tree2d/dist/tree/Stage';
+import Element from 'tree2d/dist/tree/Element';
 
-export type VugelRender = RootRenderFunction<Node, typeof lng.Element>;
+export type VugelRender = RootRenderFunction<Node, Element>;
 
-export function createRendererForStage(stage: typeof lng.Stage): VugelRender {
+export function createRendererForStage(stage: Stage): VugelRender {
     const { render } = createRenderer({
         patchProp,
-        ...nodeOps(stage)
+        ...nodeOps(stage),
     });
 
     const vugelRender = render as VugelRender;
@@ -16,4 +18,4 @@ export function createRendererForStage(stage: typeof lng.Stage): VugelRender {
 
 // re-export everything from core
 // h, Component, reactivity API, nextTick, flags & types
-export * from "@vue/runtime-core";
+export * from '@vue/runtime-core';

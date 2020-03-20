@@ -1,7 +1,7 @@
-import compileVugel from "./compiler/compileToFunction";
+import compileVugel from './compiler/compileToFunction';
 
 export { compileVugel, compileVugel as tpl };
 
-export * from "./wrapper";
+export * from './wrapper';
 
-export { compile, parse } from "./compiler/compile";
+export { compile, parse } from './compiler/compile';

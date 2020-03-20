@@ -6,30 +6,23 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "prepare": "npm run build"
+        "lint": "eslint --fix -c .eslintrc.js **/*.ts",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm test",
+        "version": "npm run lint"
     },
-    "author": "Bas van Meurs, Robbin Baauw",
-    "license": "ISC",
+    "author": "Bas van Meurs, Robbin Baauw, Planning.nl",
+    "license": "apache",
     "devDependencies": {
-        "@types/estree": "0.0.42",
+        "tree2d": "git+ssh://git@github.com:Planning-nl/tree2d.git",
+        "vue": "^3.0.0-alpha.8",
+        "typescript": "^3.8.3",
         "@typescript-eslint/eslint-plugin": "^2.20.0",
         "@typescript-eslint/parser": "^2.20.0",
-        "cross-env": "^5.2.0",
-        "dotenv": "^8.2.0",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.10.0",
         "eslint-plugin-prettier": "^3.1.2",
-        "friendly-errors-webpack-plugin": "^1.7.0",
-        "happypack": "^5.0.1",
-        "prettier": "^1.19.1",
-        "terser-webpack-plugin": "^2.3.5",
-        "ts-loader": "^6.2.1",
-        "typescript": "^3.8.2",
-        "vue": "^3.0.0-alpha.8",
-        "webpack": "^4.41.6",
-        "webpack-cli": "^3.3.11",
-        "webpack-dev-server": "^3.10.3",
-        "webpack-merge": "^4.2.2"
+        "prettier": "^1.19.1"
     },
     "peerDependencies": {
         "vue": "^3.0.0-alpha.8"

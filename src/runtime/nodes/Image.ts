@@ -1,12 +1,17 @@
-import Node from "./Node";
+import Node from './Node';
+import Stage from 'tree2d/dist/tree/Stage';
+import ImageTexture from 'tree2d/dist/textures/ImageTexture';
 
 export default class Image extends Node {
-    constructor(stage: typeof lng.Stage) {
+    private tex: ImageTexture;
+
+    constructor(stage: Stage) {
         super(stage);
-        this.element.texture = new lng.textures.ImageTexture(stage);
+        this.tex = new ImageTexture(stage);
+        this.el.texture = this.tex;
     }
 
     set src(value: string) {
-        this.element.texture.src = value;
+        this.tex.src = value;
     }
 }

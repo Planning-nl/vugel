@@ -1,5 +1,7 @@
+import Element from 'tree2d/dist/tree/Element';
+
 export default class Base {
-    public element?: typeof lng.Element;
+    public element?: Element;
 
     protected children: Base[] = [];
 
@@ -7,7 +9,7 @@ export default class Base {
 
     public nextSibling: Base | null = null;
 
-    constructor(element: typeof lng.Element | undefined) {
+    constructor(element: Element | undefined) {
         this.element = element;
     }
 

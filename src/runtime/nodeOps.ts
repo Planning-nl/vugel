@@ -1,9 +1,10 @@
-import types from "./nodes/types";
-import Base from "./nodes/Base";
-import Comment from "./nodes/Comment";
-import { RendererOptions } from "@vue/runtime-core";
+import types from './nodes/types';
+import Base from './nodes/Base';
+import Comment from './nodes/Comment';
+import { RendererOptions } from '@vue/runtime-core';
+import Stage from 'tree2d/dist/tree/Stage';
 
-export const nodeOps = (stage: typeof lng.Stage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({
+export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchProp'> => ({
     insert: (child, parent, anchor) => {
         if (anchor != null) {
             parent.insertBefore(child, anchor);
@@ -48,5 +49,5 @@ export const nodeOps = (stage: typeof lng.Stage): Omit<RendererOptions<Base, Bas
         if (el.element) {
             el.element.ref = id;
         }
-    }
+    },
 });

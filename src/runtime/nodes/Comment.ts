@@ -1,4 +1,4 @@
-import Base from "./Base";
+import Base from './Base';
 
 export default class Comment extends Base {
     public readonly text: string;

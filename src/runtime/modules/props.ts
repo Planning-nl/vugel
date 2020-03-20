@@ -8,7 +8,7 @@ export function patchElProp(
     prevChildren: any,
     parentComponent: any,
     parentSuspense: any,
-    unmountChildren: any
+    unmountChildren: any,
 ) {
     el[key] = value;
 }

@@ -1,35 +1,48 @@
-import Base from "./Base";
+import Base from './Base';
+import Stage from 'tree2d/dist/tree/Stage';
+import Element from 'tree2d/dist/tree/Element';
 
 export default class Node extends Base {
-    public readonly stage: typeof lng.Stage;
+    public readonly stage: Stage;
 
-    constructor(stage: typeof lng.Stage, base?: typeof lng.Element) {
-        super(base || new lng.Element(stage));
+    constructor(stage: Stage, base?: Element) {
+        super(base || new Element(stage));
         this.stage = stage;
+    }
+
+    get el(): Element {
+        return this.el!;
     }
 
     appendChild(child: Base) {
         super.appendChild(child);
         if (child.element) {
-            this.element.childList.add(child.element);
+            this.el.childList.add(child.element);
         }
     }
 
     removeChild(child: Base) {
         super.removeChild(child);
         if (child.element) {
-            this.element.childList.remove(child.element);
+            this.el.childList.remove(child.element);
         }
     }
 
     insertBefore(child: Base, anchor: Base) {
         super.insertBefore(child, anchor);
-        if (child.element) {
+        const item = child.element;
+        if (item) {
             const baseAnchor = this.getBaseAnchor(anchor);
             if (baseAnchor) {
-                this.element.childList.insertBefore(child, baseAnchor);
+                const insertBefore = baseAnchor.element!;
+                const index = this.el.childList.getIndex(insertBefore);
+                if (index > 0) {
+                    this.el.childList.addAt(item, index);
+                } else {
+                    throw new Error("Can't find anchor in tree2d child list: " + insertBefore.getLocationString());
+                }
             } else {
-                this.element.childList.add(child.element, true);
+                this.el.childList.add(item);
             }
         }
     }
@@ -59,21 +72,21 @@ export default class Node extends Base {
     clearChildren() {
         this.children.forEach(child => (child.parentNode = undefined));
         this.children = [];
-        this.element.childList.clear();
+        this.el.childList.clear();
     }
 
     set onActive(v: any) {
         if (v === undefined || isFunction(v)) {
-            this.element.onActive = v;
+            this.el.onActive = v;
         }
     }
 
     set x(v: any) {
-        this.element.x = ensureFloat(v);
+        this.el.x = ensureFloat(v);
     }
 
     set y(v: any) {
-        this.element.y = ensureFloat(v);
+        this.el.y = ensureFloat(v);
     }
 
     set scale(v: any) {
@@ -82,35 +95,35 @@ export default class Node extends Base {
     }
 
     set scaleX(v: number) {
-        this.element.scaleX = ensureFloat(v);
+        this.el.scaleX = ensureFloat(v);
     }
 
     set scaleY(v: number) {
-        this.element.scaleY = ensureFloat(v);
+        this.el.scaleY = ensureFloat(v);
     }
 
     set rotation(v: number) {
-        this.element.rotation = ensureFloat(v);
+        this.el.rotation = ensureFloat(v);
     }
 
     set alpha(v: number) {
-        this.element.alpha = ensureFloat(v);
+        this.el.alpha = ensureFloat(v);
     }
 
     set visible(v: boolean) {
-        this.element.visible = ensureBoolean(v);
+        this.el.visible = ensureBoolean(v);
     }
 
     set color(v: number) {
-        this.element.color = ensureInt(v);
+        this.el.color = ensureInt(v);
     }
 
     set w(v: number) {
-        this.element.w = ensureFloat(v);
+        this.el.w = ensureFloat(v);
     }
 
     set h(v: number) {
-        this.element.h = ensureFloat(v);
+        this.el.h = ensureFloat(v);
     }
 }
 
@@ -123,7 +136,7 @@ export function ensureFloat(v: any): number {
 }
 
 export function ensureBoolean(v: any): boolean {
-    return v !== "false" && !!v;
+    return v !== 'false' && !!v;
 }
 
-const isFunction = (val: unknown): val is Function => typeof val === "function";
+const isFunction = (val: unknown): val is Function => typeof val === 'function';
