@@ -1,6 +1,6 @@
 {
     "name": "vugel",
-    "version": "1.0.0-alpha.1",
+    "version": "1.0.0-alpha.2",
     "description": "Vue3 webgl renderer",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -14,15 +14,15 @@
     "author": "Bas van Meurs, Robbin Baauw, Planning.nl",
     "license": "apache",
     "devDependencies": {
-        "tree2d": "git+ssh://git@github.com:Planning-nl/tree2d.git",
-        "vue": "^3.0.0-alpha.8",
-        "typescript": "^3.8.3",
         "@typescript-eslint/eslint-plugin": "^2.20.0",
         "@typescript-eslint/parser": "^2.20.0",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.10.0",
         "eslint-plugin-prettier": "^3.1.2",
-        "prettier": "^1.19.1"
+        "prettier": "^1.19.1",
+        "tree2d": "git+ssh://git@github.com:Planning-nl/tree2d.git",
+        "typescript": "^3.8.3",
+        "vue": "^3.0.0-alpha.8"
     },
     "peerDependencies": {
         "vue": "^3.0.0-alpha.8"
