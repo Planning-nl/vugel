@@ -14,10 +14,6 @@
         "@types/estree": "0.0.42",
         "@typescript-eslint/eslint-plugin": "^2.20.0",
         "@typescript-eslint/parser": "^2.20.0",
-        "@vue/compiler-core": "^3.0.0-alpha.8",
-        "@vue/compiler-sfc": "^3.0.0-alpha.8",
-        "@vue/reactivity": "^3.0.0-alpha.8",
-        "@vue/runtime-core": "^3.0.0-alpha.8",
         "cross-env": "^5.2.0",
         "dotenv": "^8.2.0",
         "eslint": "^6.8.0",
@@ -36,10 +32,6 @@
         "webpack-merge": "^4.2.2"
     },
     "peerDependencies": {
-        "@vue/compiler-core": "^3.0.0-alpha.8",
-        "@vue/compiler-sfc": "^3.0.0-alpha.8",
-        "@vue/reactivity": "^3.0.0-alpha.8",
-        "@vue/runtime-core": "^3.0.0-alpha.8",
         "vue": "^3.0.0-alpha.8"
     }
 }

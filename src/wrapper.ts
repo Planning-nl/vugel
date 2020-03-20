@@ -16,7 +16,7 @@ export const Vugel = defineComponent({
     props: {
         settings: { type: Object, default: { w: 600, h: 600 } }
     },
-    setup(props: VugelPropType, setupContext) {
+    setup(props: VugelPropType, setupContext: any) {
         const elRef: any = ref();
 
         onMounted(() => {
