@@ -5,8 +5,8 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "dev": "tsc --watch",
-        "build": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules"
+        "build": "tsc",
+        "prepare": "npm run build"
     },
     "author": "Bas van Meurs, Robbin Baauw",
     "license": "ISC",

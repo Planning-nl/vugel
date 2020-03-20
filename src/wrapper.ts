@@ -5,18 +5,11 @@ import { defineComponent, Fragment, h } from "@vue/runtime-core";
 import { ref } from "@vue/reactivity";
 import Node from "./runtime/nodes/Node";
 
-type VugelPropType = {
-    settings: {
-        w: number;
-        h: number;
-    };
-};
-
 export const Vugel = defineComponent({
     props: {
         settings: { type: Object, default: { w: 600, h: 600 } }
     },
-    setup(props: VugelPropType, setupContext: any) {
+    setup(props, setupContext) {
         const elRef: any = ref();
 
         onMounted(() => {
@@ -36,7 +29,12 @@ export const Vugel = defineComponent({
                     stageRoot = new Node(stage, stage.root);
                 }
 
-                vugelRenderer(h(Fragment, setupContext.slots.default()), stageRoot);
+                const defaultSlot = setupContext.slots.default;
+                if (defaultSlot) {
+                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
+                } else {
+                    console.warn("No default slot is defined");
+                }
             });
         });
 
