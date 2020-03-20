@@ -510,7 +510,7 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.1.tgz#69e57caa8f0eacbc281d2e2cb458d46fdb449e08"
   integrity sha512-a1hQMktqW9Nmqr5aktAux3JMNqaucxGcjtjWnZLHX7yyPCmlSV3M54nGYbqT8K+0GhF3NBgmJCc3ma+WOgX8Jg==
 
-flexbox.js@^1.0.4:
+flexbox.js@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/flexbox.js/-/flexbox.js-1.0.6.tgz#315732ba23007ea530d7e46b0c6f5cb9e98d53c1"
   integrity sha512-4wpYwPlx3RY5iVFX8nr6cpuCJWhmkgKRdRO6wlKadcnM+wwP5xE3xJH70ehMwTThQ5NkPPDGFG/x+OdUrXzjAw==
@@ -988,11 +988,12 @@ to-fast-properties@^2.0.0:
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
 
-"tree2d@git+ssh://git@github.com:Planning-nl/tree2d.git":
-  version "1.0.0-alpha.1"
-  resolved "git+ssh://git@github.com:Planning-nl/tree2d.git#f8495d0ca218d8eb86a5dc2a4197bf9a06896837"
+tree2d@^1.0.0-alpha.2:
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.5.tgz#7e951fe304eec7086fdb709f744649f1ecef664b"
+  integrity sha512-aW/sPo7l3zBDunwCCes2EOXWATVPuVuIDuSzu12fIJDeBGqIzsb4AciMl0W0yrEblu2Zamy5UxQitoaYq6QsqQ==
   dependencies:
-    flexbox.js "^1.0.4"
+    flexbox.js "^1.0.6"
 
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.1"
