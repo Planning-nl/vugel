@@ -988,7 +988,7 @@ to-fast-properties@^2.0.0:
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
 
-tree2d@^1.0.0-alpha.2:
+tree2d@^1.0.0-alpha.5:
   version "1.0.0-alpha.5"
   resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.5.tgz#7e951fe304eec7086fdb709f744649f1ecef664b"
   integrity sha512-aW/sPo7l3zBDunwCCes2EOXWATVPuVuIDuSzu12fIJDeBGqIzsb4AciMl0W0yrEblu2Zamy5UxQitoaYq6QsqQ==
