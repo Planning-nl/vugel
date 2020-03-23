@@ -27,7 +27,7 @@
         "vue": "^3.0.0-alpha.8"
     },
     "dependencies": {
-        "tree2d": "^1.0.0-alpha.5"
+        "tree2d": "^1.0.0-alpha.6"
     },
     "files": [
         "dist/**/*",
