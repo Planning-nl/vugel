@@ -9,7 +9,8 @@
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
         "prepublishOnly": "npm test",
-        "version": "npm run lint"
+        "version": "npm run lint",
+        "bundle": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules"
     },
     "author": "Bas van Meurs, Robbin Baauw, Planning.nl",
     "license": "apache",
@@ -21,13 +22,21 @@
         "eslint-plugin-prettier": "^3.1.2",
         "prettier": "^1.19.1",
         "typescript": "^3.8.3",
-        "vue": "^3.0.0-alpha.9"
+        "vue": "^3.0.0-alpha.9",
+        "webpack-cli": "^3.3.11",
+        "dotenv": "^8.2.0",
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "happypack": "^5.0.1",
+        "terser-webpack-plugin": "^2.3.5",
+        "ts-loader": "^6.2.2",
+        "webpack": "^4.42.1",
+        "webpack-merge": "^4.2.2"
     },
     "peerDependencies": {
         "vue": "^3.0.0-alpha.9"
     },
     "dependencies": {
-        "tree2d": "^1.0.0-alpha.7"
+        "tree2d": "^1.0.0-alpha.8"
     },
     "files": [
         "dist/**/*",
