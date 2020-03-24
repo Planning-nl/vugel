@@ -1,8 +1,7 @@
 import { createRendererForStage, onMounted, VugelRender } from './runtime/runtime';
 
-import { effect } from '@vue/reactivity';
+import { effect, ref } from '@vue/reactivity';
 import { defineComponent, Fragment, h } from '@vue/runtime-core';
-import { ref } from '@vue/reactivity';
 import Node from './runtime/nodes/Node';
 import Stage from 'tree2d/dist/tree/Stage';
 
