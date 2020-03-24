@@ -998,9 +998,10 @@ to-fast-properties@^2.0.0:
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
 
-"tree2d@git+ssh://git@github.com:Planning-nl/tree2d.git":
+tree2d@^1.0.0-alpha.7:
   version "1.0.0-alpha.7"
-  resolved "git+ssh://git@github.com:Planning-nl/tree2d.git#0bf29e52c4290dba3072f4af73add8b71c354021"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.7.tgz#1e7f2858e504c27ca6c5fd5e9cbdf8f905841f9c"
+  integrity sha512-W0UxPcuHE0sT/SkRBcdfD8hC/1Qaok4KIybHTg/FguilYGQWi3mba6vdm0mwP8DErkc5vGuKQsR6oOaYRAlnEg==
   dependencies:
     flexbox.js "^1.0.6"
 
@@ -1050,7 +1051,7 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
   integrity sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
 
-vue@^3.0.0-alpha.8:
+vue@^3.0.0-alpha.9:
   version "3.0.0-alpha.9"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.0.0-alpha.9.tgz#f84b6b52caf6753a8cefda370bd6bbd298b5b06a"
   integrity sha512-zZrfbchyCQXF/+9B5fD4djlqzZ2XB39MxDzTaJKfuMjs/CgD2CTDiEVrOcP9HwMjr48cpARiFH13vvl4/F73RA==
