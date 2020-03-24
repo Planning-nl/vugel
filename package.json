@@ -27,7 +27,7 @@
         "vue": "^3.0.0-alpha.8"
     },
     "dependencies": {
-        "tree2d": "git+ssh://git@github.com:Planning-nl/tree2d.git"
+        "tree2d": "^1.0.0-alpha.7"
     },
     "files": [
         "dist/**/*",
