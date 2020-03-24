@@ -3,6 +3,7 @@ import Base from './nodes/Base';
 import Comment from './nodes/Comment';
 import { RendererOptions } from '@vue/runtime-core';
 import Stage from 'tree2d/dist/tree/Stage';
+import TextNode from './nodes/TextNode';
 
 export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchProp'> => ({
     insert: (child, parent, anchor) => {
@@ -26,12 +27,10 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchP
     },
 
     createText: text => {
-        // @todo: return Text element.
-        return null as any;
+        return new TextNode(text);
     },
 
     createComment: text => {
-        // @todo: nothing. Can we ignore these?
         return new Comment(text);
     },
 

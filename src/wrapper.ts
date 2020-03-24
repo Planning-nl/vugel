@@ -22,6 +22,8 @@ export const Vugel = defineComponent({
                 if (!rendered) {
                     rendered = true;
                     const stageOptions = { ...props.settings };
+                    elRef.value.width = stageOptions.w || 600;
+                    elRef.value.height = stageOptions.h || 600;
                     stage = new Stage(elRef.value, { ...stageOptions });
 
                     vugelRenderer = createRendererForStage(stage);
@@ -31,7 +33,7 @@ export const Vugel = defineComponent({
 
                 const defaultSlot = setupContext.slots.default;
                 if (defaultSlot) {
-                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot.el);
+                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
                 } else {
                     console.warn('No default slot is defined');
                 }

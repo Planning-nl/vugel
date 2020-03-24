@@ -4,8 +4,8 @@ import { patchElProp } from './modules/props';
 export function patchProp(
     el: Element,
     key: string,
-    nextValue: any,
     prevValue: any,
+    nextValue: any,
     isSVG: boolean,
     prevChildren?: VNode[],
     parentComponent?: ComponentInternalInstance,
