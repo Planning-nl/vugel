@@ -11,7 +11,7 @@ export default class Node extends Base {
     }
 
     get el(): Element {
-        return this.el!;
+        return this.element!;
     }
 
     appendChild(child: Base) {
