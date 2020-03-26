@@ -1,32 +1,32 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require("webpack");
+const merge = require("webpack-merge");
+const TerserPlugin = require("terser-webpack-plugin");
 
-const base = require('./webpack.prod.config');
+const base = require("./webpack.prod.config");
 
 const builds = {
     development: {
         config: {
-            devtool: 'source-map',
-            mode: 'development',
+            devtool: "source-map",
+            mode: "development",
             output: {
-                filename: 'vugel.js',
-                libraryTarget: 'umd',
+                filename: "vugel.js",
+                libraryTarget: "umd",
             },
         },
     },
     production: {
         config: {
-            mode: 'production',
+            mode: "production",
             output: {
-                filename: 'vugel.min.js',
-                libraryTarget: 'umd',
+                filename: "vugel.min.js",
+                libraryTarget: "umd",
             },
             performance: {
                 hints: false,
             },
         },
-        env: 'production',
+        env: "production",
     },
 };
 
@@ -35,7 +35,7 @@ function genConfig(opts) {
 
     config.plugins = config.plugins.concat([
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(opts.env || 'development'),
+            "process.env.NODE_ENV": JSON.stringify(opts.env || "development"),
         }),
     ]);
 
@@ -52,4 +52,4 @@ function genConfig(opts) {
     return config;
 }
 
-module.exports = Object.keys(builds).map(name => genConfig(builds[name]));
+module.exports = Object.keys(builds).map((name) => genConfig(builds[name]));

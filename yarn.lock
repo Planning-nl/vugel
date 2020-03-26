@@ -37,10 +37,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@planning.nl/eslint-config@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.0.tgz#ae23e30ff62258299a1cafefaf564a5102438314"
-  integrity sha512-rbns00wyz1EPYioBgTBdOtdBcKdX0uouKjXCDwjWVdg2/6B2PFBNdWF/g2XSz3oNzSP0oPYK3PUThouUVLg73Q==
+"@planning.nl/eslint-config@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.3.tgz#915f9190fde8448bcad54b4bb2ed6f2a591c201b"
+  integrity sha512-BJ1Ru0CqB9k9phxPp3hV9jUe8Hf67F+RbMS251/0cXf82J0JWcBwu4JVzWTMBKXTMP+QQvECcUAv9CLkBnPoBw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.25.0"
     "@typescript-eslint/parser" "^2.25.0"

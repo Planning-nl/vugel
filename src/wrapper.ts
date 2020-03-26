@@ -1,9 +1,9 @@
-import { createRendererForStage, onMounted, VugelRender } from './runtime/runtime';
+import { createRendererForStage, onMounted, VugelRender } from "./runtime/runtime";
 
-import { effect, ref } from '@vue/reactivity';
-import { defineComponent, Fragment, h } from '@vue/runtime-core';
-import Node from './runtime/nodes/Node';
-import Stage from 'tree2d/dist/tree/Stage';
+import { effect, ref } from "@vue/reactivity";
+import { defineComponent, Fragment, h } from "@vue/runtime-core";
+import Node from "./runtime/nodes/Node";
+import Stage from "tree2d/dist/tree/Stage";
 
 export const Vugel = defineComponent({
     props: {
@@ -35,11 +35,11 @@ export const Vugel = defineComponent({
                 if (defaultSlot) {
                     vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
                 } else {
-                    console.warn('No default slot is defined');
+                    console.warn("No default slot is defined");
                 }
             });
         });
 
-        return () => h('canvas', { class: 'custom-renderer', ref: elRef });
+        return () => h("canvas", { class: "custom-renderer", ref: elRef });
     },
 });

@@ -1,6 +1,6 @@
-import Node, { ensureFloat } from './Node';
-import Stage from 'tree2d/dist/tree/Stage';
-import TextTexture from 'tree2d/dist/textures/text/TextTexture';
+import Node, { ensureFloat } from "./Node";
+import Stage from "tree2d/dist/tree/Stage";
+import TextTexture from "tree2d/dist/textures/text/TextTexture";
 
 export default class Text extends Node {
     private tex: TextTexture;

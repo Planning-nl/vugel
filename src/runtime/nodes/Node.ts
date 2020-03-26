@@ -1,6 +1,6 @@
-import Base from './Base';
-import Stage from 'tree2d/dist/tree/Stage';
-import Element from 'tree2d/dist/tree/Element';
+import Base from "./Base";
+import Stage from "tree2d/dist/tree/Stage";
+import Element from "tree2d/dist/tree/Element";
 
 export default class Node extends Base {
     public readonly stage: Stage;
@@ -70,7 +70,7 @@ export default class Node extends Base {
     }
 
     clearChildren() {
-        this.children.forEach(child => (child.parentNode = undefined));
+        this.children.forEach((child) => (child.parentNode = undefined));
         this.children = [];
         this.el.childList.clear();
     }
@@ -136,7 +136,7 @@ export function ensureFloat(v: any): number {
 }
 
 export function ensureBoolean(v: any): boolean {
-    return v !== 'false' && !!v;
+    return v !== "false" && !!v;
 }
 
-const isFunction = (val: unknown): val is Function => typeof val === 'function';
+const isFunction = (val: unknown): val is Function => typeof val === "function";

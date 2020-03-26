@@ -1,4 +1,4 @@
-import Element from 'tree2d/dist/tree/Element';
+import Element from "tree2d/dist/tree/Element";
 
 export default class Base {
     public element?: Element;
@@ -40,7 +40,7 @@ export default class Base {
     }
 
     clearChildren() {
-        this.children.forEach(child => {
+        this.children.forEach((child) => {
             child.parentNode = undefined;
             child.nextSibling = null;
         });
