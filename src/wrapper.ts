@@ -21,13 +21,8 @@ export const Vugel = defineComponent({
             effect(() => {
                 if (!rendered) {
                     rendered = true;
-                    const stageOptions = { ...props.settings };
-                    elRef.value.width = stageOptions.w || 600;
-                    elRef.value.height = stageOptions.h || 600;
-                    stage = new Stage(elRef.value, { ...stageOptions });
-
+                    stage = new Stage(elRef.value, { ...props.settings });
                     vugelRenderer = createRendererForStage(stage);
-
                     stageRoot = new Node(stage, stage.root);
                 }
 
