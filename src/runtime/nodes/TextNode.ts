@@ -1,4 +1,4 @@
-import Base from './Base';
+import Base from "./Base";
 
 export default class TextNode extends Base {
     public readonly text: string;

@@ -1,12 +1,12 @@
-import { RenderFunction, warn } from '@vue/runtime-core';
-import { CompilerError, CompilerOptions } from '@vue/compiler-core';
-import { compile } from './compile';
-import * as runtimeDom from '../runtime/runtime';
+import { RenderFunction, warn } from "@vue/runtime-core";
+import { CompilerError, CompilerOptions } from "@vue/compiler-core";
+import { compile } from "./compile";
+import * as runtimeDom from "../runtime/runtime";
 
 const compileCache: Record<string, RenderFunction> = Object.create(null);
 
 export default function compileToFunction(template: string | HTMLElement, options?: CompilerOptions): RenderFunction {
-    if (!(typeof template === 'string')) {
+    if (!(typeof template === "string")) {
         if (template.nodeType) {
             template = template.innerHTML;
         } else {
@@ -21,7 +21,7 @@ export default function compileToFunction(template: string | HTMLElement, option
         return cached;
     }
 
-    if (template[0] === '#') {
+    if (template[0] === "#") {
         const el = document.querySelector(template);
         if (!el) {
             warn(`Template element not found or is empty: ${template}`);
@@ -39,6 +39,6 @@ export default function compileToFunction(template: string | HTMLElement, option
         ...options,
     });
 
-    const render = new Function('Vue', code)(runtimeDom) as RenderFunction;
+    const render = new Function("Vue", code)(runtimeDom) as RenderFunction;
     return (compileCache[key] = render);
 }

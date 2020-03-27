@@ -1,6 +1,6 @@
-import { baseCompile, baseParse, CompilerOptions, CodegenResult, ParserOptions, RootNode } from '@vue/compiler-core';
+import { baseCompile, baseParse, CompilerOptions, CodegenResult, ParserOptions, RootNode } from "@vue/compiler-core";
 
-import { parserOptionsMinimal } from './parserOptionsMinimal';
+import { parserOptionsMinimal } from "./parserOptionsMinimal";
 
 const parserOptions = parserOptionsMinimal;
 
@@ -22,4 +22,4 @@ export function parse(template: string, options: ParserOptions = {}): RootNode {
     });
 }
 
-export * from '@vue/compiler-core';
+export * from "@vue/compiler-core";

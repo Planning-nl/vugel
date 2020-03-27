@@ -1,5 +1,5 @@
-import { ComponentInternalInstance, SuspenseBoundary, VNode } from '@vue/runtime-core';
-import { patchElProp } from './modules/props';
+import { ComponentInternalInstance, SuspenseBoundary, VNode } from "@vue/runtime-core";
+import { patchElProp } from "./modules/props";
 
 export function patchProp(
     el: Element,

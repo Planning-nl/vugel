@@ -1,11 +1,11 @@
-import types from './nodes/types';
-import Base from './nodes/Base';
-import Comment from './nodes/Comment';
-import { RendererOptions } from '@vue/runtime-core';
-import Stage from 'tree2d/dist/tree/Stage';
-import TextNode from './nodes/TextNode';
+import types from "./nodes/types";
+import Base from "./nodes/Base";
+import Comment from "./nodes/Comment";
+import { RendererOptions } from "@vue/runtime-core";
+import Stage from "tree2d/dist/tree/Stage";
+import TextNode from "./nodes/TextNode";
 
-export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchProp'> => ({
+export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({
     insert: (child, parent, anchor) => {
         if (anchor != null) {
             parent.insertBefore(child, anchor);
@@ -14,7 +14,7 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchP
         }
     },
 
-    remove: child => {
+    remove: (child) => {
         const parent = child.parentNode;
         if (parent != null) {
             parent.removeChild(child);
@@ -26,11 +26,11 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchP
         return new type(stage);
     },
 
-    createText: text => {
+    createText: (text) => {
         return new TextNode(text);
     },
 
-    createComment: text => {
+    createComment: (text) => {
         return new Comment(text);
     },
 
@@ -38,11 +38,11 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, 'patchP
 
     setElementText: (node, text) => {},
 
-    parentNode: node => (node.parentNode ? node.parentNode : null),
+    parentNode: (node) => (node.parentNode ? node.parentNode : null),
 
-    nextSibling: node => node.nextSibling,
+    nextSibling: (node) => node.nextSibling,
 
-    querySelector: selector => null,
+    querySelector: (selector) => null,
 
     setScopeId(el, id) {
         if (el.element) {
