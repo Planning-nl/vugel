@@ -3503,9 +3503,9 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     safe-regex "^1.1.0"
 
 tree2d@^1.0.0-alpha.8:
-  version "1.0.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.9.tgz#55715908f10e3e799957827283411cb797353f8b"
-  integrity sha512-zmlaEFkHTvV9Ne4Y2YjiMtpwHZy8M+fy/fy2W/CkFQNBsfCBx0FC4gV2d5aoCCIK98mZlxl7bXes0eOtJCWoSQ==
+  version "1.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.10.tgz#0cfc7e7798ffa7ce363f053282fd555a18edbb05"
+  integrity sha512-MgMczhHU9LShjWEJft41+X3CjhXX8f+a+Yqre8YEk8+H28UrqSTZxSEcZeTMVYwica+NO1FCERfgo8ex+GxoOg==
   dependencies:
     flexbox.js "^1.0.6"
 
