@@ -13,10 +13,5 @@ export function createRendererForStage(stage: Stage): VugelRender {
         ...nodeOps(stage),
     });
 
-    const vugelRender = render as VugelRender;
-    return vugelRender;
+    return render as VugelRender;
 }
-
-// re-export everything from core
-// h, Component, reactivity API, nextTick, flags & types
-export * from "@vue/runtime-core";

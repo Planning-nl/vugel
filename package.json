@@ -37,7 +37,9 @@
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {
+        "watch_build": "tsc --watch",
         "build": "tsc",
+        "watch_bundle": "NODE_ENV=production webpack --watch --config build/webpack.config.js --progress --hide-modules",
         "bundle": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules",
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",

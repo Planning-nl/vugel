@@ -21,5 +21,3 @@ export function parse(template: string, options: ParserOptions = {}): RootNode {
         ...options,
     });
 }
-
-export * from "@vue/compiler-core";

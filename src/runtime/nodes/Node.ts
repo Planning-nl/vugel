@@ -1,13 +1,38 @@
 import Base from "./Base";
 import Stage from "tree2d/dist/tree/Stage";
 import Element from "tree2d/dist/tree/Element";
+import { VOnMouseEventHandlers } from "../../events/mouseEvents";
+import { VOnTouchEventHandlers } from "../../events/touchEvents";
 
-export default class Node extends Base {
+type EventHandler<T extends Event> = (event: T) => any;
+export type VOnEventHandlers<T extends Event, X extends string> = {
+    [key in X]?: EventHandler<T>;
+};
+
+export default class Node extends Base implements VOnMouseEventHandlers, VOnTouchEventHandlers {
+    onMousedown?: EventHandler<MouseEvent>;
+    onMouseenter?: EventHandler<MouseEvent>;
+    onMouseleave?: EventHandler<MouseEvent>;
+    onMousemove?: EventHandler<MouseEvent>;
+    onMouseout?: EventHandler<MouseEvent>;
+    onMouseover?: EventHandler<MouseEvent>;
+    onMouseup?: EventHandler<MouseEvent>;
+
+    onTouchcancel?: EventHandler<TouchEvent>;
+    onTouchend?: EventHandler<TouchEvent>;
+    onTouchmove?: EventHandler<TouchEvent>;
+    onTouchstart?: EventHandler<TouchEvent>;
+
     public readonly stage: Stage;
+
+    public pointerEvents = true;
 
     constructor(stage: Stage, base?: Element) {
         super(base || new Element(stage));
         this.stage = stage;
+        if (this.element) {
+            this.element.data = this;
+        }
     }
 
     get el(): Element {
