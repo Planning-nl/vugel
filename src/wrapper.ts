@@ -29,7 +29,7 @@ export const Vugel = defineComponent({
 
                     for (const [key, value] of Object.entries(eventTranslators)) {
                         if (value) {
-                            elRef.value.addEventListener(key, value[1](stage) as EventListener);
+                            elRef.value.addEventListener(key, value[1](stage));
                         }
                     }
 

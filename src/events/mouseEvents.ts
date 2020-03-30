@@ -1,5 +1,5 @@
-import Node, { VOnEventHandlers } from "../runtime/nodes/Node";
-import { EventDispatcher, EventTranslator } from "./index";
+import Node from "../runtime/nodes/Node";
+import { VugelEventDispatcher, VugelEventTranslator } from "./index";
 
 /**
  * TODO
@@ -9,7 +9,7 @@ import { EventDispatcher, EventTranslator } from "./index";
  * - mouseout: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseleave is that it also fires when entering/leaving child components
  * - mouseover: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseenter is that it also fires when entering/leaving child components
  */
-export const dispatchMouseEvent: EventDispatcher<MouseEvent> = (stage) => {
+export const dispatchMouseEvent: VugelEventDispatcher<MouseEvent> = (stage) => {
     return (e) => {
         const canvasX = e.clientX;
         const canvasY = e.clientY;
@@ -47,9 +47,7 @@ export type MouseEvents =
     | "onMouseover"
     | "onMouseup";
 
-export type VOnMouseEventHandlers = VOnEventHandlers<MouseEvent, MouseEvents>;
-
-export const mouseEventTranslator: EventTranslator<MouseEvents> = {
+export const mouseEventTranslator: VugelEventTranslator<MouseEvents, MouseEvent> = {
     auxclick: ["onAuxclick", dispatchMouseEvent],
     click: ["onClick", dispatchMouseEvent],
     contextmenu: ["onContextmenu", dispatchMouseEvent],

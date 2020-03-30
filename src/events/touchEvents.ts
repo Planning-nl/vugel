@@ -1,7 +1,7 @@
-import Node, { VOnEventHandlers } from "../runtime/nodes/Node";
-import { EventDispatcher, EventTranslator } from "./index";
+import Node from "../runtime/nodes/Node";
+import { VugelEventDispatcher, VugelEventTranslator } from "./index";
 
-export const dispatchTouchEvent: EventDispatcher<TouchEvent> = (stage) => {
+export const dispatchTouchEvent: VugelEventDispatcher<TouchEvent> = (stage) => {
     return (e) => {
         const touches: Touch[] = [];
         for (let i = 0; i < e.touches.length; i++) {
@@ -44,9 +44,7 @@ export const dispatchTouchEvent: EventDispatcher<TouchEvent> = (stage) => {
 
 export type TouchEvents = "onTouchcancel" | "onTouchend" | "onTouchmove" | "onTouchstart";
 
-export type VOnTouchEventHandlers = VOnEventHandlers<TouchEvent, TouchEvents>;
-
-export const touchEventTranslator: EventTranslator<TouchEvents> = {
+export const touchEventTranslator: VugelEventTranslator<TouchEvents, TouchEvent> = {
     touchcancel: ["onTouchcancel", dispatchTouchEvent],
     touchend: ["onTouchend", dispatchTouchEvent],
     touchmove: ["onTouchmove", dispatchTouchEvent],

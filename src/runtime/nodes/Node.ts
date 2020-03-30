@@ -1,31 +1,25 @@
 import Base from "./Base";
 import Stage from "tree2d/dist/tree/Stage";
 import Element from "tree2d/dist/tree/Element";
-import { VOnMouseEventHandlers } from "../../events/mouseEvents";
-import { VOnTouchEventHandlers } from "../../events/touchEvents";
+import { VugelEventListener } from "../../events";
 
-type EventHandler<T extends Event> = (event: T) => any;
-export type VOnEventHandlers<T extends Event, X extends string> = {
-    [key in X]?: EventHandler<T>;
-};
+export default class Node extends Base {
+    onAuxclick?: VugelEventListener<MouseEvent>;
+    onClick?: VugelEventListener<MouseEvent>;
+    onContextmenu?: VugelEventListener<MouseEvent>;
+    onDblclick?: VugelEventListener<MouseEvent>;
+    onMousedown?: VugelEventListener<MouseEvent>;
+    onMouseenter?: VugelEventListener<MouseEvent>;
+    onMouseleave?: VugelEventListener<MouseEvent>;
+    onMousemove?: VugelEventListener<MouseEvent>;
+    onMouseout?: VugelEventListener<MouseEvent>;
+    onMouseover?: VugelEventListener<MouseEvent>;
+    onMouseup?: VugelEventListener<MouseEvent>;
 
-export default class Node extends Base implements VOnMouseEventHandlers, VOnTouchEventHandlers {
-    onAuxclick?: EventHandler<MouseEvent>;
-    onClick?: EventHandler<MouseEvent>;
-    onContextmenu?: EventHandler<MouseEvent>;
-    onDblclick?: EventHandler<MouseEvent>;
-    onMousedown?: EventHandler<MouseEvent>;
-    onMouseenter?: EventHandler<MouseEvent>;
-    onMouseleave?: EventHandler<MouseEvent>;
-    onMousemove?: EventHandler<MouseEvent>;
-    onMouseout?: EventHandler<MouseEvent>;
-    onMouseover?: EventHandler<MouseEvent>;
-    onMouseup?: EventHandler<MouseEvent>;
-
-    onTouchcancel?: EventHandler<TouchEvent>;
-    onTouchend?: EventHandler<TouchEvent>;
-    onTouchmove?: EventHandler<TouchEvent>;
-    onTouchstart?: EventHandler<TouchEvent>;
+    onTouchcancel?: VugelEventListener<TouchEvent>;
+    onTouchend?: VugelEventListener<TouchEvent>;
+    onTouchmove?: VugelEventListener<TouchEvent>;
+    onTouchstart?: VugelEventListener<TouchEvent>;
 
     public readonly stage: Stage;
 
