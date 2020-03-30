@@ -11,10 +11,15 @@ import { VugelEventDispatcher, VugelEventTranslator } from "./index";
  */
 export const dispatchMouseEvent: VugelEventDispatcher<MouseEvent> = (stage) => {
     return (e) => {
-        const canvasX = e.clientX;
-        const canvasY = e.clientY;
+        const target = e.target as HTMLElement;
+        if (!target) return;
 
-        const elementsAtCanvasCoordinates = stage.getElementsAtCanvasCoordinates<Node>(canvasX, canvasY);
+        const rect = target.getBoundingClientRect();
+
+        const canvasX = e.pageX - rect.left;
+        const canvasY = e.pageY - rect.top;
+
+        const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
         const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find(
             (v) => v.element.data?.pointerEvents == true,
         );

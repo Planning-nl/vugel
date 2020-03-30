@@ -10,7 +10,7 @@ export const dispatchTouchEvent: VugelEventDispatcher<TouchEvent> = (stage) => {
             const canvasX = currentTouch.clientX;
             const canvasY = currentTouch.clientY;
 
-            const elementsAtCanvasCoordinates = stage.getElementsAtCanvasCoordinates<Node>(canvasX, canvasY);
+            const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
             const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find(
                 (v) => v.element.data?.pointerEvents == true,
             );
