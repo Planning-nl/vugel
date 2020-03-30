@@ -10,6 +10,10 @@ export type VOnEventHandlers<T extends Event, X extends string> = {
 };
 
 export default class Node extends Base implements VOnMouseEventHandlers, VOnTouchEventHandlers {
+    onAuxclick?: EventHandler<MouseEvent>;
+    onClick?: EventHandler<MouseEvent>;
+    onContextmenu?: EventHandler<MouseEvent>;
+    onDblclick?: EventHandler<MouseEvent>;
     onMousedown?: EventHandler<MouseEvent>;
     onMouseenter?: EventHandler<MouseEvent>;
     onMouseleave?: EventHandler<MouseEvent>;
