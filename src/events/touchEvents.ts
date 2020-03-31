@@ -8,7 +8,7 @@ import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
  *
  * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link TouchEvent}
  */
-export interface VugelTouchEvent extends VugelEvent {
+export interface VugelTouchEvent extends VugelEvent<TouchEvent> {
     readonly altKey: boolean;
     readonly changedTouches: TouchList;
     readonly ctrlKey: boolean;

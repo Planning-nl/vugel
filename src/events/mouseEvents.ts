@@ -8,27 +8,14 @@ import { getCanvasOffset } from "./utils";
  *
  * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link MouseEvent}
  */
-export interface VugelMouseEvent extends VugelEvent {
-    readonly altKey: boolean;
-    readonly button: number;
-    readonly buttons: number;
-    readonly clientX: number;
-    readonly clientY: number;
-    readonly ctrlKey: boolean;
-    readonly metaKey: boolean;
-    readonly movementX: number;
-    readonly movementY: number;
-    readonly pageX: number;
-    readonly pageY: number;
-    readonly screenX: number;
-    readonly screenY: number;
-    readonly shiftKey: boolean;
-    readonly x: number;
-    readonly y: number;
+export interface VugelMouseEvent extends VugelEvent<MouseEvent> {
+    readonly canvasOffsetX: number;
+    readonly canvasOffsetY: number;
+    readonly elementOffsetX: number;
+    readonly elementOffsetY: number;
 }
 
 type EventState = {
-    hasTriggeredOutEvent: boolean;
     activeNode?: Node;
 };
 
@@ -36,65 +23,45 @@ const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) 
     const { x: canvasX, y: canvasY } = getCanvasOffset(e, stage);
 
     const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
-    const topLevelElement = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
+    const currentElement = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
+    const currentNode = currentElement?.element.data;
 
     return {
         event: {
+            cancelBubble: false,
+
             // Event
             type: e.type as SupportedMouseEvents,
-            currentTarget: topLevelElement?.element.data ?? null,
-            target: topLevelElement?.element.data ?? null,
+            currentTarget: currentNode ?? null,
+            target: currentNode ?? null,
 
             // MouseEvent
-            altKey: e.altKey,
-            button: e.button,
-            buttons: e.buttons,
-            clientX: topLevelElement?.offsetX ?? 0,
-            clientY: topLevelElement?.offsetY ?? 0,
-            ctrlKey: e.ctrlKey,
-            metaKey: e.metaKey,
-            movementX: e.movementX,
-            movementY: e.movementY,
-            pageX: canvasX,
-            pageY: canvasY,
-            screenX: canvasX,
-            screenY: canvasY,
-            shiftKey: e.shiftKey,
-            x: topLevelElement?.offsetX ?? 0,
-            y: topLevelElement?.offsetY ?? 0,
+            canvasOffsetX: canvasX,
+            canvasOffsetY: canvasY,
+            elementOffsetX: currentElement?.offsetX ?? 0,
+            elementOffsetY: currentElement?.offsetY ?? 0,
+
+            originalEvent: e,
         },
-        topLevelElement,
+        currentElement: currentElement,
     };
 };
 
 const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
-    return applyToTree(leafNode, (currentNode) => {
-        return nodeToFind == currentNode;
-    });
-};
-
-/**
- * Applies a function to an entire tree
- * @param leafNode the leaf node to start the tree climbing from
- * @param f the function to apply. Returns whether the iteration should quit.
- *
- * @returns whether the tree climbing stopped earlier because f returned true.
- */
-const applyToTree = (leafNode: Node, f: (currentNode: Node) => boolean): boolean => {
     let currentNode: Node | undefined = leafNode;
     while (currentNode != undefined) {
-        if (f(currentNode)) return true;
+        if (currentNode == nodeToFind) return true;
         currentNode = currentNode.parentNode as Node | undefined;
     }
-
     return false;
 };
 
 const dispatchMouseEvent = (stage: Stage, eventState: EventState) => {
     return (e: MouseEvent) => {
-        const vueEventType = mouseEventTranslator[e.type as SupportedMouseEvents];
-
         const translatedEvent = translateEvent(stage, e);
+
+        const prevNode = eventState.activeNode;
+        const currentNode = translatedEvent.currentElement?.element.data;
 
         switch (e.type as SupportedMouseEvents) {
             case "auxclick":
@@ -103,86 +70,87 @@ const dispatchMouseEvent = (stage: Stage, eventState: EventState) => {
             case "dblclick":
             case "mousedown":
             case "mouseup": {
-                if (translatedEvent) {
-                    const topLevelNode = translatedEvent?.topLevelElement?.element.data;
-                    topLevelNode?.nodeEvents[vueEventType]?.(translatedEvent.event);
-                }
+                currentNode?.dispatchBubbledEvent(translatedEvent.event);
                 break;
             }
-            case "mouseenter":
+            case "mouseenter": {
+                eventState.activeNode = undefined;
+
+                if (currentNode) {
+                    eventState.activeNode = currentNode;
+
+                    currentNode.dispatchVugelEvent({
+                        ...translatedEvent.event,
+                        target: currentNode,
+                    });
+                }
+
+                break;
+            }
             case "mouseover": {
-                // We ignore these as they are handled by "mousemove"
+                eventState.activeNode = undefined;
+
+                if (currentNode) {
+                    eventState.activeNode = currentNode;
+
+                    currentNode?.dispatchBubbledEvent({
+                        ...translatedEvent.event,
+                        target: currentNode,
+                    });
+                }
+
                 break;
             }
-            case "mouseleave":
-            case "mouseout": {
-                // They are the same here because we aren't dealing with child elements, only the canvas
-                // Send a "leave" / "out" event to all the nodes currently selected
-                eventState.activeNode?.nodeEvents[vueEventType]?.({
+            case "mouseleave": {
+                prevNode?.dispatchVugelEvent({
                     ...translatedEvent.event,
-
-                    currentTarget: eventState.activeNode,
-                    target: eventState.activeNode,
+                    target: prevNode,
                 });
-
-                if (eventState.hasTriggeredOutEvent) {
-                    eventState.activeNode = undefined;
-                    eventState.hasTriggeredOutEvent = false;
-                } else {
-                    eventState.hasTriggeredOutEvent = true;
-                }
+                break;
+            }
+            case "mouseout": {
+                prevNode?.dispatchBubbledEvent({
+                    ...translatedEvent.event,
+                    target: prevNode,
+                });
 
                 break;
             }
             case "mousemove": {
-                const topLevelElement = translatedEvent.topLevelElement;
-                if (topLevelElement) {
-                    const topLevelNode = topLevelElement.element.data!;
+                if (currentNode) {
+                    currentNode.dispatchBubbledEvent(translatedEvent.event);
 
-                    applyToTree(topLevelNode, (currentNode) => {
-                        currentNode.nodeEvents["onMousemove"]?.(translatedEvent.event);
-                        return false;
-                    });
-
-                    if (eventState.activeNode != topLevelNode) {
-                        eventState.activeNode?.nodeEvents["onMouseout"]?.({
+                    if (prevNode != currentNode) {
+                        prevNode?.dispatchBubbledEvent({
                             ...translatedEvent.event,
-
                             type: "mouseout",
-                            currentTarget: eventState.activeNode,
-                            target: topLevelNode,
+                            target: currentNode,
                         });
 
-                        topLevelNode.nodeEvents["onMouseover"]?.({
+                        currentNode.dispatchBubbledEvent({
                             ...translatedEvent.event,
-
                             type: "mouseover",
-                            currentTarget: topLevelNode,
-                            target: topLevelNode,
+                            target: currentNode,
                         });
                     }
 
-                    if (!eventState.activeNode || !isNodeInTree(topLevelNode, eventState.activeNode)) {
-                        topLevelNode.nodeEvents["onMouseenter"]?.({
+                    if (!prevNode || !isNodeInTree(currentNode, prevNode)) {
+                        currentNode.dispatchBubbledEvent({
                             ...translatedEvent.event,
-
                             type: "mouseenter",
-                            currentTarget: topLevelNode,
-                            target: topLevelNode,
+                            target: currentNode,
                         });
                     }
 
-                    if (eventState.activeNode && !isNodeInTree(eventState.activeNode, topLevelNode)) {
-                        eventState.activeNode.nodeEvents["onMouseleave"]?.({
+                    if (prevNode && !isNodeInTree(prevNode, currentNode)) {
+                        prevNode.dispatchBubbledEvent({
                             ...translatedEvent.event,
-
                             type: "mouseleave",
-                            currentTarget: eventState.activeNode,
-                            target: topLevelNode,
+                            target: currentNode,
                         });
                     }
 
-                    eventState.activeNode = topLevelNode;
+                    eventState.activeNode = currentNode;
                 }
             }
         }
@@ -221,9 +189,7 @@ export const mouseEventTranslator: {
 } as const;
 
 export const registerMouseEventDispatchers: RegisterEventDispatcher = (canvasElement, stage) => {
-    const eventState: EventState = {
-        hasTriggeredOutEvent: false,
-    };
+    const eventState: EventState = {};
 
     for (const key in mouseEventTranslator) {
         canvasElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
