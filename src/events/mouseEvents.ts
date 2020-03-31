@@ -2,6 +2,7 @@ import Node from "../runtime/nodes/Node";
 import { EventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import Stage from "tree2d/dist/tree/Stage";
 import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
+import { getTargetOffset } from "./utils";
 
 /**
  * The mouse event as emitted by vugel.
@@ -28,13 +29,7 @@ export interface VugelMouseEvent extends VugelEvent {
 }
 
 const translateEvent = (stage: Stage, e: MouseEvent): [VugelMouseEvent, ElementCoordinatesInfo<Node>] | undefined => {
-    const target = e.target as HTMLElement;
-    if (!target) return;
-
-    const rect = target.getBoundingClientRect();
-
-    const canvasX = e.pageX - rect.left;
-    const canvasY = e.pageY - rect.top;
+    const { x: canvasX, y: canvasY } = getTargetOffset(e);
 
     const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
     const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
