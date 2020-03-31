@@ -4,6 +4,7 @@ import Element from "tree2d/dist/tree/Element";
 import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener } from "../../events";
 import { VugelMouseEvent } from "../../events/mouseEvents";
 import { VugelTouchEvent } from "../../events/touchEvents";
+import { FunctionH, FunctionW } from "tree2d/dist/tree/core/ElementCore";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -187,12 +188,12 @@ export default class Node extends Base {
         this.el.color = ensureInt(v);
     }
 
-    set w(v: number) {
-        this.el.w = ensureFloat(v);
+    set w(v: number | FunctionW) {
+        this.el.w = isFunction(v) ? v : ensureFloat(v);
     }
 
-    set h(v: number) {
-        this.el.h = ensureFloat(v);
+    set h(v: number | FunctionH) {
+        this.el.h = isFunction(v) ? v : ensureFloat(v);
     }
 
     // Setters for NodeEvents

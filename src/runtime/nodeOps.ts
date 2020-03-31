@@ -36,7 +36,9 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, "patchP
 
     setText: (node, text) => {},
 
-    setElementText: (node, text) => {},
+    setElementText: (node, text) => {
+        node.setElementText(text);
+    },
 
     parentNode: (node) => (node.parentNode ? node.parentNode : null),
 

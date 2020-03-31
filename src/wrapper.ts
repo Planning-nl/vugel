@@ -31,6 +31,10 @@ export const Vugel = defineComponent({
                     vugelRenderer = createRendererForStage(stage);
                     stageRoot = new Node(stage, stage.root);
 
+                    // Auto-inherit dimensions.
+                    stageRoot.w = (w: number) => w;
+                    stageRoot.h = (h: number) => h;
+
                     registerMouseEventDispatchers(elRef.value, stage);
                     registerTouchEventDispatchers(elRef.value, stage);
                 }

@@ -46,4 +46,8 @@ export default class Base {
         });
         this.children = [];
     }
+
+    setElementText(text: string) {
+        // Default: ignore text.
+    }
 }

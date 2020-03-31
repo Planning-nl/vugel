@@ -3,11 +3,13 @@ import { makeMap } from "./makeMap";
 
 export const parserOptionsMinimal: ParserOptions = {
     isVoidTag: () => false,
-    isNativeTag: (tag) => isLightningTag(tag),
+    isNativeTag: (tag) => {
+        return isTree2dTag(tag);
+    },
     isPreTag: () => false,
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-const LIGHTNING_TAGS = "root,node,image,rect,text";
+const TREE2D_TAGS = "root,node,image,rect,text,paragraph";
 
-export const isLightningTag = /*#__PURE__*/ makeMap(LIGHTNING_TAGS);
+export const isTree2dTag = /*#__PURE__*/ makeMap(TREE2D_TAGS);
