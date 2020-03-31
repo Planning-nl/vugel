@@ -1,14 +1,22 @@
 import Stage from "tree2d/dist/tree/Stage";
-import { mouseEventTranslator } from "./mouseEvents";
-import { touchEventTranslator } from "./touchEvents";
+import { SupportedMouseEvents } from "./mouseEvents";
+import Node from "../runtime/nodes/Node";
+import { Events } from "@vue/runtime-dom";
 
-export type VugelEventListener<T extends Event> = (event: T) => any;
-export type VugelEventDispatcher<T extends Event> = (stage: Stage) => VugelEventListener<T>;
-export type VugelEventTranslator<ON extends string, T extends Event> = {
-    [name in keyof GlobalEventHandlersEventMap]?: [ON, VugelEventDispatcher<T>];
-};
+export interface VugelEvent {
+    readonly currentTarget: Node | null;
+    readonly target: Node | null;
+    readonly type: SupportedMouseEvents; //| keyof typeof touchEventTranslator;
+}
 
-export const eventTranslators = {
-    ...mouseEventTranslator,
-    ...touchEventTranslator,
-} as const;
+export type EventListener<T extends Event> = (event: T) => any;
+export type EventDispatcher<T extends Event> = (stage: Stage) => EventListener<T>;
+
+export type VugelEventListener<T extends VugelEvent> = (event: T) => any;
+
+export type VueEventsOfType<T extends Event> = keyof Pick<
+    Events,
+    {
+        [K in keyof Events]: Events[K] extends T ? (T extends Events[K] ? K : never) : never;
+    }[keyof Events]
+>;

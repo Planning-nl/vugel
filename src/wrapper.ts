@@ -4,7 +4,8 @@ import { effect, Ref, ref } from "@vue/reactivity";
 import { defineComponent, Fragment, h, onMounted } from "@vue/runtime-core";
 import Node from "./runtime/nodes/Node";
 import Stage from "tree2d/dist/tree/Stage";
-import { eventTranslators } from "./events";
+import { registerMouseEventDispatchers } from "./events/mouseEvents";
+import { registerTouchEventDispatchers } from "./events/touchEvents";
 
 export const Vugel = defineComponent({
     props: {
@@ -27,11 +28,8 @@ export const Vugel = defineComponent({
 
                     stage = new Stage(elRef.value, { ...props.settings });
 
-                    for (const [key, value] of Object.entries(eventTranslators)) {
-                        if (value) {
-                            (elRef.value.addEventListener as any)(key, value[1](stage));
-                        }
-                    }
+                    registerMouseEventDispatchers(elRef.value, stage);
+                    registerTouchEventDispatchers(elRef.value, stage);
 
                     vugelRenderer = createRendererForStage(stage);
                     stageRoot = new Node(stage, stage.root);

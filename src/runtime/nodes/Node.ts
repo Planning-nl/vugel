@@ -2,24 +2,26 @@ import Base from "./Base";
 import Stage from "tree2d/dist/tree/Stage";
 import Element from "tree2d/dist/tree/Element";
 import { VugelEventListener } from "../../events";
+import { VugelMouseEvent } from "../../events/mouseEvents";
+import { VugelTouchEvent } from "../../events/touchEvents";
 
 export default class Node extends Base {
-    onAuxclick?: VugelEventListener<MouseEvent>;
-    onClick?: VugelEventListener<MouseEvent>;
-    onContextmenu?: VugelEventListener<MouseEvent>;
-    onDblclick?: VugelEventListener<MouseEvent>;
-    onMousedown?: VugelEventListener<MouseEvent>;
-    onMouseenter?: VugelEventListener<MouseEvent>;
-    onMouseleave?: VugelEventListener<MouseEvent>;
-    onMousemove?: VugelEventListener<MouseEvent>;
-    onMouseout?: VugelEventListener<MouseEvent>;
-    onMouseover?: VugelEventListener<MouseEvent>;
-    onMouseup?: VugelEventListener<MouseEvent>;
+    onAuxclick?: VugelEventListener<VugelMouseEvent>;
+    onClick?: VugelEventListener<VugelMouseEvent>;
+    onContextmenu?: VugelEventListener<VugelMouseEvent>;
+    onDblclick?: VugelEventListener<VugelMouseEvent>;
+    onMousedown?: VugelEventListener<VugelMouseEvent>;
+    onMouseenter?: VugelEventListener<VugelMouseEvent>;
+    onMouseleave?: VugelEventListener<VugelMouseEvent>;
+    onMousemove?: VugelEventListener<VugelMouseEvent>;
+    onMouseout?: VugelEventListener<VugelMouseEvent>;
+    onMouseover?: VugelEventListener<VugelMouseEvent>;
+    onMouseup?: VugelEventListener<VugelMouseEvent>;
 
-    onTouchcancel?: VugelEventListener<TouchEvent>;
-    onTouchend?: VugelEventListener<TouchEvent>;
-    onTouchmove?: VugelEventListener<TouchEvent>;
-    onTouchstart?: VugelEventListener<TouchEvent>;
+    onTouchcancel?: VugelEventListener<VugelTouchEvent>;
+    onTouchend?: VugelEventListener<VugelTouchEvent>;
+    onTouchmove?: VugelEventListener<VugelTouchEvent>;
+    onTouchstart?: VugelEventListener<VugelTouchEvent>;
 
     public readonly stage: Stage;
 

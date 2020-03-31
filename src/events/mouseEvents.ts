@@ -1,67 +1,148 @@
 import Node from "../runtime/nodes/Node";
-import { VugelEventDispatcher, VugelEventTranslator } from "./index";
+import { EventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import Stage from "tree2d/dist/tree/Stage";
+import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
 
 /**
- * TODO
- * - Provide the correct target node, right now it'll be the canvas. Maybe we should define our custom events, given that many fields of the DOM events will be invalid.
- * - mouseenter: also dispatch on mouse move by keeping track of currently entered nodes
- * - mouseleave: also dispatch on mouse move by keeping track of currently entered nodes
- * - mouseout: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseleave is that it also fires when entering/leaving child components
- * - mouseover: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseenter is that it also fires when entering/leaving child components
+ * The mouse event as emitted by vugel.
+ *
+ * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link MouseEvent}
  */
-export const dispatchMouseEvent: VugelEventDispatcher<MouseEvent> = (stage) => {
+export interface VugelMouseEvent extends VugelEvent {
+    readonly altKey: boolean;
+    readonly button: number;
+    readonly buttons: number;
+    readonly clientX: number;
+    readonly clientY: number;
+    readonly ctrlKey: boolean;
+    readonly metaKey: boolean;
+    readonly movementX: number;
+    readonly movementY: number;
+    readonly pageX: number;
+    readonly pageY: number;
+    readonly screenX: number;
+    readonly screenY: number;
+    readonly shiftKey: boolean;
+    readonly x: number;
+    readonly y: number;
+}
+
+const translateEvent = (stage: Stage, e: MouseEvent): [VugelMouseEvent, ElementCoordinatesInfo<Node>] | undefined => {
+    const target = e.target as HTMLElement;
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+
+    const canvasX = e.pageX - rect.left;
+    const canvasY = e.pageY - rect.top;
+
+    const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
+    const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
+
+    const vOnEvent = mouseEventTranslator[e.type as keyof typeof mouseEventTranslator];
+    if (vOnEvent && elementsAtCanvasCoordinate) {
+        return [
+            {
+                // Event
+                type: e.type as SupportedMouseEvents,
+                currentTarget: elementsAtCanvasCoordinate.element.data ?? null,
+                target: elementsAtCanvasCoordinate.element.data ?? null,
+
+                // MouseEvent
+                altKey: e.altKey,
+                button: e.button,
+                buttons: e.buttons,
+                clientX: elementsAtCanvasCoordinate.offsetX,
+                clientY: elementsAtCanvasCoordinate.offsetY,
+                ctrlKey: e.ctrlKey,
+                metaKey: e.metaKey,
+                movementX: e.movementX,
+                movementY: e.movementY,
+                pageX: canvasX,
+                pageY: canvasY,
+                screenX: canvasX,
+                screenY: canvasY,
+                shiftKey: e.shiftKey,
+                x: elementsAtCanvasCoordinate.offsetX,
+                y: elementsAtCanvasCoordinate.offsetY,
+            },
+            elementsAtCanvasCoordinate,
+        ];
+    }
+};
+
+const dispatchMouseEvent: EventDispatcher<MouseEvent> = (stage) => {
     return (e) => {
-        const target = e.target as HTMLElement;
-        if (!target) return;
-
-        const rect = target.getBoundingClientRect();
-
-        const canvasX = e.pageX - rect.left;
-        const canvasY = e.pageY - rect.top;
-
-        const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
-        const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find(
-            (v) => v.element.data?.pointerEvents == true,
-        );
-
-        const vOnEvent = mouseEventTranslator[e.type as keyof GlobalEventHandlersEventMap];
-        if (vOnEvent) {
-            elementsAtCanvasCoordinate?.element.data?.[vOnEvent[0]]?.(
-                new MouseEvent(e.type, {
-                    ...e,
-                    clientX: elementsAtCanvasCoordinate.offsetX,
-                    clientY: elementsAtCanvasCoordinate.offsetY,
-                    screenX: e.clientX,
-                    screenY: e.clientY,
-                }),
-            );
+        switch (e.type as SupportedMouseEvents) {
+            case "auxclick":
+            case "click":
+            case "contextmenu":
+            case "dblclick":
+            case "mousedown":
+            case "mouseup":
+            case "mouseenter":
+            case "mouseover": {
+                const translatedEvent = translateEvent(stage, e);
+                if (translatedEvent) {
+                    translatedEvent[1].element.data?.[mouseEventTranslator[e.type as SupportedMouseEvents]]?.(
+                        translatedEvent[0],
+                    );
+                }
+                break;
+            }
+            case "mouseleave":
+            case "mouseout": {
+                // They are the same here because we aren't dealing with child elements, only the canvas
+                // Send a "leave" / "out" event to all the nodes currently selected
+                break;
+            }
+            case "mousemove": {
+                /**
+                 * Also dispatch:
+                 * - mouseenter: also dispatch on mouse move by keeping track of currently entered nodes
+                 * - mouseleave: also dispatch on mouse move by keeping track of currently entered nodes
+                 * - mouseout: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseleave is that it also fires when entering/leaving child components
+                 * - mouseover: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseenter is that it also fires when entering/leaving child components
+                 */
+                return translateEvent(stage, e);
+            }
         }
     };
 };
 
-export type MouseEvents =
-    | "onAuxclick"
-    | "onClick"
-    | "onContextmenu"
-    | "onDblclick"
-    | "onMousedown"
-    | "onMouseenter"
-    | "onMouseleave"
-    | "onMousemove"
-    | "onMouseout"
-    | "onMouseover"
-    | "onMouseup";
+export type SupportedMouseEvents = keyof Pick<
+    GlobalEventHandlersEventMap,
+    | "auxclick"
+    | "click"
+    | "contextmenu"
+    | "dblclick"
+    | "mousedown"
+    | "mouseenter"
+    | "mouseleave"
+    | "mousemove"
+    | "mouseout"
+    | "mouseover"
+    | "mouseup"
+>;
 
-export const mouseEventTranslator: VugelEventTranslator<MouseEvents, MouseEvent> = {
-    auxclick: ["onAuxclick", dispatchMouseEvent],
-    click: ["onClick", dispatchMouseEvent],
-    contextmenu: ["onContextmenu", dispatchMouseEvent],
-    dblclick: ["onDblclick", dispatchMouseEvent],
-    mousedown: ["onMousedown", dispatchMouseEvent],
-    mouseenter: ["onMouseenter", dispatchMouseEvent],
-    mouseleave: ["onMouseleave", dispatchMouseEvent],
-    mousemove: ["onMousemove", dispatchMouseEvent],
-    mouseout: ["onMouseout", dispatchMouseEvent],
-    mouseover: ["onMouseover", dispatchMouseEvent],
-    mouseup: ["onMouseup", dispatchMouseEvent],
+export const mouseEventTranslator: {
+    [x in SupportedMouseEvents]: VueEventsOfType<MouseEvent>;
+} = {
+    auxclick: "onAuxclick",
+    click: "onClick",
+    contextmenu: "onContextmenu",
+    dblclick: "onDblclick",
+    mousedown: "onMousedown",
+    mouseenter: "onMouseenter",
+    mouseleave: "onMouseleave",
+    mousemove: "onMousemove",
+    mouseout: "onMouseout",
+    mouseover: "onMouseover",
+    mouseup: "onMouseup",
+} as const;
+
+export const registerMouseEventDispatchers = (canvasElement: HTMLCanvasElement, stage: Stage) => {
+    for (const key in mouseEventTranslator) {
+        canvasElement.addEventListener(key, dispatchMouseEvent(stage) as EventListener);
+    }
 };

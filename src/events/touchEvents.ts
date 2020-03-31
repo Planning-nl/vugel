@@ -1,52 +1,63 @@
+import { EventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import Stage from "tree2d/dist/tree/Stage";
 import Node from "../runtime/nodes/Node";
-import { VugelEventDispatcher, VugelEventTranslator } from "./index";
+import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
 
-export const dispatchTouchEvent: VugelEventDispatcher<TouchEvent> = (stage) => {
+/**
+ * The touch event as emitted by vugel.
+ *
+ * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link TouchEvent}
+ */
+export interface VugelTouchEvent extends VugelEvent {
+    readonly altKey: boolean;
+    readonly changedTouches: TouchList;
+    readonly ctrlKey: boolean;
+    readonly metaKey: boolean;
+    readonly shiftKey: boolean;
+    readonly targetTouches: TouchList;
+    readonly touches: TouchList;
+}
+
+const translateEvent = (stage: Stage, e: TouchEvent): [VugelTouchEvent, ElementCoordinatesInfo<Node>] | undefined => {
+    // TODO
+    return;
+};
+
+const dispatchTouchEvent: EventDispatcher<TouchEvent> = (stage) => {
     return (e) => {
-        const touches: Touch[] = [];
-        for (let i = 0; i < e.touches.length; i++) {
-            const currentTouch = e.touches[i];
-
-            const canvasX = currentTouch.clientX;
-            const canvasY = currentTouch.clientY;
-
-            const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
-            const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find(
-                (v) => v.element.data?.pointerEvents == true,
-            );
-
-            if (elementsAtCanvasCoordinate) {
-                touches.push(
-                    new Touch({
-                        ...currentTouch,
-                        clientX: elementsAtCanvasCoordinate.offsetX,
-                        clientY: elementsAtCanvasCoordinate.offsetY,
-                        screenX: currentTouch.clientX,
-                        screenY: currentTouch.clientY,
-                    }),
-                );
-
-                const vOnEvent = touchEventTranslator[e.type as keyof GlobalEventHandlersEventMap];
-                if (vOnEvent) {
-                    elementsAtCanvasCoordinate.element.data?.[vOnEvent[0]]?.(
-                        new TouchEvent(e.type, {
-                            ...e,
-                            targetTouches: undefined,
-                            changedTouches: undefined,
-                            touches,
-                        }),
-                    );
-                }
-            }
+        switch (e.type as SupportedTouchEvents) {
+            case "touchcancel":
+                // TODO
+                break;
+            case "touchend":
+                // TODO
+                break;
+            case "touchmove":
+                // TODO
+                break;
+            case "touchstart":
+                // TODO
+                break;
         }
     };
 };
 
-export type TouchEvents = "onTouchcancel" | "onTouchend" | "onTouchmove" | "onTouchstart";
+export type SupportedTouchEvents = keyof Pick<
+    GlobalEventHandlersEventMap,
+    "touchcancel" | "touchend" | "touchstart" | "touchmove"
+>;
 
-export const touchEventTranslator: VugelEventTranslator<TouchEvents, TouchEvent> = {
-    touchcancel: ["onTouchcancel", dispatchTouchEvent],
-    touchend: ["onTouchend", dispatchTouchEvent],
-    touchmove: ["onTouchmove", dispatchTouchEvent],
-    touchstart: ["onTouchstart", dispatchTouchEvent],
+export const touchEventTranslator: {
+    [x in SupportedTouchEvents]: VueEventsOfType<TouchEvent>;
+} = {
+    touchcancel: "onTouchcancel",
+    touchend: "onTouchend",
+    touchmove: "onTouchmove",
+    touchstart: "onTouchstart",
+} as const;
+
+export const registerTouchEventDispatchers = (canvasElement: HTMLCanvasElement, stage: Stage) => {
+    for (const key in touchEventTranslator) {
+        canvasElement.addEventListener(key, dispatchTouchEvent(stage) as EventListener);
+    }
 };
