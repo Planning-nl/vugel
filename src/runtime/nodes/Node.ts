@@ -1,7 +1,7 @@
 import Base from "./Base";
 import Stage from "tree2d/dist/tree/Stage";
 import Element from "tree2d/dist/tree/Element";
-import {eventTranslators, SupportedEvents, VugelEvent, VugelEventListener} from "../../events";
+import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener } from "../../events";
 import { VugelMouseEvent } from "../../events/mouseEvents";
 import { VugelTouchEvent } from "../../events/touchEvents";
 
@@ -45,18 +45,27 @@ export default class Node extends Base {
     dispatchVugelEvent(event: VugelEvent<Event>) {
         const vueEventType = eventTranslators[event.type as SupportedEvents];
 
-        const nodeEvent = this._nodeEvents?.[vueEventType] as VugelEventListener<any>;
-        nodeEvent?.({
+        const eventHandler = this._nodeEvents?.[vueEventType] as VugelEventListener<any>;
+        eventHandler?.({
             ...event,
             currentTarget: this,
         });
     }
 
     dispatchBubbledEvent(event: VugelEvent<Event>) {
+        const vueEventType = eventTranslators[event.type as SupportedEvents];
+
         let currentNode: Node | undefined = this;
         while (currentNode != undefined) {
-            currentNode.dispatchVugelEvent(event);
-            if (event.cancelBubble) {
+            const eventHandler = currentNode._nodeEvents?.[vueEventType] as VugelEventListener<any>;
+            const newEvent = {
+                ...event,
+                currentTarget: this,
+            };
+
+            eventHandler?.(newEvent);
+
+            if (newEvent.cancelBubble) {
                 return;
             }
             currentNode = currentNode.parentNode as Node | undefined;
