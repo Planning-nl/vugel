@@ -2,15 +2,24 @@ import Stage from "tree2d/dist/tree/Stage";
 import { SupportedMouseEvents } from "./mouseEvents";
 import Node from "../runtime/nodes/Node";
 import { Events } from "@vue/runtime-dom";
+import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
+import { SupportedTouchEvents } from "./touchEvents";
 
 export interface VugelEvent {
     readonly currentTarget: Node | null;
     readonly target: Node | null;
-    readonly type: SupportedMouseEvents; //| keyof typeof touchEventTranslator;
+    readonly type: SupportedMouseEvents | keyof SupportedTouchEvents;
 }
 
-export type EventListener<T extends Event> = (event: T) => any;
-export type EventDispatcher<T extends Event> = (stage: Stage) => EventListener<T>;
+export type RegisterEventDispatcher = (canvasElement: HTMLCanvasElement, stage: Stage) => any;
+
+export type EventTranslator<O extends Event, V extends VugelEvent> = (
+    stage: Stage,
+    event: O,
+) => {
+    event: V;
+    topLevelElement: ElementCoordinatesInfo<Node> | undefined;
+};
 
 export type VugelEventListener<T extends VugelEvent> = (event: T) => any;
 

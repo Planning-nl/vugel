@@ -28,11 +28,11 @@ export const Vugel = defineComponent({
 
                     stage = new Stage(elRef.value, { ...props.settings });
 
-                    registerMouseEventDispatchers(elRef.value, stage);
-                    registerTouchEventDispatchers(elRef.value, stage);
-
                     vugelRenderer = createRendererForStage(stage);
                     stageRoot = new Node(stage, stage.root);
+
+                    registerMouseEventDispatchers(elRef.value, stage);
+                    registerTouchEventDispatchers(elRef.value, stage);
                 }
 
                 const defaultSlot = setupContext.slots.default;

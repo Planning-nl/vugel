@@ -1,8 +1,7 @@
 import Node from "../runtime/nodes/Node";
-import { EventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import Stage from "tree2d/dist/tree/Stage";
-import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
-import { getTargetOffset } from "./utils";
+import { getCanvasOffset } from "./utils";
 
 /**
  * The mouse event as emitted by vugel.
@@ -28,78 +27,163 @@ export interface VugelMouseEvent extends VugelEvent {
     readonly y: number;
 }
 
-const translateEvent = (stage: Stage, e: MouseEvent): [VugelMouseEvent, ElementCoordinatesInfo<Node>] | undefined => {
-    const { x: canvasX, y: canvasY } = getTargetOffset(e);
-
-    const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
-    const elementsAtCanvasCoordinate = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
-
-    const vOnEvent = mouseEventTranslator[e.type as keyof typeof mouseEventTranslator];
-    if (vOnEvent && elementsAtCanvasCoordinate) {
-        return [
-            {
-                // Event
-                type: e.type as SupportedMouseEvents,
-                currentTarget: elementsAtCanvasCoordinate.element.data ?? null,
-                target: elementsAtCanvasCoordinate.element.data ?? null,
-
-                // MouseEvent
-                altKey: e.altKey,
-                button: e.button,
-                buttons: e.buttons,
-                clientX: elementsAtCanvasCoordinate.offsetX,
-                clientY: elementsAtCanvasCoordinate.offsetY,
-                ctrlKey: e.ctrlKey,
-                metaKey: e.metaKey,
-                movementX: e.movementX,
-                movementY: e.movementY,
-                pageX: canvasX,
-                pageY: canvasY,
-                screenX: canvasX,
-                screenY: canvasY,
-                shiftKey: e.shiftKey,
-                x: elementsAtCanvasCoordinate.offsetX,
-                y: elementsAtCanvasCoordinate.offsetY,
-            },
-            elementsAtCanvasCoordinate,
-        ];
-    }
+type EventState = {
+    hasTriggeredOutEvent: boolean;
+    activeNode?: Node;
 };
 
-const dispatchMouseEvent: EventDispatcher<MouseEvent> = (stage) => {
-    return (e) => {
+const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) => {
+    const { x: canvasX, y: canvasY } = getCanvasOffset(e, stage);
+
+    const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
+    const topLevelElement = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
+
+    return {
+        event: {
+            // Event
+            type: e.type as SupportedMouseEvents,
+            currentTarget: topLevelElement?.element.data ?? null,
+            target: topLevelElement?.element.data ?? null,
+
+            // MouseEvent
+            altKey: e.altKey,
+            button: e.button,
+            buttons: e.buttons,
+            clientX: topLevelElement?.offsetX ?? 0,
+            clientY: topLevelElement?.offsetY ?? 0,
+            ctrlKey: e.ctrlKey,
+            metaKey: e.metaKey,
+            movementX: e.movementX,
+            movementY: e.movementY,
+            pageX: canvasX,
+            pageY: canvasY,
+            screenX: canvasX,
+            screenY: canvasY,
+            shiftKey: e.shiftKey,
+            x: topLevelElement?.offsetX ?? 0,
+            y: topLevelElement?.offsetY ?? 0,
+        },
+        topLevelElement,
+    };
+};
+
+const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
+    return applyToTree(leafNode, (currentNode) => {
+        return nodeToFind == currentNode;
+    });
+};
+
+/**
+ * Applies a function to an entire tree
+ * @param leafNode the leaf node to start the tree climbing from
+ * @param f the function to apply. Returns whether the iteration should quit.
+ *
+ * @returns whether the tree climbing stopped earlier because f returned true.
+ */
+const applyToTree = (leafNode: Node, f: (currentNode: Node) => boolean): boolean => {
+    let currentNode: Node | undefined = leafNode;
+    while (currentNode != undefined) {
+        if (f(currentNode)) return true;
+        currentNode = currentNode.parentNode as Node | undefined;
+    }
+
+    return false;
+};
+
+const dispatchMouseEvent = (stage: Stage, eventState: EventState) => {
+    return (e: MouseEvent) => {
+        const vueEventType = mouseEventTranslator[e.type as SupportedMouseEvents];
+
+        const translatedEvent = translateEvent(stage, e);
+
         switch (e.type as SupportedMouseEvents) {
             case "auxclick":
             case "click":
             case "contextmenu":
             case "dblclick":
             case "mousedown":
-            case "mouseup":
+            case "mouseup": {
+                if (translatedEvent) {
+                    const topLevelNode = translatedEvent?.topLevelElement?.element.data;
+                    topLevelNode?.nodeEvents[vueEventType]?.(translatedEvent.event);
+                }
+                break;
+            }
             case "mouseenter":
             case "mouseover": {
-                const translatedEvent = translateEvent(stage, e);
-                if (translatedEvent) {
-                    translatedEvent[1].element.data?.[mouseEventTranslator[e.type as SupportedMouseEvents]]?.(
-                        translatedEvent[0],
-                    );
-                }
+                // We ignore these as they are handled by "mousemove"
                 break;
             }
             case "mouseleave":
             case "mouseout": {
                 // They are the same here because we aren't dealing with child elements, only the canvas
                 // Send a "leave" / "out" event to all the nodes currently selected
+                eventState.activeNode?.nodeEvents[vueEventType]?.({
+                    ...translatedEvent.event,
+
+                    currentTarget: eventState.activeNode,
+                    target: eventState.activeNode,
+                });
+
+                if (eventState.hasTriggeredOutEvent) {
+                    eventState.activeNode = undefined;
+                    eventState.hasTriggeredOutEvent = false;
+                } else {
+                    eventState.hasTriggeredOutEvent = true;
+                }
+
                 break;
             }
             case "mousemove": {
-                /**
-                 * Also dispatch:
-                 * - mouseenter: also dispatch on mouse move by keeping track of currently entered nodes
-                 * - mouseleave: also dispatch on mouse move by keeping track of currently entered nodes
-                 * - mouseout: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseleave is that it also fires when entering/leaving child components
-                 * - mouseover: also dispatch on mouse move by keeping track of currently entered nodes. Diff with mouseenter is that it also fires when entering/leaving child components
-                 */
-                return translateEvent(stage, e);
+                const topLevelElement = translatedEvent.topLevelElement;
+                if (topLevelElement) {
+                    const topLevelNode = topLevelElement.element.data!;
+
+                    applyToTree(topLevelNode, (currentNode) => {
+                        currentNode.nodeEvents["onMousemove"]?.(translatedEvent.event);
+                        return false;
+                    });
+
+                    if (eventState.activeNode != topLevelNode) {
+                        eventState.activeNode?.nodeEvents["onMouseout"]?.({
+                            ...translatedEvent.event,
+
+                            type: "mouseout",
+                            currentTarget: eventState.activeNode,
+                            target: topLevelNode,
+                        });
+
+                        topLevelNode.nodeEvents["onMouseover"]?.({
+                            ...translatedEvent.event,
+
+                            type: "mouseover",
+                            currentTarget: topLevelNode,
+                            target: topLevelNode,
+                        });
+                    }
+
+                    if (!eventState.activeNode || !isNodeInTree(topLevelNode, eventState.activeNode)) {
+                        topLevelNode.nodeEvents["onMouseenter"]?.({
+                            ...translatedEvent.event,
+
+                            type: "mouseenter",
+                            currentTarget: topLevelNode,
+                            target: topLevelNode,
+                        });
+                    }
+
+                    if (eventState.activeNode && !isNodeInTree(eventState.activeNode, topLevelNode)) {
+                        eventState.activeNode.nodeEvents["onMouseleave"]?.({
+                            ...translatedEvent.event,
+
+                            type: "mouseleave",
+                            currentTarget: eventState.activeNode,
+                            target: topLevelNode,
+                        });
+                    }
+
+                    eventState.activeNode = topLevelNode;
+                }
             }
         }
     };
@@ -136,8 +220,12 @@ export const mouseEventTranslator: {
     mouseup: "onMouseup",
 } as const;
 
-export const registerMouseEventDispatchers = (canvasElement: HTMLCanvasElement, stage: Stage) => {
+export const registerMouseEventDispatchers: RegisterEventDispatcher = (canvasElement, stage) => {
+    const eventState: EventState = {
+        hasTriggeredOutEvent: false,
+    };
+
     for (const key in mouseEventTranslator) {
-        canvasElement.addEventListener(key, dispatchMouseEvent(stage) as EventListener);
+        canvasElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
     }
 };

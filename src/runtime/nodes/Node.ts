@@ -5,7 +5,7 @@ import { VugelEventListener } from "../../events";
 import { VugelMouseEvent } from "../../events/mouseEvents";
 import { VugelTouchEvent } from "../../events/touchEvents";
 
-export default class Node extends Base {
+export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
     onClick?: VugelEventListener<VugelMouseEvent>;
     onContextmenu?: VugelEventListener<VugelMouseEvent>;
@@ -22,9 +22,12 @@ export default class Node extends Base {
     onTouchend?: VugelEventListener<VugelTouchEvent>;
     onTouchmove?: VugelEventListener<VugelTouchEvent>;
     onTouchstart?: VugelEventListener<VugelTouchEvent>;
+};
 
+export default class Node extends Base {
     public readonly stage: Stage;
 
+    private _nodeEvents?: NodeEvents;
     public pointerEvents = true;
 
     constructor(stage: Stage, base?: Element) {
@@ -100,6 +103,17 @@ export default class Node extends Base {
         this.el.childList.clear();
     }
 
+    get nodeEvents(): NodeEvents {
+        if (!this._nodeEvents) {
+            this._nodeEvents = {};
+        }
+        return this._nodeEvents;
+    }
+
+    set nodeEvents(value: NodeEvents) {
+        this._nodeEvents = value;
+    }
+
     set onActive(v: any) {
         if (v === undefined || isFunction(v)) {
             this.el.onActive = v;
@@ -149,6 +163,70 @@ export default class Node extends Base {
 
     set h(v: number) {
         this.el.h = ensureFloat(v);
+    }
+
+    // Setters for NodeEvents
+
+    // MouseEvent
+    set onAuxclick(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onAuxclick = e;
+    }
+
+    set onClick(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onClick = e;
+    }
+
+    set onContextmenu(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onContextmenu = e;
+    }
+
+    set onDblclick(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onDblclick = e;
+    }
+
+    set onMousedown(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMousedown = e;
+    }
+
+    set onMouseenter(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMouseenter = e;
+    }
+
+    set onMouseleave(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMouseleave = e;
+    }
+
+    set onMousemove(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMousemove = e;
+    }
+
+    set onMouseout(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMouseout = e;
+    }
+
+    set onMouseover(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMouseover = e;
+    }
+
+    set onMouseup(e: VugelEventListener<VugelMouseEvent>) {
+        this.nodeEvents.onMouseup = e;
+    }
+
+    // TouchEvent
+    set onTouchcancel(e: VugelEventListener<VugelTouchEvent>) {
+        this.nodeEvents.onTouchcancel = e;
+    }
+
+    set onTouchend(e: VugelEventListener<VugelTouchEvent>) {
+        this.nodeEvents.onTouchend = e;
+    }
+
+    set onTouchmove(e: VugelEventListener<VugelTouchEvent>) {
+        this.nodeEvents.onTouchmove = e;
+    }
+
+    set onTouchstart(e: VugelEventListener<VugelTouchEvent>) {
+        this.nodeEvents.onTouchstart = e;
     }
 }
 

@@ -1,8 +1,8 @@
-export function getTargetOffset(e: EventWithCoordinates): { x: number; y: number } {
-    const target = e.target as HTMLElement;
-    if (!target) return { x: 0, y: 0 };
-    const rect = target.getBoundingClientRect();
+import Stage from "tree2d/dist/tree/Stage";
+
+export function getCanvasOffset(e: PageCoordinates, stage: Stage): { x: number; y: number } {
+    const rect = stage.getCanvas().getBoundingClientRect();
     return { x: e.pageX - rect.left, y: e.pageY - rect.top };
 }
 
-type EventWithCoordinates = { pageX: number; pageY: number; target: EventTarget | null };
+type PageCoordinates = { pageX: number; pageY: number };

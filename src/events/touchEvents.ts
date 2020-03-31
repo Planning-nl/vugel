@@ -1,4 +1,4 @@
-import { EventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import { RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import Stage from "tree2d/dist/tree/Stage";
 import Node from "../runtime/nodes/Node";
 import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
@@ -23,8 +23,8 @@ const translateEvent = (stage: Stage, e: TouchEvent): [VugelTouchEvent, ElementC
     return;
 };
 
-const dispatchTouchEvent: EventDispatcher<TouchEvent> = (stage) => {
-    return (e) => {
+const dispatchTouchEvent = (stage: Stage) => {
+    return (e: TouchEvent) => {
         switch (e.type as SupportedTouchEvents) {
             case "touchcancel":
                 // TODO
@@ -56,7 +56,7 @@ export const touchEventTranslator: {
     touchstart: "onTouchstart",
 } as const;
 
-export const registerTouchEventDispatchers = (canvasElement: HTMLCanvasElement, stage: Stage) => {
+export const registerTouchEventDispatchers: RegisterEventDispatcher = (canvasElement, stage) => {
     for (const key in touchEventTranslator) {
         canvasElement.addEventListener(key, dispatchTouchEvent(stage) as EventListener);
     }
