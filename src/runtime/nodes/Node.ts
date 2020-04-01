@@ -1,10 +1,8 @@
 import Base from "./Base";
-import Stage from "tree2d/dist/tree/Stage";
-import Element from "tree2d/dist/tree/Element";
+import { Stage, Element, FunctionH, FunctionW } from "tree2d";
 import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener } from "../../events";
 import { VugelMouseEvent } from "../../events/mouseEvents";
 import { VugelTouchEvent } from "../../events/touchEvents";
-import { FunctionH, FunctionW } from "tree2d/dist/tree/core/ElementCore";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;

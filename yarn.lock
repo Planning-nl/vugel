@@ -49,6 +49,19 @@
     prettier "^2.0.2"
     typescript "^3.8.3"
 
+"@planning.nl/webpack-config@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@planning.nl/webpack-config/-/webpack-config-1.0.2.tgz#4ca3eac3e3b0d9d01ec6685c6c619ac8eaec0ae2"
+  integrity sha512-w9v+2/H1Osc/EuKg10HesmWgSyCbZjn655IHU/01d6/4SCIFi3BcB4RwleoFvjSH2obGQsfEDUgPxzWoCoC/vQ==
+  dependencies:
+    dotenv "^8.2.0"
+    friendly-errors-webpack-plugin "^1.7.0"
+    happypack "^5.0.1"
+    terser-webpack-plugin "^2.3.5"
+    webpack "^4.42.1"
+    webpack-cli "^3.3.11"
+    webpack-merge "^4.2.2"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"

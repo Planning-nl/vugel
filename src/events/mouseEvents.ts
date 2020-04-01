@@ -1,7 +1,7 @@
 import Node from "../runtime/nodes/Node";
 import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
-import Stage from "tree2d/dist/tree/Stage";
-import { getCanvasOffset } from "./utils";
+import { Stage } from "tree2d";
+import { getCurrentContext } from "./utils";
 
 /**
  * The mouse event as emitted by vugel.
@@ -20,10 +20,7 @@ type EventState = {
 };
 
 const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) => {
-    const { x: canvasX, y: canvasY } = getCanvasOffset(e, stage);
-
-    const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
-    const currentElement = elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true);
+    const { currentElement, canvasOffsetX, canvasOffsetY } = getCurrentContext(e, stage);
     const currentNode = currentElement?.element.data;
 
     return {
@@ -36,8 +33,8 @@ const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) 
             target: currentNode ?? null,
 
             // MouseEvent
-            canvasOffsetX: canvasX,
-            canvasOffsetY: canvasY,
+            canvasOffsetX: canvasOffsetX,
+            canvasOffsetY: canvasOffsetY,
             elementOffsetX: currentElement?.offsetX ?? 0,
             elementOffsetY: currentElement?.offsetY ?? 0,
 

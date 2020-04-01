@@ -1,7 +1,7 @@
 import { RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
-import Stage from "tree2d/dist/tree/Stage";
+import { Stage } from "tree2d";
 import Node from "../runtime/nodes/Node";
-import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
+import { ElementCoordinatesInfo } from "tree2d";
 
 /**
  * The touch event as emitted by vugel.

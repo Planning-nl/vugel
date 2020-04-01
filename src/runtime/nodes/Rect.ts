@@ -1,6 +1,5 @@
 import Node from "./Node";
-import Stage from "tree2d/dist/tree/Stage";
-import RectangleTexture from "tree2d/dist/textures/RectangleTexture";
+import { Stage } from "tree2d";
 
 export default class Rect extends Node {
     constructor(stage: Stage) {

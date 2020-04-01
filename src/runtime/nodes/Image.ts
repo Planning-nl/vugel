@@ -1,6 +1,6 @@
 import Node from "./Node";
-import Stage from "tree2d/dist/tree/Stage";
-import ImageTexture from "tree2d/dist/textures/ImageTexture";
+import { Stage } from "tree2d";
+import { ImageTexture } from "tree2d";
 
 export default class Image extends Node {
     private tex: ImageTexture;

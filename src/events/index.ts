@@ -1,8 +1,8 @@
-import Stage from "tree2d/dist/tree/Stage";
+import { Stage } from "tree2d";
 import { mouseEventTranslator, SupportedMouseEvents } from "./mouseEvents";
 import Node from "../runtime/nodes/Node";
 import { Events } from "@vue/runtime-dom";
-import { ElementCoordinatesInfo } from "tree2d/dist/tree/core/ElementCore";
+import { ElementCoordinatesInfo } from "tree2d";
 import { SupportedTouchEvents, touchEventTranslator } from "./touchEvents";
 
 export type SupportedEvents = SupportedMouseEvents | SupportedTouchEvents;
