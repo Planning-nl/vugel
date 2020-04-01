@@ -1,5 +1,5 @@
 import Base from "./Base";
-import { Stage, Element, FunctionH, FunctionW } from "tree2d";
+import { Stage, Element, FunctionH, FunctionW } from "tree2d/lib";
 import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener } from "../../events";
 import { VugelMouseEvent } from "../../events/mouseEvents";
 import { VugelTouchEvent } from "../../events/touchEvents";

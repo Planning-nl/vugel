@@ -1,4 +1,4 @@
-import { Stage, ElementCoordinatesInfo } from "tree2d";
+import { Stage, ElementCoordinatesInfo } from "tree2d/lib";
 import Node from "../runtime/nodes/Node";
 
 export function getCanvasOffset(e: PageCoordinates, stage: Stage): { x: number; y: number } {

@@ -19,19 +19,25 @@
         "vue": "^3.0.0-alpha.9"
     },
     "files": [
+        "lib/**",
         "dist/**"
     ],
     "homepage": "https://github.com/Planning-nl/vugel#readme",
     "keywords": [],
     "license": "apache",
-    "main": "dist/index.js",
+    "main": "dist/vugel.js",
+    "module": "dist/vugel.js",
+    "jsdelivr": "dist/vugel.js",
+    "unpkg": "dist/vugel.js",
     "peerDependencies": {
         "vue": "^3.0.0-alpha.9"
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {
-        "watch_build": "NODE_ENV=production webpack --watch --progress --display-error-details",
-        "build": "NODE_ENV=production webpack --progress --display-error-details",
+        "build": "tsc",
+        "watch_build": "tsc --watch",
+        "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
+        "bundle": "NODE_ENV=production webpack --progress --display-error-details",
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
         "prepublishOnly": "npm test",

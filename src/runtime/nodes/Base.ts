@@ -1,4 +1,4 @@
-import { Element } from "tree2d";
+import { Element } from "tree2d/lib";
 
 export default class Base {
     public element?: Element;

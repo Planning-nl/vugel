@@ -4,7 +4,7 @@
         "module": "commonjs",
         "declaration": true,
         "sourceMap": true,
-        "outDir": "./dist",
+        "outDir": "./lib",
         "strict": true,
         "moduleResolution": "node",
         "lib": ["esnext", "dom", "es2018.promise"]

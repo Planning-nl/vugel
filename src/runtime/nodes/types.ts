@@ -2,7 +2,7 @@ import Node from "./Node";
 import Image from "./Image";
 import Rect from "./Rect";
 import Text from "./Text";
-import { Stage } from "tree2d";
+import { Stage } from "tree2d/lib";
 import Base from "./Base";
 import Paragraph from "./Paragraph";
 

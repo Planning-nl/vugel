@@ -1,8 +1,8 @@
-import { Stage } from "tree2d";
+import { Stage } from "tree2d/lib";
 import { mouseEventTranslator, SupportedMouseEvents } from "./mouseEvents";
 import Node from "../runtime/nodes/Node";
 import { Events } from "@vue/runtime-dom";
-import { ElementCoordinatesInfo } from "tree2d";
+import { ElementCoordinatesInfo } from "tree2d/lib";
 import { SupportedTouchEvents, touchEventTranslator } from "./touchEvents";
 
 export type SupportedEvents = SupportedMouseEvents | SupportedTouchEvents;
@@ -39,3 +39,6 @@ export type VueEventsOfType<T extends Event> = keyof Pick<
         [K in keyof Events]: Events[K] extends T ? (T extends Events[K] ? K : never) : never;
     }[keyof Events]
 >;
+
+export * from "./mouseEvents";
+export * from "./touchEvents";

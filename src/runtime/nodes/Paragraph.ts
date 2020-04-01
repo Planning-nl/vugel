@@ -1,5 +1,5 @@
 import Node, { ensureFloat, ensureInt } from "./Node";
-import { Stage, Element, TextTexture } from "tree2d";
+import { Stage, Element, TextTexture } from "tree2d/lib";
 
 type TextSettings = {
     fontStyle: string;
