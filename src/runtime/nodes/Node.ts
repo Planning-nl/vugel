@@ -61,7 +61,7 @@ export default class Node extends Base {
             const eventHandler = currentNode._nodeEvents?.[vueEventType] as VugelEventListener<any>;
             const newEvent = {
                 ...event,
-                currentTarget: this,
+                currentTarget: currentNode,
             };
 
             eventHandler?.(newEvent);
