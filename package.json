@@ -43,5 +43,5 @@
         "prepublishOnly": "npm test",
         "version": "npm run lint"
     },
-    "types": "dist/index.d.ts"
+    "types": "lib/index.d.ts"
 }
