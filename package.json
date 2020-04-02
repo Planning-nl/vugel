@@ -39,7 +39,7 @@
         "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
         "bundle": "NODE_ENV=production webpack --progress --display-error-details",
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
-        "prepare": "npm run build",
+        "prepare": "npm run build & npm run bundle",
         "prepublishOnly": "npm test",
         "version": "npm run lint"
     },
