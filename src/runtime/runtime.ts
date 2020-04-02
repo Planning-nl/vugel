@@ -4,7 +4,7 @@ import { patchProp } from "./patchProp";
 import { Stage } from "tree2d/lib";
 import Base from "./nodes/Base";
 
-export type VugelRender = RootRenderFunction<Element, Base>;
+export type VugelRender = RootRenderFunction;
 
 export function createRendererForStage(stage: Stage): VugelRender {
     const { render } = createRenderer({

@@ -9,7 +9,7 @@ export function patchProp(
     isSVG: boolean,
     prevChildren?: VNode[],
     parentComponent?: ComponentInternalInstance,
-    parentSuspense?: SuspenseBoundary<Node, Element>,
+    parentSuspense?: SuspenseBoundary,
     unmountChildren?: any,
 ) {
     patchElProp(el, key, nextValue, prevChildren, parentComponent, parentSuspense, unmountChildren);
