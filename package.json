@@ -16,7 +16,7 @@
         "eslint": "^6.8.0",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
-        "vue": "^3.0.0-alpha.9"
+        "vue": "^3.0.0-alpha.10"
     },
     "files": [
         "lib/**",
@@ -30,7 +30,7 @@
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
-        "vue": "^3.0.0-alpha.9"
+        "vue": "^3.0.0-alpha.10"
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {

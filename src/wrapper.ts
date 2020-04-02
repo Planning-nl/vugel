@@ -1,13 +1,24 @@
 import { createRendererForStage, VugelRender } from "./runtime/runtime";
-
-import { effect, Ref, ref } from "@vue/reactivity";
-import { defineComponent, Fragment, h, onMounted } from "@vue/runtime-core";
+import {
+    defineComponent,
+    Fragment,
+    h,
+    onMounted,
+    ComponentPublicInstance,
+    Ref,
+    ref,
+    effect,
+    getCurrentInstance,
+} from "@vue/runtime-core";
 import Node from "./runtime/nodes/Node";
 import { Stage } from "tree2d/lib";
 import { registerMouseEventDispatchers } from "./events";
 import { registerTouchEventDispatchers } from "./events";
+import { StageOptions } from "tree2d/lib/tree/Stage";
 
-export const Vugel: any = defineComponent({
+export const Vugel: {
+    new (): ComponentPublicInstance<Partial<StageOptions>>;
+} = defineComponent({
     props: {
         settings: {
             type: Object,
@@ -22,30 +33,34 @@ export const Vugel: any = defineComponent({
             let stage: Stage;
             let stageRoot: Node;
 
-            effect(() => {
-                if (!rendered && elRef.value) {
-                    rendered = true;
+            const currentInstance = getCurrentInstance();
+            if (currentInstance) {
+                currentInstance.update = effect(() => {
+                    if (!rendered && elRef.value) {
+                        rendered = true;
 
-                    stage = new Stage(elRef.value, { ...props.settings });
+                        stage = new Stage(elRef.value, { ...props.settings });
 
-                    vugelRenderer = createRendererForStage(stage);
-                    stageRoot = new Node(stage, stage.root);
+                        vugelRenderer = createRendererForStage(stage);
+                        stageRoot = new Node(stage, stage.root);
 
-                    // Auto-inherit dimensions.
-                    stageRoot.w = (w: number) => w;
-                    stageRoot.h = (h: number) => h;
+                        // Auto-inherit dimensions.
+                        stageRoot.w = (w: number) => w;
+                        stageRoot.h = (h: number) => h;
 
-                    registerMouseEventDispatchers(elRef.value, stage);
-                    registerTouchEventDispatchers(elRef.value, stage);
-                }
+                        registerMouseEventDispatchers(elRef.value, stage);
+                        registerTouchEventDispatchers(elRef.value, stage);
+                    }
 
-                const defaultSlot = setupContext.slots.default;
-                if (defaultSlot) {
-                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
-                } else {
-                    console.warn("No default slot is defined");
-                }
-            });
+                    const defaultSlot = setupContext.slots.default;
+                    if (defaultSlot) {
+                        vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
+                    } else {
+                        console.warn("No default slot is defined");
+                    }
+                });
+
+            }
         });
 
         return () =>
