@@ -49,10 +49,10 @@
     prettier "^2.0.2"
     typescript "^3.8.3"
 
-"@planning.nl/webpack-config@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@planning.nl/webpack-config/-/webpack-config-1.0.2.tgz#4ca3eac3e3b0d9d01ec6685c6c619ac8eaec0ae2"
-  integrity sha512-w9v+2/H1Osc/EuKg10HesmWgSyCbZjn655IHU/01d6/4SCIFi3BcB4RwleoFvjSH2obGQsfEDUgPxzWoCoC/vQ==
+"@planning.nl/webpack-config@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@planning.nl/webpack-config/-/webpack-config-1.0.4.tgz#d8fdd7be6ab7a6fe376b7e7fb32919aa652d3033"
+  integrity sha512-tc7IFaPp26OwjYxYRX9F6c0enqWC3uo5V8RCEeFDxPkYKGW5WFr/iev4wCAadqbn1LqGyLclHh4g2rcfBxHUDg==
   dependencies:
     dotenv "^8.2.0"
     friendly-errors-webpack-plugin "^1.7.0"
