@@ -4,8 +4,8 @@ import { effect, Ref, ref } from "@vue/reactivity";
 import { defineComponent, Fragment, h, onMounted } from "@vue/runtime-core";
 import Node from "./runtime/nodes/Node";
 import { Stage } from "tree2d/lib";
-import { registerMouseEventDispatchers } from "./events/mouseEvents";
-import { registerTouchEventDispatchers } from "./events/touchEvents";
+import { registerMouseEventDispatchers } from "./events";
+import { registerTouchEventDispatchers } from "./events";
 
 export const Vugel = defineComponent({
     props: {

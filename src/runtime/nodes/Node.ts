@@ -1,8 +1,13 @@
 import Base from "./Base";
 import { Stage, Element, FunctionH, FunctionW } from "tree2d/lib";
-import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener } from "../../events";
-import { VugelMouseEvent } from "../../events/mouseEvents";
-import { VugelTouchEvent } from "../../events/touchEvents";
+import {
+    eventTranslators,
+    SupportedEvents,
+    VugelEvent,
+    VugelEventListener,
+    VugelMouseEvent,
+    VugelTouchEvent,
+} from "../../events";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -150,11 +155,11 @@ export default class Node extends Base {
     }
 
     set x(v: any) {
-        this.el.x = ensureFloat(v);
+        this.el.x = convertRelValue(v, "w");
     }
 
     set y(v: any) {
-        this.el.y = ensureFloat(v);
+        this.el.y = convertRelValue(v, "h");
     }
 
     set scale(v: any) {
@@ -186,12 +191,12 @@ export default class Node extends Base {
         this.el.color = ensureInt(v);
     }
 
-    set w(v: number | FunctionW) {
-        this.el.w = isFunction(v) ? v : ensureFloat(v);
+    set w(v: number | FunctionW | string) {
+        this.el.w = convertRelValue(v, "w");
     }
 
     set h(v: number | FunctionH) {
-        this.el.h = isFunction(v) ? v : ensureFloat(v);
+        this.el.h = convertRelValue(v, "h");
     }
 
     // Setters for NodeEvents
@@ -270,5 +275,34 @@ export function ensureFloat(v: any): number {
 export function ensureBoolean(v: any): boolean {
     return v !== "false" && !!v;
 }
+
+export function isString(value: any): value is string {
+    return typeof value === "string";
+}
+
+export function parseFloatStrict(value: string) {
+    if (/^(-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) return Number(value);
+    return NaN;
+}
+
+export function convertRelValue(v: number | RelFunction | string, argName: string) {
+    if (isString(v)) {
+        const floatValue = parseFloatStrict(v);
+        if (isNaN(floatValue)) {
+            // Convert to function.
+            return convertToRelFunction(v, argName);
+        } else {
+            return floatValue;
+        }
+    } else {
+        return isFunction(v) ? v : ensureFloat(v);
+    }
+}
+
+export function convertToRelFunction(body: string, argName: string): RelFunction {
+    const key = `${argName}:${body}`;
+    return new Function(argName, `return ${body}`) as RelFunction;
+}
+type RelFunction = (v: number) => number;
 
 const isFunction = (val: unknown): val is Function => typeof val === "function";
