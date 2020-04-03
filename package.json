@@ -20,7 +20,8 @@
     },
     "files": [
         "lib/**",
-        "dist/**"
+        "dist/**",
+        "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/vugel#readme",
     "keywords": [],
@@ -39,7 +40,8 @@
         "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
         "bundle": "NODE_ENV=production webpack --progress --display-error-details",
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
-        "prepare": "npm run build & npm run bundle",
+        "prepare": "npm run build",
+        "prepublish": "npm run bundle",
         "prepublishOnly": "npm test",
         "version": "npm run lint"
     },
