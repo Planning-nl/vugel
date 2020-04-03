@@ -1,13 +1,15 @@
 import { createRendererForStage, VugelRender } from "./runtime/runtime";
 
-import { effect, Ref, ref } from "@vue/reactivity";
-import { defineComponent, Fragment, h, onMounted } from "@vue/runtime-core";
+import { defineComponent, Fragment, h, onMounted, Ref, ref, watchEffect, ComponentPublicInstance } from "vue";
 import Node from "./runtime/nodes/Node";
 import { Stage } from "tree2d/lib";
 import { registerMouseEventDispatchers } from "./events";
 import { registerTouchEventDispatchers } from "./events";
+import { StageOptions } from "tree2d/lib/tree/Stage";
 
-export const Vugel: any = defineComponent({
+export const Vugel: {
+    new (): ComponentPublicInstance<Partial<StageOptions>>;
+} = defineComponent({
     props: {
         settings: {
             type: Object,
@@ -22,7 +24,7 @@ export const Vugel: any = defineComponent({
             let stage: Stage;
             let stageRoot: Node;
 
-            effect(() => {
+            watchEffect(() => {
                 if (!rendered && elRef.value) {
                     rendered = true;
 
