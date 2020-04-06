@@ -6,7 +6,6 @@ type TextSettings = {
     lineHeight: number;
     fontSize: number;
     fontFace: string[];
-    letterSpacing: number;
     fontColor: number;
 };
 
@@ -22,11 +21,6 @@ export default class Paragraph extends Node {
 
     set lineHeight(v: number) {
         this.settings.lineHeight = ensureFloat(v);
-        this.update();
-    }
-
-    set letterSpacing(v: number) {
-        this.settings.letterSpacing = ensureFloat(v);
         this.update();
     }
 
@@ -63,7 +57,7 @@ export default class Paragraph extends Node {
         const s = this.settings;
         const fontSize = s.fontSize || 24;
         const lineHeight = Math.round(s.lineHeight || fontSize * 1.3);
-        const letterSpacing = Math.round(fontSize * 0.2 + (s.letterSpacing || 0));
+        const letterSpacing = Math.round(fontSize * 0.2);
         const margin = Math.round(lineHeight - fontSize);
         const fontColor = s.fontColor || 0xffffffff;
 
