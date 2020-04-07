@@ -10,7 +10,7 @@ import {
     effect,
     getCurrentInstance,
 } from "@vue/runtime-core";
-import Node from "./runtime/nodes/Node";
+import { Node } from "./runtime/nodes/Node";
 import { Stage } from "tree2d/lib";
 import { registerMouseEventDispatchers } from "./events";
 import { registerTouchEventDispatchers } from "./events";

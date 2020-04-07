@@ -1,6 +1,6 @@
 import { Element } from "tree2d/lib";
 
-export default class Base {
+export class Base {
     public element?: Element;
 
     protected children: Base[] = [];

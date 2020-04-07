@@ -1,10 +1,10 @@
-import Node from "./Node";
-import Image from "./Image";
-import Rect from "./Rect";
-import Text from "./Text";
+import { Node } from "./Node";
+import { Image } from "./Image";
+import { Rect } from "./Rect";
+import { Text } from "./Text";
 import { Stage } from "tree2d/lib";
-import Base from "./Base";
-import Paragraph from "./Paragraph";
+import { Base } from "./Base";
+import { Paragraph } from "./Paragraph";
 
 const types: Record<string, new (stage: Stage) => Base> = {
     node: Node,

@@ -1,4 +1,4 @@
-import Base from "./Base";
+import { Base } from "./Base";
 import { Stage, Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
 import {
     eventTranslators,
@@ -29,7 +29,7 @@ export type NodeEvents = {
     onTouchstart?: VugelEventListener<VugelTouchEvent>;
 };
 
-export default class Node extends Base {
+export class Node extends Base {
     public readonly stage: Stage;
 
     public _nodeEvents?: NodeEvents;

@@ -1,4 +1,4 @@
-import Node from "../runtime/nodes/Node";
+import { Node } from "../runtime/nodes/Node";
 import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import { Stage } from "tree2d/lib";
 import { getCurrentContext } from "./utils";

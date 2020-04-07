@@ -1,8 +1,8 @@
-import Node from "./Node";
+import { Node } from "./Node";
 import { Stage } from "tree2d/lib";
 import { ImageTexture } from "tree2d/lib";
 
-export default class Image extends Node {
+export class Image extends Node {
     private tex: ImageTexture;
 
     constructor(stage: Stage) {

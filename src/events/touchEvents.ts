@@ -1,6 +1,6 @@
 import { RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import { Stage } from "tree2d/lib";
-import Node from "../runtime/nodes/Node";
+import { Node } from "../runtime/nodes/Node";
 import { ElementCoordinatesInfo } from "tree2d/lib";
 
 /**

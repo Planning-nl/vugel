@@ -11,7 +11,7 @@
         "tree2d": "^1.0.0-alpha.13"
     },
     "devDependencies": {
-        "@planning.nl/eslint-config": "^1.0.3",
+        "@planning.nl/eslint-config": "^1.0.5",
         "@planning.nl/webpack-config": "^1.0.4",
         "eslint": "^6.8.0",
         "ts-loader": "^6.2.2",
