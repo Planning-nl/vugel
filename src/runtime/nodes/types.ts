@@ -8,6 +8,7 @@ import { Paragraph } from "./Paragraph";
 import { Container } from "./Container";
 import { SpecialRectangle } from "./SpecialRectangle";
 import { Drawing } from "./Drawing";
+import { Texture } from "./Texture";
 
 const types: Record<string, new (stage: Stage) => Base> = {
     node: Node,
@@ -18,6 +19,7 @@ const types: Record<string, new (stage: Stage) => Base> = {
     paragraph: Paragraph,
     "special-rectangle": SpecialRectangle,
     drawing: Drawing,
+    texture: Texture,
 };
 
 export default types;
