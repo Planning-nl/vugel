@@ -6,19 +6,19 @@ import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
 export class SpecialRectangle extends Node {
     private options: Partial<RoundRectOptions> = {};
 
-    private rectangleElement = new Element(this.stage);
+    private subject = new Element(this.stage);
 
     private roundRectTexture = new RoundRectTexture(this.stage);
 
     constructor(stage: Stage) {
         super(stage);
 
-        this.el.childList.add(this.rectangleElement);
+        this.el.childList.add(this.subject);
 
-        this.rectangleElement.texture = this.roundRectTexture;
+        this.subject.texture = this.roundRectTexture;
 
         this.el.onResize = (element: Element, w: number, h: number) => this.handleResize(element, w, h);
-        this.rectangleElement.onTextureLoaded = (element, texture) => this.handleTextureLoaded(element, texture);
+        this.subject.onTextureLoaded = (element, texture) => this.handleTextureLoaded(element, texture);
     }
 
     set radius(radius: number) {
@@ -74,7 +74,7 @@ export class SpecialRectangle extends Node {
     }
 
     set onResize(v: ElementResizeEventCallback | undefined) {
-        console.warn("You can't set onResize on a special-rectangle");
+        console.warn("You can't set onResize on a <special-rectangle>");
     }
 
     private handleResize(element: Element, w: number, h: number) {
@@ -85,7 +85,7 @@ export class SpecialRectangle extends Node {
 
     private handleTextureLoaded(element: Element, texture: Texture) {
         const renderInfo = texture.getSource()?.getRenderInfo();
-        this.rectangleElement.x = -(renderInfo?.offsetX || 0);
-        this.rectangleElement.y = -(renderInfo?.offsetY || 0);
+        this.subject.x = -(renderInfo?.offsetX || 0);
+        this.subject.y = -(renderInfo?.offsetY || 0);
     }
 }

@@ -181,14 +181,6 @@ export class Node extends Base {
         this.el.zIndex = ensureFloat(v);
     }
 
-    set forceZIndexContext(v: boolean) {
-        this.el.forceZIndexContext = ensureBoolean(v);
-    }
-
-    set clipping(v: boolean) {
-        this.el.clipping = ensureBoolean(v);
-    }
-
     set boundsMargin(v: number) {
         this.el.boundsMargin = ensureFloat(v);
     }
@@ -209,60 +201,12 @@ export class Node extends Base {
         this.el.boundsMarginBottom = ensureFloat(v);
     }
 
-    set clipbox(v: boolean) {
-        this.el.clipbox = ensureBoolean(v);
-    }
-
     set mw(v: number) {
         this.el.mw = ensureFloat(v);
     }
 
     set mh(v: number) {
         this.el.mh = ensureFloat(v);
-    }
-
-    set renderToTexture(v: boolean) {
-        this.el.renderToTexture = ensureBoolean(v);
-    }
-
-    set renderToTextureLazy(v: boolean) {
-        this.el.renderToTextureLazy = ensureBoolean(v);
-    }
-
-    set renderToTextureOffscreen(v: boolean) {
-        this.el.renderToTextureOffscreen = ensureBoolean(v);
-    }
-
-    set renderToTextureColorize(v: boolean) {
-        this.el.renderToTextureColorize = ensureBoolean(v);
-    }
-
-    set flex(v: boolean) {
-        this.el.flex = ensureBoolean(v);
-    }
-
-    set flexDirection(v: "row" | "row-reverse" | "column" | "column-reverse") {
-        this.el.flexDirection = v;
-    }
-
-    set flexWrap(v: boolean) {
-        this.el.flexWrap = ensureBoolean(v);
-    }
-
-    set flexAlignItems(v: "flex-start" | "flex-end" | "center" | "stretch") {
-        this.el.flexAlignItems = v;
-    }
-
-    set flexJustifyContent(
-        v: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly",
-    ) {
-        this.el.flexJustifyContent = v;
-    }
-
-    set flexAlignContent(
-        v: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch",
-    ) {
-        this.el.flexAlignContent = v;
     }
 
     set flexItem(v: boolean) {
@@ -279,26 +223,6 @@ export class Node extends Base {
 
     set flexAlignSelf(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
         this.el.flexAlignSelf = v;
-    }
-
-    set padding(v: number) {
-        this.el.padding = ensureFloat(v);
-    }
-
-    set paddingLeft(v: number) {
-        this.el.paddingLeft = ensureFloat(v);
-    }
-
-    set paddingRight(v: number) {
-        this.el.paddingRight = ensureFloat(v);
-    }
-
-    set paddingTop(v: number) {
-        this.el.paddingTop = ensureFloat(v);
-    }
-
-    set paddingBottom(v: number) {
-        this.el.paddingBottom = ensureFloat(v);
     }
 
     set margin(v: number) {
