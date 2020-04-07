@@ -17,6 +17,11 @@ export class TextTextureSettings {
         this.onChange();
     }
 
+    set fontWeight(v: number) {
+        this.textSettings.fontWeight = ensureFloat(v);
+        this.onChange();
+    }
+
     set fontFace(v: string | string[]) {
         if (!Array.isArray(v)) {
             v = [v];
