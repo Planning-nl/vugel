@@ -1,3 +1,3 @@
-import { Node } from "./Node";
+import { Container } from "./Container";
 
-export class Root extends Node {}
+export class Root extends Container {}

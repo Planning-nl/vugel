@@ -10,11 +10,11 @@ import {
     effect,
     getCurrentInstance,
 } from "@vue/runtime-core";
-import { Node } from "./runtime/nodes/Node";
 import { Stage } from "tree2d/lib";
 import { registerMouseEventDispatchers } from "./events";
 import { registerTouchEventDispatchers } from "./events";
 import { StageOptions } from "tree2d/lib/tree/Stage";
+import { Root } from "./runtime/nodes/Root";
 
 export const Vugel: {
     new (): ComponentPublicInstance<Partial<StageOptions>>;
@@ -31,7 +31,7 @@ export const Vugel: {
             let rendered = false;
             let vugelRenderer: VugelRender;
             let stage: Stage;
-            let stageRoot: Node;
+            let stageRoot: Root;
 
             const currentInstance = getCurrentInstance();
             if (currentInstance) {
@@ -42,7 +42,7 @@ export const Vugel: {
                         stage = new Stage(elRef.value, { ...props.settings });
 
                         vugelRenderer = createRendererForStage(stage);
-                        stageRoot = new Node(stage, stage.root);
+                        stageRoot = new Root(stage, stage.root);
 
                         // Auto-inherit dimensions.
                         stageRoot.w = (w: number) => w;

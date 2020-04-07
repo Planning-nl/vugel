@@ -1,8 +1,8 @@
-import { Node } from "./Node";
+import { Container } from "./Container";
 import { Stage } from "tree2d/lib";
 import { ImageTexture } from "tree2d/lib";
 
-export class Image extends Node {
+export class Image extends Container {
     private tex: ImageTexture;
 
     constructor(stage: Stage) {

@@ -10,6 +10,6 @@ export const parserOptionsMinimal: ParserOptions = {
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element
-const TREE2D_TAGS = "root,node,image,rect,text,paragraph";
+const TREE2D_TAGS = "root,container,image,rectangle,text,paragraph,special-rectangle";
 
 export const isTree2dTag = /*#__PURE__*/ makeMap(TREE2D_TAGS);
