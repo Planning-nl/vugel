@@ -1,6 +1,7 @@
 import { Container } from "./Container";
 import { Stage } from "tree2d/lib";
 import { ImageTexture } from "tree2d/lib";
+import { ensureFloat } from "./Node";
 
 export class Image extends Container {
     private tex: ImageTexture;
@@ -13,5 +14,9 @@ export class Image extends Container {
 
     set src(value: string) {
         this.tex.src = value;
+    }
+
+    set pixelRatio(v: number) {
+        this.el.texture!.pixelRatio = ensureFloat(v);
     }
 }

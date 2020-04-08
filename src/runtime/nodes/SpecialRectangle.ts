@@ -21,6 +21,10 @@ export class SpecialRectangle extends Node {
         this.subject.onTextureLoaded = (element, texture) => this.handleTextureLoaded(element, texture);
     }
 
+    set pixelRatio(v: number) {
+        this.subject.texture!.pixelRatio = ensureFloat(v);
+    }
+
     set radius(radius: number) {
         const r = ensureFloat(radius);
         this.setOption("radius", [r, r, r, r]);
