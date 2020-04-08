@@ -1,5 +1,5 @@
-import { ensureFloat, Node } from "./Node";
-import { Stage, Element, Texture } from "tree2d/lib";
+import { ensureFloat, Node } from "../Node";
+import { Stage, Element, Texture } from "tree2d";
 import SvgTexture, { SvgOptions } from "tree2d/lib/textures/SvgTexture";
 import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
 

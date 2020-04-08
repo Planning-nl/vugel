@@ -1,6 +1,6 @@
 import { Node, ensureFloat, ensureInt } from "./Node";
 import { Stage, Element, TextTexture } from "tree2d/lib";
-import { TextTextureSettings } from "./TextTextureSettings";
+import { TextTextureSettings } from "./textures/TextTextureSettings";
 import Delegator from "../utils/Delegator";
 
 class Paragraph extends Node {

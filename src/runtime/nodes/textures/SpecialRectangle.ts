@@ -1,5 +1,5 @@
-import { ensureBoolean, ensureColor, ensureFloat, ensureInt, Node } from "./Node";
-import { Stage, Element, Texture } from "tree2d/lib";
+import { ensureBoolean, ensureColor, ensureFloat, ensureInt, Node } from "../Node";
+import { Stage, Element, Texture } from "tree2d";
 import RoundRectTexture, { RoundRectOptions } from "tree2d/lib/textures/RoundRectTexture";
 import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
 

@@ -1,5 +1,5 @@
-import { Node } from "./Node";
-import { Stage, Element, Texture } from "tree2d/lib";
+import { Node } from "../Node";
+import { Stage, Element, Texture } from "tree2d";
 import DrawingTexture, { DrawingFunction } from "tree2d/lib/textures/DrawingTexture";
 
 export { DrawingFunction };

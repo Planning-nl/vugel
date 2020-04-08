@@ -1,4 +1,4 @@
-import { ensureFloat } from "./Node";
+import { ensureFloat } from "../Node";
 import { TextSettings } from "tree2d/lib/textures/text/TextSettings";
 
 export { TextSettings };

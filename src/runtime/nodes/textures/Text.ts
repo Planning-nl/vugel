@@ -1,7 +1,7 @@
-import { Node } from "./Node";
-import { Stage, TextTexture } from "tree2d/lib";
+import { Node } from "../Node";
+import { Stage, TextTexture } from "tree2d";
 import { TextTextureSettings } from "./TextTextureSettings";
-import Delegator from "../utils/Delegator";
+import Delegator from "../../utils/Delegator";
 
 class Text extends Node {
     private texture = new TextTexture(this.stage);

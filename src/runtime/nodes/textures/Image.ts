@@ -1,7 +1,7 @@
-import { Container } from "./Container";
-import { Stage } from "tree2d/lib";
-import { ImageTexture } from "tree2d/lib";
-import { ensureFloat } from "./Node";
+import { Container } from "../Container";
+import { Stage } from "tree2d";
+import { ImageTexture } from "tree2d";
+import { ensureFloat } from "../Node";
 
 export class Image extends Container {
     private tex: ImageTexture;

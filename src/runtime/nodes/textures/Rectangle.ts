@@ -1,5 +1,5 @@
-import { Container } from "./Container";
-import { Stage } from "tree2d/lib";
+import { Container } from "../Container";
+import { Stage } from "tree2d";
 
 export class Rectangle extends Container {
     constructor(stage: Stage) {
