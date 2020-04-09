@@ -1,7 +1,7 @@
 import { Node } from "../runtime/nodes/Node";
 import { EventTranslator, RegisterEventDispatcher, TranslatedEvent, VueEventsOfType, VugelEvent } from "./index";
 import { Stage } from "tree2d/lib";
-import { getCurrentContext } from "./utils";
+import { getCommonAncestor, getCurrentContext } from "./utils";
 
 export interface VugelMouseEvent extends VugelEvent<MouseEvent | TouchEvent> {
     readonly canvasOffsetX: number;
@@ -43,7 +43,7 @@ const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
     let currentNode: Node | undefined = leafNode;
     while (currentNode != undefined) {
         if (currentNode == nodeToFind) return true;
-        currentNode = currentNode.parentNode as Node | undefined;
+        currentNode = currentNode.parent as Node | undefined;
     }
     return false;
 };
@@ -79,7 +79,7 @@ export const dispatchVugelMouseEvent = (
             if (currentNode) {
                 eventState.activeNode = currentNode;
 
-                currentNode.dispatchVugelEvent({
+                currentNode.dispatchEvent({
                     ...translatedEvent.event,
                     target: currentNode,
                 });
@@ -93,62 +93,79 @@ export const dispatchVugelMouseEvent = (
             if (currentNode) {
                 eventState.activeNode = currentNode;
 
-                currentNode?.dispatchBubbledEvent({
-                    ...translatedEvent.event,
-                    target: currentNode,
-                });
+                currentNode?.dispatchBubbledEvent(
+                    {
+                        ...translatedEvent.event,
+                        target: currentNode,
+                    },
+                    getCommonAncestor(prevNode, currentNode),
+                );
             }
 
             break;
         }
         case "mouseleave": {
-            prevNode?.dispatchVugelEvent({
+            prevNode?.dispatchEvent({
                 ...translatedEvent.event,
                 target: prevNode,
             });
             break;
         }
         case "mouseout": {
-            prevNode?.dispatchBubbledEvent({
-                ...translatedEvent.event,
-                target: prevNode,
-            });
+            prevNode?.dispatchBubbledEvent(
+                {
+                    ...translatedEvent.event,
+                    target: prevNode,
+                },
+                getCommonAncestor(prevNode, currentNode),
+            );
 
             break;
         }
         case "mousemove": {
             if (currentNode) {
-                currentNode.dispatchBubbledEvent(translatedEvent.event);
+                const commonAncestor = getCommonAncestor(prevNode, currentNode);
 
                 if (prevNode != currentNode) {
-                    prevNode?.dispatchBubbledEvent({
-                        ...translatedEvent.event,
-                        type: "mouseout",
-                        target: currentNode,
-                    });
+                    prevNode?.dispatchBubbledEvent(
+                        {
+                            ...translatedEvent.event,
+                            type: "mouseout",
+                            target: currentNode,
+                        },
+                        commonAncestor,
+                    );
+                }
 
-                    currentNode.dispatchBubbledEvent({
+                if (prevNode && !isNodeInTree(prevNode, currentNode)) {
+                    prevNode.dispatchEvent({
                         ...translatedEvent.event,
-                        type: "mouseover",
+                        type: "mouseleave",
                         target: currentNode,
                     });
                 }
 
+                if (prevNode != currentNode) {
+                    currentNode.dispatchBubbledEvent(
+                        {
+                            ...translatedEvent.event,
+                            type: "mouseover",
+                            target: currentNode,
+                        },
+                        commonAncestor,
+                    );
+                }
+
                 if (!prevNode || !isNodeInTree(currentNode, prevNode)) {
-                    currentNode.dispatchBubbledEvent({
+                    currentNode.dispatchEvent({
                         ...translatedEvent.event,
                         type: "mouseenter",
                         target: currentNode,
                     });
                 }
 
-                if (prevNode && !isNodeInTree(prevNode, currentNode)) {
-                    prevNode.dispatchBubbledEvent({
-                        ...translatedEvent.event,
-                        type: "mouseleave",
-                        target: currentNode,
-                    });
-                }
+                // Mousemove
+                currentNode.dispatchBubbledEvent(translatedEvent.event);
 
                 eventState.activeNode = currentNode;
             }

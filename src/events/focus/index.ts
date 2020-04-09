@@ -5,6 +5,7 @@ let focusManager: FocusManager;
 
 const setupFocusEvents = (canvasElement: HTMLCanvasElement, stage: Stage) => {
     focusManager = new FocusManager(canvasElement, stage);
+    return focusManager;
 };
 
 export { setupFocusEvents };

@@ -5,7 +5,7 @@ export class Base {
 
     protected children: Base[] = [];
 
-    public parentNode?: Base = undefined;
+    public parent?: Base = undefined;
 
     public nextSibling: Base | null = null;
 
@@ -14,13 +14,13 @@ export class Base {
     }
 
     appendChild(child: Base) {
-        child.parentNode = this;
+        child.parent = this;
         this.children.push(child);
         child.nextSibling = null;
     }
 
     removeChild(child: Base) {
-        child.parentNode = undefined;
+        child.parent = undefined;
         const index = this.children.indexOf(child);
         if (index > 0) {
             this.children[index - 1].nextSibling = child.nextSibling;
@@ -30,7 +30,7 @@ export class Base {
     }
 
     insertBefore(child: Base, anchor: Base) {
-        child.parentNode = this;
+        child.parent = this;
         const index = this.children.lastIndexOf(anchor);
         if (index > 0) {
             this.children[index - 1].nextSibling = child;
@@ -41,7 +41,7 @@ export class Base {
 
     clearChildren() {
         this.children.forEach((child) => {
-            child.parentNode = undefined;
+            child.parent = undefined;
             child.nextSibling = null;
         });
         this.children = [];

@@ -5,15 +5,19 @@ import {
     h,
     onMounted,
     ComponentPublicInstance,
+    ComponentInternalInstance,
     Ref,
     ref,
     effect,
     getCurrentInstance,
 } from "@vue/runtime-core";
 import { Stage } from "tree2d/lib";
-import { setupEvents } from "./events";
+import { setupEvents, EventHelpers } from "./events";
 import { StageOptions } from "tree2d/lib/tree/Stage";
 import { Root } from "./runtime/nodes/Root";
+
+export type VugelInstance = ComponentInternalInstance & { eventHelpers: EventHelpers };
+export type VugelStage = Stage & { vugel: VugelInstance };
 
 export const Vugel: {
     new (): ComponentPublicInstance<Partial<StageOptions>>;
@@ -29,7 +33,7 @@ export const Vugel: {
         onMounted(() => {
             let rendered = false;
             let vugelRenderer: VugelRender;
-            let stage: Stage;
+            let stage: VugelStage;
             let stageRoot: Root;
 
             const currentInstance = getCurrentInstance();
@@ -38,7 +42,12 @@ export const Vugel: {
                     if (!rendered && elRef.value) {
                         rendered = true;
 
-                        stage = new Stage(elRef.value, { ...props.settings });
+                        stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
+
+                        (stage as any).vugel = currentInstance;
+
+                        const eventHelpers = setupEvents(elRef.value, stage);
+                        (currentInstance as VugelInstance).eventHelpers = eventHelpers;
 
                         vugelRenderer = createRendererForStage(stage);
                         stageRoot = new Root(stage, stage.root);
@@ -46,8 +55,6 @@ export const Vugel: {
                         // Auto-inherit dimensions.
                         stageRoot.w = (w: number) => w;
                         stageRoot.h = (h: number) => h;
-
-                        setupEvents(elRef.value, stage);
                     }
 
                     const defaultSlot = setupContext.slots.default;

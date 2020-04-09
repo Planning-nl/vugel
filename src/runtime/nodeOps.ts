@@ -15,7 +15,7 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, "patchP
     },
 
     remove: (child) => {
-        const parent = child.parentNode;
+        const parent = child.parent;
         if (parent != null) {
             parent.removeChild(child);
         }
@@ -40,7 +40,7 @@ export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, "patchP
         node.setElementText(text);
     },
 
-    parentNode: (node) => (node.parentNode ? node.parentNode : null),
+    parentNode: (node) => (node.parent ? node.parent : null),
 
     nextSibling: (node) => node.nextSibling,
 

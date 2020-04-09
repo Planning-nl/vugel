@@ -1,4 +1,3 @@
-import { Node } from "./Node";
 import { Image } from "./textures/Image";
 import { Rectangle } from "./textures/Rectangle";
 import { Text } from "./textures/Text";
