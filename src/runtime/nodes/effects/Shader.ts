@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { Shader as Tree2dShader } from "tree2d";
+import { Shader as Tree2dShader } from "tree2d/lib";
 import { Constructor } from "tree2d/lib/util/types";
 
 export class Shader extends Container {
