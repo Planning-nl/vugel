@@ -5,7 +5,7 @@ import * as runtimeDom from "../runtime/runtime";
 
 const compileCache: Record<string, RenderFunction> = Object.create(null);
 
-export default function compileToFunction(template: string | HTMLElement, options?: CompilerOptions): RenderFunction {
+export function compileVugel(template: string | HTMLElement, options?: CompilerOptions): RenderFunction {
     if (!(typeof template === "string")) {
         if (template.nodeType) {
             template = template.innerHTML;
