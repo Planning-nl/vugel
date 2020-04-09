@@ -4,6 +4,7 @@ import { Constructor } from "tree2d/lib/util/types";
 
 export class Shader extends Container {
     set type(v: Constructor<Tree2dShader>) {
+        this.el.renderToTexture = true;
         this.el.shader = new v(this.stage.context);
     }
 

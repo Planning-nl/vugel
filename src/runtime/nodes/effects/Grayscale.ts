@@ -7,6 +7,7 @@ export class Grayscale extends Container {
 
     constructor(stage: Stage) {
         super(stage);
+        this.el.renderToTexture = true;
         this.el.shader = this.shader;
     }
 
