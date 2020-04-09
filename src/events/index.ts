@@ -1,44 +1,17 @@
 import { Stage } from "tree2d/lib";
-import { mouseEventTranslator, SupportedMouseEvents } from "./mouseEvents";
-import { Node } from "../runtime/nodes/Node";
-import { Events } from "@vue/runtime-dom";
-import { ElementCoordinatesInfo } from "tree2d/lib";
-import { SupportedTouchEvents, touchEventTranslator } from "./touchEvents";
+import { setupMouseEvents } from "./mouseEvents";
+import { setupTouchEvents } from "./touchEvents";
+import { setupFocusEvents } from "./focus";
 
-export type SupportedEvents = SupportedMouseEvents | SupportedTouchEvents;
-
-export interface VugelEvent<T extends Event> {
-    cancelBubble: boolean;
-    readonly currentTarget: Node | null;
-    readonly target: Node | null;
-    readonly type: SupportedEvents;
-    readonly originalEvent: T;
-}
-
-export const eventTranslators = {
-    ...mouseEventTranslator,
-    ...touchEventTranslator,
-} as const;
-
-// Type helpers
-export type RegisterEventDispatcher = (canvasElement: HTMLCanvasElement, stage: Stage) => any;
-
-export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (
-    stage: Stage,
-    event: O,
-) => {
-    event: V;
-    currentElement: ElementCoordinatesInfo<Node> | undefined;
+const setupEvents = (canvasElement: HTMLCanvasElement, stage: Stage) => {
+    setupMouseEvents(canvasElement, stage);
+    setupTouchEvents(canvasElement, stage);
+    setupFocusEvents(canvasElement, stage);
 };
 
-export type VugelEventListener<T extends VugelEvent<Event>> = (event: T) => any;
+export { setupEvents };
 
-export type VueEventsOfType<T extends Event> = keyof Pick<
-    Events,
-    {
-        [K in keyof Events]: Events[K] extends T ? (T extends Events[K] ? K : never) : never;
-    }[keyof Events]
->;
-
+export * from "./types";
 export * from "./mouseEvents";
 export * from "./touchEvents";
+export * from "./focus";

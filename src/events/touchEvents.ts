@@ -56,7 +56,7 @@ export const touchEventTranslator: {
     touchstart: "onTouchstart",
 } as const;
 
-export const registerTouchEventDispatchers: RegisterEventDispatcher = (canvasElement, stage) => {
+export const setupTouchEvents: RegisterEventDispatcher = (canvasElement, stage) => {
     for (const key in touchEventTranslator) {
         canvasElement.addEventListener(key, dispatchTouchEvent(stage) as EventListener);
     }

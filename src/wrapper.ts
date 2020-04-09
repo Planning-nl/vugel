@@ -11,8 +11,7 @@ import {
     getCurrentInstance,
 } from "@vue/runtime-core";
 import { Stage } from "tree2d/lib";
-import { registerMouseEventDispatchers } from "./events";
-import { registerTouchEventDispatchers } from "./events";
+import { setupEvents } from "./events";
 import { StageOptions } from "tree2d/lib/tree/Stage";
 import { Root } from "./runtime/nodes/Root";
 
@@ -48,8 +47,7 @@ export const Vugel: {
                         stageRoot.w = (w: number) => w;
                         stageRoot.h = (h: number) => h;
 
-                        registerMouseEventDispatchers(elRef.value, stage);
-                        registerTouchEventDispatchers(elRef.value, stage);
+                        setupEvents(elRef.value, stage);
                     }
 
                     const defaultSlot = setupContext.slots.default;
