@@ -16,7 +16,6 @@ import { Shader } from "./effects/Shader";
 import { BoxBlur } from "./effects/BoxBlur";
 
 const types: Record<string, new (stage: Stage) => Base> = {
-    node: Node,
     container: Container,
 
     // textures
