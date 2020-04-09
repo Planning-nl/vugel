@@ -1,4 +1,3 @@
-import { Node } from "./Node";
 import { Image } from "./textures/Image";
 import { Rectangle } from "./textures/Rectangle";
 import { Text } from "./textures/Text";
@@ -16,7 +15,6 @@ import { Shader } from "./effects/Shader";
 import { BoxBlur } from "./effects/BoxBlur";
 
 const types: Record<string, new (stage: Stage) => Base> = {
-    node: Node,
     container: Container,
 
     // textures

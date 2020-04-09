@@ -8,7 +8,14 @@ import {
     VugelMouseEvent,
     VugelTouchEvent,
 } from "../../events";
-import { ElementEventCallback, ElementResizeEventCallback, ElementTextureEventCallback, ElementTextureErrorEventCallback } from "tree2d/lib/tree/ElementListeners";
+import {
+    ElementEventCallback,
+    ElementResizeEventCallback,
+    ElementTextureEventCallback,
+    ElementTextureErrorEventCallback,
+} from "tree2d/lib/tree/ElementListeners";
+import { VugelStage } from "../../wrapper";
+import {VugelFocusEvent} from "../../events/focus/FocusManager";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -27,6 +34,11 @@ export type NodeEvents = {
     onTouchend?: VugelEventListener<VugelTouchEvent>;
     onTouchmove?: VugelEventListener<VugelTouchEvent>;
     onTouchstart?: VugelEventListener<VugelTouchEvent>;
+
+    onFocusin?: VugelEventListener<VugelFocusEvent>;
+    onFocusout?: VugelEventListener<VugelFocusEvent>;
+    onFocus?: VugelEventListener<VugelFocusEvent>;
+    onBlur?: VugelEventListener<VugelFocusEvent>;
 };
 
 export class Node extends Base {
@@ -47,7 +59,15 @@ export class Node extends Base {
         return this.element!;
     }
 
-    dispatchVugelEvent(event: VugelEvent<Event>) {
+    private get vugel() {
+        return (this.stage as VugelStage).vugel;
+    }
+
+    focus() {
+        this.vugel.eventHelpers.focusManager.setFocus(this);
+    }
+
+    dispatchEvent<T extends Event | undefined>(event: VugelEvent<T>) {
         const vueEventType = eventTranslators[event.type as SupportedEvents];
 
         const eventHandler = this._nodeEvents?.[vueEventType] as VugelEventListener<any>;
@@ -57,12 +77,12 @@ export class Node extends Base {
         });
     }
 
-    dispatchBubbledEvent(event: VugelEvent<Event>) {
+    dispatchBubbledEvent<T extends Event | undefined>(event: VugelEvent<T>, cancelBubbleAt?: Base) {
         const vueEventType = eventTranslators[event.type as SupportedEvents];
 
-        let currentNode: Node | undefined = this;
-        while (currentNode != undefined) {
-            const eventHandler = currentNode._nodeEvents?.[vueEventType] as VugelEventListener<any>;
+        let currentNode: Base | undefined = this;
+        while (currentNode !== undefined && currentNode !== cancelBubbleAt) {
+            const eventHandler = (currentNode as Node)._nodeEvents?.[vueEventType] as VugelEventListener<any>;
             const newEvent = {
                 ...event,
                 currentTarget: currentNode,
@@ -73,7 +93,8 @@ export class Node extends Base {
             if (newEvent.cancelBubble) {
                 return;
             }
-            currentNode = currentNode.parentNode as Node | undefined;
+
+            currentNode = currentNode.parent;
         }
     }
 
