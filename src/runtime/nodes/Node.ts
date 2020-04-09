@@ -1,14 +1,12 @@
 import { Base } from "./Base";
 import { Stage, Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
+import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener, VugelMouseEvent } from "../../events";
 import {
-    eventTranslators,
-    SupportedEvents,
-    VugelEvent,
-    VugelEventListener,
-    VugelMouseEvent,
-    VugelTouchEvent,
-} from "../../events";
-import { ElementEventCallback, ElementResizeEventCallback, ElementTextureEventCallback, ElementTextureErrorEventCallback } from "tree2d/lib/tree/ElementListeners";
+    ElementEventCallback,
+    ElementResizeEventCallback,
+    ElementTextureEventCallback,
+    ElementTextureErrorEventCallback,
+} from "tree2d/lib/tree/ElementListeners";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -23,10 +21,10 @@ export type NodeEvents = {
     onMouseover?: VugelEventListener<VugelMouseEvent>;
     onMouseup?: VugelEventListener<VugelMouseEvent>;
 
-    onTouchcancel?: VugelEventListener<VugelTouchEvent>;
-    onTouchend?: VugelEventListener<VugelTouchEvent>;
-    onTouchmove?: VugelEventListener<VugelTouchEvent>;
-    onTouchstart?: VugelEventListener<VugelTouchEvent>;
+    onTouchcancel?: VugelEventListener<VugelMouseEvent>;
+    onTouchend?: VugelEventListener<VugelMouseEvent>;
+    onTouchmove?: VugelEventListener<VugelMouseEvent>;
+    onTouchstart?: VugelEventListener<VugelMouseEvent>;
 };
 
 export class Node extends Base {
@@ -375,19 +373,19 @@ export class Node extends Base {
     }
 
     // TouchEvent
-    set onTouchcancel(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchcancel(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchcancel = e;
     }
 
-    set onTouchend(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchend(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchend = e;
     }
 
-    set onTouchmove(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchmove(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchmove = e;
     }
 
-    set onTouchstart(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchstart(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchstart = e;
     }
 }

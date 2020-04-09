@@ -23,13 +23,15 @@ export const eventTranslators = {
 // Type helpers
 export type RegisterEventDispatcher = (canvasElement: HTMLCanvasElement, stage: Stage) => any;
 
-export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (
-    stage: Stage,
-    event: O,
-) => {
+export type TranslatedEvent<V extends VugelEvent<Event>> = {
     event: V;
     currentElement: ElementCoordinatesInfo<Node> | undefined;
 };
+
+export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (
+    stage: Stage,
+    event: O,
+) => TranslatedEvent<V>;
 
 export type VugelEventListener<T extends VugelEvent<Event>> = (event: T) => any;
 

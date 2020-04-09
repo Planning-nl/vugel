@@ -1,21 +1,16 @@
 import { Node } from "../runtime/nodes/Node";
-import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import { EventTranslator, RegisterEventDispatcher, TranslatedEvent, VueEventsOfType, VugelEvent } from "./index";
 import { Stage } from "tree2d/lib";
 import { getCurrentContext } from "./utils";
 
-/**
- * The mouse event as emitted by vugel.
- *
- * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link MouseEvent}
- */
-export interface VugelMouseEvent extends VugelEvent<MouseEvent> {
+export interface VugelMouseEvent extends VugelEvent<MouseEvent | TouchEvent> {
     readonly canvasOffsetX: number;
     readonly canvasOffsetY: number;
     readonly elementOffsetX: number;
     readonly elementOffsetY: number;
 }
 
-type EventState = {
+export type MouseEventState = {
     activeNode?: Node;
 };
 
@@ -53,105 +48,112 @@ const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
     return false;
 };
 
-const dispatchMouseEvent = (stage: Stage, eventState: EventState) => {
+// https://www.w3.org/TR/uievents/#events-mouse-types
+const dispatchMouseEvent = (stage: Stage, eventState: MouseEventState) => {
     return (e: MouseEvent) => {
         const translatedEvent = translateEvent(stage, e);
+        dispatchVugelMouseEvent(translatedEvent, eventState);
+    };
+};
 
-        const prevNode = eventState.activeNode;
-        const currentNode = translatedEvent.currentElement?.element.data;
+export const dispatchVugelMouseEvent = (
+    translatedEvent: TranslatedEvent<VugelMouseEvent>,
+    eventState: MouseEventState,
+) => {
+    const prevNode = eventState.activeNode;
+    const currentNode = translatedEvent.currentElement?.element.data;
 
-        switch (e.type as SupportedMouseEvents) {
-            case "auxclick":
-            case "click":
-            case "contextmenu":
-            case "dblclick":
-            case "mousedown":
-            case "mouseup": {
-                currentNode?.dispatchBubbledEvent(translatedEvent.event);
-                break;
+    switch (translatedEvent.event.type as SupportedMouseEvents) {
+        case "auxclick":
+        case "click":
+        case "contextmenu":
+        case "dblclick":
+        case "mousedown":
+        case "mouseup": {
+            currentNode?.dispatchBubbledEvent(translatedEvent.event);
+            break;
+        }
+        case "mouseenter": {
+            eventState.activeNode = undefined;
+
+            if (currentNode) {
+                eventState.activeNode = currentNode;
+
+                currentNode.dispatchVugelEvent({
+                    ...translatedEvent.event,
+                    target: currentNode,
+                });
             }
-            case "mouseenter": {
-                eventState.activeNode = undefined;
 
-                if (currentNode) {
-                    eventState.activeNode = currentNode;
+            break;
+        }
+        case "mouseover": {
+            eventState.activeNode = undefined;
 
-                    currentNode.dispatchVugelEvent({
+            if (currentNode) {
+                eventState.activeNode = currentNode;
+
+                currentNode?.dispatchBubbledEvent({
+                    ...translatedEvent.event,
+                    target: currentNode,
+                });
+            }
+
+            break;
+        }
+        case "mouseleave": {
+            prevNode?.dispatchVugelEvent({
+                ...translatedEvent.event,
+                target: prevNode,
+            });
+            break;
+        }
+        case "mouseout": {
+            prevNode?.dispatchBubbledEvent({
+                ...translatedEvent.event,
+                target: prevNode,
+            });
+
+            break;
+        }
+        case "mousemove": {
+            if (currentNode) {
+                currentNode.dispatchBubbledEvent(translatedEvent.event);
+
+                if (prevNode != currentNode) {
+                    prevNode?.dispatchBubbledEvent({
                         ...translatedEvent.event,
+                        type: "mouseout",
+                        target: currentNode,
+                    });
+
+                    currentNode.dispatchBubbledEvent({
+                        ...translatedEvent.event,
+                        type: "mouseover",
                         target: currentNode,
                     });
                 }
 
-                break;
-            }
-            case "mouseover": {
-                eventState.activeNode = undefined;
-
-                if (currentNode) {
-                    eventState.activeNode = currentNode;
-
-                    currentNode?.dispatchBubbledEvent({
+                if (!prevNode || !isNodeInTree(currentNode, prevNode)) {
+                    currentNode.dispatchBubbledEvent({
                         ...translatedEvent.event,
+                        type: "mouseenter",
                         target: currentNode,
                     });
                 }
 
-                break;
-            }
-            case "mouseleave": {
-                prevNode?.dispatchVugelEvent({
-                    ...translatedEvent.event,
-                    target: prevNode,
-                });
-                break;
-            }
-            case "mouseout": {
-                prevNode?.dispatchBubbledEvent({
-                    ...translatedEvent.event,
-                    target: prevNode,
-                });
-
-                break;
-            }
-            case "mousemove": {
-                if (currentNode) {
-                    currentNode.dispatchBubbledEvent(translatedEvent.event);
-
-                    if (prevNode != currentNode) {
-                        prevNode?.dispatchBubbledEvent({
-                            ...translatedEvent.event,
-                            type: "mouseout",
-                            target: currentNode,
-                        });
-
-                        currentNode.dispatchBubbledEvent({
-                            ...translatedEvent.event,
-                            type: "mouseover",
-                            target: currentNode,
-                        });
-                    }
-
-                    if (!prevNode || !isNodeInTree(currentNode, prevNode)) {
-                        currentNode.dispatchBubbledEvent({
-                            ...translatedEvent.event,
-                            type: "mouseenter",
-                            target: currentNode,
-                        });
-                    }
-
-                    if (prevNode && !isNodeInTree(prevNode, currentNode)) {
-                        prevNode.dispatchBubbledEvent({
-                            ...translatedEvent.event,
-                            type: "mouseleave",
-                            target: currentNode,
-                        });
-                    }
-
-                    eventState.activeNode = currentNode;
+                if (prevNode && !isNodeInTree(prevNode, currentNode)) {
+                    prevNode.dispatchBubbledEvent({
+                        ...translatedEvent.event,
+                        type: "mouseleave",
+                        target: currentNode,
+                    });
                 }
+
+                eventState.activeNode = currentNode;
             }
         }
-    };
+    }
 };
 
 export type SupportedMouseEvents = keyof Pick<
@@ -186,7 +188,7 @@ export const mouseEventTranslator: {
 } as const;
 
 export const setupMouseEvents: RegisterEventDispatcher = (canvasElement, stage) => {
-    const eventState: EventState = {};
+    const eventState: MouseEventState = {};
 
     for (const key in mouseEventTranslator) {
         canvasElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);

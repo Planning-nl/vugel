@@ -1,44 +1,78 @@
-import { RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import {
+    dispatchVugelMouseEvent,
+    EventTranslator,
+    MouseEventState,
+    RegisterEventDispatcher,
+    SupportedMouseEvents,
+    TranslatedEvent,
+    VueEventsOfType,
+    VugelMouseEvent,
+} from "./index";
 import { Stage } from "tree2d/lib";
-import { Node } from "../runtime/nodes/Node";
-import { ElementCoordinatesInfo } from "tree2d/lib";
+import { getCurrentContext } from "./utils";
 
-/**
- * The touch event as emitted by vugel.
- *
- * @remarks Every property in this interface has the same meaning as the one found in the DOM {@link TouchEvent}
- */
-export interface VugelTouchEvent extends VugelEvent<TouchEvent> {
-    readonly altKey: boolean;
-    readonly changedTouches: TouchList;
-    readonly ctrlKey: boolean;
-    readonly metaKey: boolean;
-    readonly shiftKey: boolean;
-    readonly targetTouches: TouchList;
-    readonly touches: TouchList;
-}
+const translateEvent: EventTranslator<TouchEvent, VugelMouseEvent> = (stage, e) => {
+    let currentTouch: Touch;
 
-const translateEvent = (stage: Stage, e: TouchEvent): [VugelTouchEvent, ElementCoordinatesInfo<Node>] | undefined => {
-    // TODO
-    return;
+    const eventType = e.type as SupportedTouchEvents;
+    if (eventType === "touchend" || eventType === "touchcancel") {
+        currentTouch = e.changedTouches[0];
+    } else {
+        currentTouch = e.touches[0];
+    }
+
+    const { currentElement, canvasOffsetX, canvasOffsetY } = getCurrentContext(currentTouch, stage);
+    const currentNode = currentElement?.element.data;
+
+    return {
+        event: {
+            cancelBubble: false,
+
+            // Event
+            type: e.type as SupportedMouseEvents,
+            currentTarget: currentNode ?? null,
+            target: currentNode ?? null,
+
+            // MouseEvent
+            canvasOffsetX: canvasOffsetX,
+            canvasOffsetY: canvasOffsetY,
+            elementOffsetX: currentElement?.offsetX ?? 0,
+            elementOffsetY: currentElement?.offsetY ?? 0,
+
+            originalEvent: e,
+        },
+        currentElement: currentElement,
+    };
 };
 
-const dispatchTouchEvent = (stage: Stage) => {
+// https://www.w3.org/TR/touch-events/#list-of-touchevent-types
+const dispatchTouchEvent = (stage: Stage, eventState: MouseEventState) => {
     return (e: TouchEvent) => {
+        const translatedEvent = translateEvent(stage, e);
+        let correspondingMouseEvent: SupportedMouseEvents;
+
         switch (e.type as SupportedTouchEvents) {
-            case "touchcancel":
-                // TODO
+            case "touchstart":
+                correspondingMouseEvent = "mousedown";
                 break;
             case "touchend":
-                // TODO
+            case "touchcancel":
+                correspondingMouseEvent = "mouseup";
                 break;
             case "touchmove":
-                // TODO
-                break;
-            case "touchstart":
-                // TODO
+                correspondingMouseEvent = "mousemove";
                 break;
         }
+
+        const translatedMouseEvent: TranslatedEvent<VugelMouseEvent> = {
+            event: {
+                ...translatedEvent.event,
+                type: correspondingMouseEvent,
+            },
+            currentElement: translatedEvent.currentElement,
+        };
+
+        dispatchVugelMouseEvent(translatedMouseEvent, eventState);
     };
 };
 
@@ -57,7 +91,9 @@ export const touchEventTranslator: {
 } as const;
 
 export const setupTouchEvents: RegisterEventDispatcher = (canvasElement, stage) => {
+    const eventState: MouseEventState = {};
+
     for (const key in touchEventTranslator) {
-        canvasElement.addEventListener(key, dispatchTouchEvent(stage) as EventListener);
+        canvasElement.addEventListener(key, dispatchTouchEvent(stage, eventState) as EventListener);
     }
 };
