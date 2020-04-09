@@ -5,7 +5,6 @@ import DrawingTexture, { DrawingFunction } from "tree2d/lib/textures/DrawingText
 export { DrawingFunction };
 
 export class Drawing extends Node {
-
     private subject = new Element(this.stage);
     private drawingTexture = new DrawingTexture(this.stage);
 

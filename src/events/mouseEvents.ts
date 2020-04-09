@@ -53,6 +53,7 @@ const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
     return false;
 };
 
+// https://www.w3.org/TR/uievents/#events-mouse-types
 const dispatchMouseEvent = (stage: Stage, eventState: EventState) => {
     return (e: MouseEvent) => {
         const translatedEvent = translateEvent(stage, e);

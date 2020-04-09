@@ -8,14 +8,12 @@ export type EventHelpers = {
     focusManager: FocusManager;
 };
 
-const setupEvents = (canvasElement: HTMLCanvasElement, stage: Stage): EventHelpers => {
+export const setupEvents = (canvasElement: HTMLCanvasElement, stage: Stage): EventHelpers => {
     setupMouseEvents(canvasElement, stage);
     setupTouchEvents(canvasElement, stage);
     const focusManager = setupFocusEvents(canvasElement, stage);
     return { focusManager };
 };
-
-export { setupEvents };
 
 export * from "./types";
 export * from "./mouseEvents";

@@ -1,8 +1,6 @@
-import compileVugel from "./compiler/compileToFunction";
+export { compileVugel } from "./compiler/compileVugel";
 
-export { compileVugel };
-
-export * from "./wrapper";
-export * from "./events";
+export { Vugel } from "./wrapper";
+export { VugelEventListener, VugelMouseEvent, VugelEvent } from "./events";
 
 export { compile, parse } from "./compiler/compile";
