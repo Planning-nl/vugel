@@ -8,8 +8,8 @@ import {
     VueEventsOfType,
     VugelMouseEvent,
 } from "./index";
-import { Stage } from "tree2d/lib";
 import { getCurrentContext } from "./utils";
+import { VugelStage } from "../wrapper";
 
 const translateEvent: EventTranslator<TouchEvent, VugelMouseEvent> = (stage, e) => {
     let currentTouch: Touch;
@@ -46,7 +46,7 @@ const translateEvent: EventTranslator<TouchEvent, VugelMouseEvent> = (stage, e) 
 };
 
 // https://www.w3.org/TR/touch-events/#list-of-touchevent-types
-const dispatchTouchEvent = (stage: Stage, eventState: MouseEventState) => {
+const dispatchTouchEvent = (stage: VugelStage, eventState: MouseEventState) => {
     return (e: TouchEvent) => {
         const translatedEvent = translateEvent(stage, e);
         let correspondingMouseEvent: SupportedMouseEvents;

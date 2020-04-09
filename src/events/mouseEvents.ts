@@ -1,7 +1,7 @@
 import { Node } from "../runtime/nodes/Node";
 import { EventTranslator, RegisterEventDispatcher, TranslatedEvent, VueEventsOfType, VugelEvent } from "./index";
-import { Stage } from "tree2d/lib";
 import { getCommonAncestor, getCurrentContext } from "./utils";
+import { VugelStage } from "../wrapper";
 
 export interface VugelMouseEvent extends VugelEvent<MouseEvent | TouchEvent> {
     readonly canvasOffsetX: number;
@@ -49,7 +49,7 @@ const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
 };
 
 // https://www.w3.org/TR/uievents/#events-mouse-types
-const dispatchMouseEvent = (stage: Stage, eventState: MouseEventState) => {
+const dispatchMouseEvent = (stage: VugelStage, eventState: MouseEventState) => {
     return (e: MouseEvent) => {
         const translatedEvent = translateEvent(stage, e);
         dispatchVugelMouseEvent(translatedEvent, eventState);

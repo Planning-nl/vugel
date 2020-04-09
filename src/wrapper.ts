@@ -1,23 +1,21 @@
 import { createRendererForStage, VugelRender } from "./runtime/runtime";
 import {
+    ComponentPublicInstance,
     defineComponent,
+    effect,
     Fragment,
+    getCurrentInstance,
     h,
     onMounted,
-    ComponentPublicInstance,
-    ComponentInternalInstance,
     Ref,
     ref,
-    effect,
-    getCurrentInstance,
 } from "@vue/runtime-core";
 import { Stage } from "tree2d/lib";
-import { setupEvents, EventHelpers } from "./events";
+import { EventHelpers, setupEvents } from "./events";
 import { StageOptions } from "tree2d/lib/tree/Stage";
 import { Root } from "./runtime/nodes/Root";
 
-export type VugelInstance = ComponentInternalInstance & { eventHelpers: EventHelpers };
-export type VugelStage = Stage & { vugel: VugelInstance };
+export type VugelStage = Stage & { eventHelpers: EventHelpers };
 
 export const Vugel: {
     new (): ComponentPublicInstance<Partial<StageOptions>>;
@@ -43,11 +41,7 @@ export const Vugel: {
                         rendered = true;
 
                         stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
-
-                        (stage as any).vugel = currentInstance;
-
-                        const eventHelpers = setupEvents(elRef.value, stage);
-                        (currentInstance as VugelInstance).eventHelpers = eventHelpers;
+                        stage.eventHelpers = setupEvents(elRef.value, stage);
 
                         vugelRenderer = createRendererForStage(stage);
                         stageRoot = new Root(stage, stage.root);

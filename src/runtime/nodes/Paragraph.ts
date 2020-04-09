@@ -1,7 +1,8 @@
 import { Node, ensureFloat, ensureInt } from "./Node";
-import { Stage, Element, TextTexture } from "tree2d/lib";
+import { Element, TextTexture } from "tree2d/lib";
 import { TextTextureSettings } from "./textures/TextTextureSettings";
 import Delegator from "../utils/Delegator";
+import { VugelStage } from "../../wrapper";
 
 class Paragraph extends Node {
     private settings = new TextTextureSettings(() => this.update());
@@ -20,7 +21,7 @@ class Paragraph extends Node {
         this.update();
     }
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
         this.el.flex = true;
         this.el.flexWrap = true;

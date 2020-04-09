@@ -1,7 +1,6 @@
 import { Image } from "./textures/Image";
 import { Rectangle } from "./textures/Rectangle";
 import { Text } from "./textures/Text";
-import { Stage } from "tree2d/lib";
 import { Base } from "./Base";
 import { Paragraph } from "./Paragraph";
 import { Container } from "./Container";
@@ -13,8 +12,9 @@ import { Grayscale } from "./effects/Grayscale";
 import { Rounded } from "./effects/Rounded";
 import { Shader } from "./effects/Shader";
 import { BoxBlur } from "./effects/BoxBlur";
+import { VugelStage } from "../../wrapper";
 
-const types: Record<string, new (stage: Stage) => Base> = {
+const types: Record<string, new (stage: VugelStage) => Base> = {
     container: Container,
 
     // textures

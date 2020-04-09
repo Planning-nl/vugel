@@ -2,10 +2,10 @@ import types from "./nodes/types";
 import { Base } from "./nodes/Base";
 import { Comment } from "./nodes/Comment";
 import { RendererOptions } from "@vue/runtime-core";
-import { Stage } from "tree2d/lib";
 import TextNode from "./nodes/TextNode";
+import { VugelStage } from "../wrapper";
 
-export const nodeOps = (stage: Stage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({
+export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({
     insert: (child, parent, anchor) => {
         if (anchor != null) {
             parent.insertBefore(child, anchor);

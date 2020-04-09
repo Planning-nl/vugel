@@ -1,6 +1,13 @@
 import { Base } from "./Base";
-import { Stage, Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
-import { eventTranslators, SupportedEvents, VugelEvent, VugelEventListener, VugelMouseEvent } from "../../events";
+import { Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
+import {
+    eventTranslators,
+    SupportedEvents,
+    VugelEvent,
+    VugelEventListener,
+    VugelFocusEvent,
+    VugelMouseEvent,
+} from "../../events";
 import {
     ElementEventCallback,
     ElementResizeEventCallback,
@@ -8,7 +15,6 @@ import {
     ElementTextureErrorEventCallback,
 } from "tree2d/lib/tree/ElementListeners";
 import { VugelStage } from "../../wrapper";
-import {VugelFocusEvent} from "../../events/focus/FocusManager";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -35,12 +41,12 @@ export type NodeEvents = {
 };
 
 export class Node extends Base {
-    public readonly stage: Stage;
+    public readonly stage: VugelStage;
 
     public _nodeEvents?: NodeEvents;
     public pointerEvents = true;
 
-    constructor(stage: Stage, base?: Element) {
+    constructor(stage: VugelStage, base?: Element) {
         super(base || new Element(stage));
         this.stage = stage;
         if (this.element) {
@@ -52,12 +58,8 @@ export class Node extends Base {
         return this.element!;
     }
 
-    private get vugel() {
-        return (this.stage as VugelStage).vugel;
-    }
-
     focus() {
-        this.vugel.eventHelpers.focusManager.setFocus(this);
+        this.stage.eventHelpers.focusManager.setFocus(this);
     }
 
     dispatchEvent<T extends Event | undefined>(event: VugelEvent<T>) {
@@ -454,9 +456,9 @@ export function convertRelValue(v: number | RelFunction | string, argName: strin
 }
 
 export function convertToRelFunction(body: string, argName: string): RelFunction {
-    const key = `${argName}:${body}`;
     return new Function(argName, `return ${body}`) as RelFunction;
 }
+
 type RelFunction = (v: number) => number;
 
 const isFunction = (val: unknown): val is Function => typeof val === "function";

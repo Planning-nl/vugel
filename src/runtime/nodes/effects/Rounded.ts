@@ -1,11 +1,12 @@
 import { Container } from "../Container";
-import { Stage, RoundedRectangleShader } from "tree2d";
+import { RoundedRectangleShader } from "tree2d";
 import { ensureFloat } from "../Node";
+import { VugelStage } from "../../../wrapper";
 
 export class Rounded extends Container {
     private shader = new RoundedRectangleShader(this.stage.context);
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
         this.el.shader = this.shader;
         this.el.renderToTexture = true;

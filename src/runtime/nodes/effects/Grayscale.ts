@@ -1,11 +1,12 @@
 import { Container } from "../Container";
-import { Stage, GrayscaleShader } from "tree2d";
+import { GrayscaleShader } from "tree2d";
 import { ensureFloat } from "../Node";
+import { VugelStage } from "../../../wrapper";
 
 export class Grayscale extends Container {
     private shader = new GrayscaleShader(this.stage.context);
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
         this.el.renderToTexture = true;
         this.el.shader = this.shader;
