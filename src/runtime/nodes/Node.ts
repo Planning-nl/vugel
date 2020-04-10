@@ -1,12 +1,12 @@
 import { Base } from "./Base";
-import { Stage, Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
+import { Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
 import {
     eventTranslators,
     SupportedEvents,
     VugelEvent,
     VugelEventListener,
+    VugelFocusEvent,
     VugelMouseEvent,
-    VugelTouchEvent,
 } from "../../events";
 import {
     ElementEventCallback,
@@ -15,7 +15,6 @@ import {
     ElementTextureErrorEventCallback,
 } from "tree2d/lib/tree/ElementListeners";
 import { VugelStage } from "../../wrapper";
-import {VugelFocusEvent} from "../../events/focus/FocusManager";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -30,10 +29,10 @@ export type NodeEvents = {
     onMouseover?: VugelEventListener<VugelMouseEvent>;
     onMouseup?: VugelEventListener<VugelMouseEvent>;
 
-    onTouchcancel?: VugelEventListener<VugelTouchEvent>;
-    onTouchend?: VugelEventListener<VugelTouchEvent>;
-    onTouchmove?: VugelEventListener<VugelTouchEvent>;
-    onTouchstart?: VugelEventListener<VugelTouchEvent>;
+    onTouchcancel?: VugelEventListener<VugelMouseEvent>;
+    onTouchend?: VugelEventListener<VugelMouseEvent>;
+    onTouchmove?: VugelEventListener<VugelMouseEvent>;
+    onTouchstart?: VugelEventListener<VugelMouseEvent>;
 
     onFocusin?: VugelEventListener<VugelFocusEvent>;
     onFocusout?: VugelEventListener<VugelFocusEvent>;
@@ -42,12 +41,12 @@ export type NodeEvents = {
 };
 
 export class Node extends Base {
-    public readonly stage: Stage;
+    public readonly stage: VugelStage;
 
     public _nodeEvents?: NodeEvents;
     public pointerEvents = true;
 
-    constructor(stage: Stage, base?: Element) {
+    constructor(stage: VugelStage, base?: Element) {
         super(base || new Element(stage));
         this.stage = stage;
         if (this.element) {
@@ -59,12 +58,8 @@ export class Node extends Base {
         return this.element!;
     }
 
-    private get vugel() {
-        return (this.stage as VugelStage).vugel;
-    }
-
     focus() {
-        this.vugel.eventHelpers.focusManager.setFocus(this);
+        this.stage.eventHelpers.focusManager.setFocus(this);
     }
 
     dispatchEvent<T extends Event | undefined>(event: VugelEvent<T>) {
@@ -396,19 +391,19 @@ export class Node extends Base {
     }
 
     // TouchEvent
-    set onTouchcancel(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchcancel(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchcancel = e;
     }
 
-    set onTouchend(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchend(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchend = e;
     }
 
-    set onTouchmove(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchmove(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchmove = e;
     }
 
-    set onTouchstart(e: VugelEventListener<VugelTouchEvent> | undefined) {
+    set onTouchstart(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchstart = e;
     }
 }
@@ -461,9 +456,9 @@ export function convertRelValue(v: number | RelFunction | string, argName: strin
 }
 
 export function convertToRelFunction(body: string, argName: string): RelFunction {
-    const key = `${argName}:${body}`;
     return new Function(argName, `return ${body}`) as RelFunction;
 }
+
 type RelFunction = (v: number) => number;
 
 const isFunction = (val: unknown): val is Function => typeof val === "function";

@@ -1,15 +1,16 @@
-import { Stage, ElementCoordinatesInfo } from "tree2d/lib";
+import { ElementCoordinatesInfo } from "tree2d/lib";
 import { Node } from "../runtime/nodes/Node";
 import { Base } from "../runtime/nodes/Base";
+import { VugelStage } from "../wrapper";
 
-export function getCanvasOffset(e: PageCoordinates, stage: Stage): { x: number; y: number } {
+export function getCanvasOffset(e: PageCoordinates, stage: VugelStage): { x: number; y: number } {
     const rect = stage.getCanvas().getBoundingClientRect();
     return { x: e.pageX - rect.left, y: e.pageY - rect.top };
 }
 
 export function getCurrentContext(
     e: PageCoordinates,
-    stage: Stage,
+    stage: VugelStage,
 ): {
     currentElement: ElementCoordinatesInfo<Node> | undefined;
     canvasOffsetX: number;

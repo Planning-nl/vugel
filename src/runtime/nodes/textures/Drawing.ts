@@ -1,6 +1,7 @@
 import { Node } from "../Node";
-import { Stage, Element, Texture } from "tree2d";
+import { Element, Texture } from "tree2d";
 import DrawingTexture, { DrawingFunction } from "tree2d/lib/textures/DrawingTexture";
+import { VugelStage } from "../../../wrapper";
 
 export { DrawingFunction };
 
@@ -8,7 +9,7 @@ export class Drawing extends Node {
     private subject = new Element(this.stage);
     private drawingTexture = new DrawingTexture(this.stage);
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
 
         this.el.childList.add(this.subject);

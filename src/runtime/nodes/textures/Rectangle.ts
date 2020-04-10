@@ -1,8 +1,8 @@
 import { Container } from "../Container";
-import { Stage } from "tree2d";
+import { VugelStage } from "../../../wrapper";
 
 export class Rectangle extends Container {
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
         this.el.texture = stage.rectangleTexture;
     }

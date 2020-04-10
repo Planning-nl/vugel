@@ -1,14 +1,15 @@
 import { Node } from "../Node";
-import { Stage, TextTexture } from "tree2d";
+import { TextTexture } from "tree2d";
 import { TextTextureSettings } from "./TextTextureSettings";
 import Delegator from "../../utils/Delegator";
+import { VugelStage } from "../../../wrapper";
 
 class Text extends Node {
     private texture = new TextTexture(this.stage);
 
     private settings = new TextTextureSettings(() => this.update());
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
         this.el.texture = this.texture;
     }

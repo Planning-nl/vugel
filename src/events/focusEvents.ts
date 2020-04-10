@@ -1,13 +1,13 @@
-import { Node } from "../../runtime/nodes/Node";
-import { Stage } from "tree2d/lib";
-import { getCommonAncestor, getCurrentContext } from "../utils";
-import { VugelEvent } from "../types";
+import { Node } from "../runtime/nodes/Node";
+import { getCommonAncestor, getCurrentContext } from "./utils";
+import { VugelEvent } from "./types";
+import { VugelStage } from "../wrapper";
 
-class FocusManager {
+export class FocusEvents {
     private focusedNode?: Node = undefined;
     private updatingFocusPath: boolean = false;
 
-    constructor(private canvasElement: HTMLCanvasElement, private stage: Stage) {
+    constructor(private canvasElement: HTMLCanvasElement, private stage: VugelStage) {
         this.ensureCanvasFocusable();
         this.canvasElement.addEventListener("click", (e) => this.onCanvasClick(e));
         this.canvasElement.addEventListener("blur", (e) => this.onCanvasBlur(e));
@@ -93,21 +93,21 @@ class FocusManager {
     }
 }
 
-export { FocusManager };
-
 export interface VugelFocusEvent extends VugelEvent {
     relatedTarget: Node | null;
 }
 
-export type SupportedFocusEvents = "focusin" | "focusout" | "focus" | "blur";
-
-type TranslatedFocusEvents = "onFocusin" | "onFocusout" | "onFocus" | "onBlur";
+export type SupportedFocusEvents = keyof Pick<GlobalEventHandlersEventMap, "focusin" | "focusout" | "focus" | "blur">;
 
 export const focusEventTranslator: {
-    [x in SupportedFocusEvents]: TranslatedFocusEvents;
+    [x in SupportedFocusEvents]: "onFocusin" | "onFocusout" | "onFocus" | "onBlur";
 } = {
     focusin: "onFocusin",
     focusout: "onFocusout",
     focus: "onFocus",
     blur: "onBlur",
 } as const;
+
+export const setupFocusEvents = (canvasElement: HTMLCanvasElement, stage: VugelStage) => {
+    return new FocusEvents(canvasElement, stage);
+};

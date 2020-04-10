@@ -1,14 +1,13 @@
-import { Stage } from "tree2d/lib";
 import { setupMouseEvents } from "./mouseEvents";
 import { setupTouchEvents } from "./touchEvents";
-import { setupFocusEvents } from "./focus";
-import { FocusManager } from "./focus/FocusManager";
+import { VugelStage } from "../wrapper";
+import { FocusEvents, setupFocusEvents } from "./focusEvents";
 
 export type EventHelpers = {
-    focusManager: FocusManager;
+    focusManager: FocusEvents;
 };
 
-export const setupEvents = (canvasElement: HTMLCanvasElement, stage: Stage): EventHelpers => {
+export const setupEvents = (canvasElement: HTMLCanvasElement, stage: VugelStage): EventHelpers => {
     setupMouseEvents(canvasElement, stage);
     setupTouchEvents(canvasElement, stage);
     const focusManager = setupFocusEvents(canvasElement, stage);
@@ -18,4 +17,4 @@ export const setupEvents = (canvasElement: HTMLCanvasElement, stage: Stage): Eve
 export * from "./types";
 export * from "./mouseEvents";
 export * from "./touchEvents";
-export * from "./focus";
+export * from "./focusEvents";

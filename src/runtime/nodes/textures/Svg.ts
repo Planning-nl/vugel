@@ -1,14 +1,15 @@
 import { ensureFloat, Node } from "../Node";
-import { Stage, Element, Texture } from "tree2d";
+import { Element } from "tree2d";
 import SvgTexture, { SvgOptions } from "tree2d/lib/textures/SvgTexture";
 import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
+import { VugelStage } from "../../../wrapper";
 
 export class Svg extends Node {
     private options: SvgOptions = { w: 0, h: 0, src: "" };
 
     private svgTexture = new SvgTexture(this.stage);
 
-    constructor(stage: Stage) {
+    constructor(stage: VugelStage) {
         super(stage);
 
         this.el.texture = this.svgTexture;
