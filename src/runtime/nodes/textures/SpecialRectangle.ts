@@ -18,8 +18,8 @@ export class SpecialRectangle extends Node {
 
         this.subject.texture = this.roundRectTexture;
 
-        this.el.onResize = (element: Element, w: number, h: number) => this.handleResize(element, w, h);
-        this.subject.onTextureLoaded = (element, texture) => this.handleTextureLoaded(element, texture);
+        this.el.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
+        this.subject.onTextureLoaded = ({ element, texture }) => this.handleTextureLoaded(element, texture);
     }
 
     set pixelRatio(v: number) {

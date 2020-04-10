@@ -14,7 +14,7 @@ export class Svg extends Node {
 
         this.el.texture = this.svgTexture;
 
-        this.el.onResize = (element: Element, w: number, h: number) => this.handleResize(element, w, h);
+        this.el.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
     }
 
     set src(v: string) {
