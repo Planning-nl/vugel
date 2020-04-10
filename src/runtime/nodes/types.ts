@@ -1,17 +1,17 @@
-import { Image } from "./textures/Image";
-import { Rectangle } from "./textures/Rectangle";
-import { Text } from "./textures/Text";
+import { Image } from "./textures";
+import { Rectangle } from "./textures";
+import { Text } from "./textures";
 import { Base } from "./Base";
 import { Paragraph } from "./Paragraph";
 import { Container } from "./Container";
-import { SpecialRectangle } from "./textures/SpecialRectangle";
-import { Drawing } from "./textures/Drawing";
-import { Texture } from "./textures/Texture";
-import { Svg } from "./textures/Svg";
-import { Grayscale } from "./effects/Grayscale";
-import { Rounded } from "./effects/Rounded";
-import { Shader } from "./effects/Shader";
-import { BoxBlur } from "./effects/BoxBlur";
+import { SpecialRectangle } from "./textures";
+import { Drawing } from "./textures";
+import { Texture } from "./textures";
+import { Svg } from "./textures";
+import { Grayscale } from "./effects";
+import { Rounded } from "./effects";
+import { Shader } from "./effects";
+import { BoxBlur } from "./effects";
 import { VugelStage } from "../../wrapper";
 
 const types: Record<string, new (stage: VugelStage) => Base> = {

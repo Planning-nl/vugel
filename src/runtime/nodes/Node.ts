@@ -77,24 +77,31 @@ export class Node extends Base {
         });
     }
 
+    /**
+     * Dispatches a bubbled event.
+     *
+     * @param event the event to be dispatched
+     * @param ancestorBubble if you want to fake bubble (for example for a mouseleave event) until a certain ancestor, this field should be used.
+     * Note that this will also update the target of the event. When setting it to "true", it will effectively bubble all the way down, though updating the target the entire tree.
+     */
     dispatchBubbledEvent<T extends Event | undefined>(
         event: VugelEvent<T>,
-        cancelBubbleAt: Base | undefined = undefined,
-        cancelable: boolean = true,
+        ancestorBubble: Base | true | undefined = undefined,
     ) {
         const vueEventType = eventTranslators[event.type as SupportedEvents];
 
         let currentNode: Base | undefined = this;
-        while (currentNode !== undefined && currentNode !== cancelBubbleAt) {
+        while (currentNode !== undefined && currentNode !== ancestorBubble) {
             const eventHandler = (currentNode as Node)._nodeEvents?.[vueEventType] as VugelEventListener<any>;
             const newEvent = {
                 ...event,
                 currentTarget: currentNode,
+                target: ancestorBubble !== undefined ? currentNode : event.target,
             };
 
             eventHandler?.(newEvent);
 
-            if (cancelable && newEvent.cancelBubble) {
+            if (ancestorBubble !== undefined && newEvent.cancelBubble) {
                 return;
             }
 

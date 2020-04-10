@@ -2,7 +2,7 @@ import types from "./nodes/types";
 import { Base } from "./nodes/Base";
 import { Comment } from "./nodes/Comment";
 import { RendererOptions } from "@vue/runtime-core";
-import TextNode from "./nodes/TextNode";
+import { TextNode } from "./nodes/TextNode";
 import { VugelStage } from "../wrapper";
 
 export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({

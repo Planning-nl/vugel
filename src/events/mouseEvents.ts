@@ -66,16 +66,7 @@ export const dispatchVugelMouseEvent = (translatedEvent: VugelMouseEvent, eventS
 
             if (currentNode) {
                 eventState.activeNode = currentNode;
-
-                // Mouseleave and mouseenter, though not bubbeling events, need to be called recursively until the common ancestor.
-                currentNode.dispatchBubbledEvent(
-                    {
-                        ...translatedEvent,
-                        currentTarget: prevNode ?? null,
-                    },
-                    getCommonAncestor(prevNode, currentNode),
-                    false,
-                );
+                currentNode.dispatchBubbledEvent(translatedEvent, true);
             }
 
             break;
@@ -85,23 +76,13 @@ export const dispatchVugelMouseEvent = (translatedEvent: VugelMouseEvent, eventS
 
             if (currentNode) {
                 eventState.activeNode = currentNode;
-
-                currentNode?.dispatchBubbledEvent({
-                    ...translatedEvent
-                });
+                currentNode?.dispatchBubbledEvent(translatedEvent);
             }
 
             break;
         }
         case "mouseleave": {
-            prevNode?.dispatchBubbledEvent(
-                {
-                    ...translatedEvent,
-                    target: prevNode,
-                },
-                getCommonAncestor(prevNode, currentNode),
-                false,
-            );
+            prevNode?.dispatchBubbledEvent(translatedEvent, true);
             break;
         }
         case "mouseout": {
@@ -109,49 +90,45 @@ export const dispatchVugelMouseEvent = (translatedEvent: VugelMouseEvent, eventS
                 ...translatedEvent,
                 target: prevNode,
             });
-
             break;
         }
         case "mousemove": {
-            if (currentNode) {
+            if (currentNode !== undefined && prevNode != currentNode) {
                 const commonAncestor = getCommonAncestor(prevNode, currentNode);
-                if (prevNode != currentNode) {
-                    prevNode?.dispatchBubbledEvent({
+
+                prevNode?.dispatchBubbledEvent({
+                    ...translatedEvent,
+                    type: "mouseout",
+                    target: prevNode,
+                });
+
+                prevNode?.dispatchBubbledEvent(
+                    {
                         ...translatedEvent,
-                        type: "mouseout",
+                        type: "mouseleave",
                         target: prevNode,
-                    });
+                    },
+                    commonAncestor,
+                );
 
-                    prevNode?.dispatchBubbledEvent(
-                        {
-                            ...translatedEvent,
-                            type: "mouseleave",
-                            target: prevNode,
-                        },
-                        commonAncestor,
-                        false,
-                    );
+                currentNode.dispatchBubbledEvent({
+                    ...translatedEvent,
+                    type: "mouseover",
+                });
 
-                    currentNode.dispatchBubbledEvent({
+                currentNode.dispatchBubbledEvent(
+                    {
                         ...translatedEvent,
-                        type: "mouseover",
-                    });
-
-                    currentNode.dispatchBubbledEvent(
-                        {
-                            ...translatedEvent,
-                            type: "mouseenter",
-                        },
-                        commonAncestor,
-                        false,
-                    );
-                }
-
-                // Mousemove
-                currentNode.dispatchBubbledEvent(translatedEvent);
-
-                eventState.activeNode = currentNode;
+                        type: "mouseenter",
+                    },
+                    commonAncestor,
+                );
             }
+
+            // Mousemove
+            currentNode?.dispatchBubbledEvent(translatedEvent);
+
+            eventState.activeNode = currentNode;
         }
     }
 };
