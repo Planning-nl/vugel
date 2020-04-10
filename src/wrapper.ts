@@ -10,9 +10,8 @@ import {
     Ref,
     ref,
 } from "@vue/runtime-core";
-import { Stage } from "tree2d/lib";
+import { Stage, StageOptions } from "tree2d/lib";
 import { EventHelpers, setupEvents } from "./events";
-import { StageOptions } from "tree2d/lib/tree/Stage";
 import { Root } from "./runtime/nodes/Root";
 
 export type VugelStage = Stage & { eventHelpers: EventHelpers };
