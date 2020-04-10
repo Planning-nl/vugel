@@ -14,7 +14,7 @@ import { Shader } from "./effects";
 import { BoxBlur } from "./effects";
 import { VugelStage } from "../../wrapper";
 
-const types: Record<string, new (stage: VugelStage) => Base> = {
+export const types: Record<string, new (stage: VugelStage) => Base> = {
     container: Container,
 
     // textures
@@ -34,6 +34,4 @@ const types: Record<string, new (stage: VugelStage) => Base> = {
 
     // advanced
     paragraph: Paragraph,
-};
-
-export default types;
+} as const;

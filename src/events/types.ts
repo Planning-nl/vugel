@@ -1,7 +1,6 @@
 import { mouseEventTranslator, SupportedMouseEvents } from "./mouseEvents";
 import { Node } from "../runtime/nodes/Node";
 import { Events } from "@vue/runtime-dom";
-import { ElementCoordinatesInfo } from "tree2d/lib";
 import { SupportedTouchEvents, touchEventTranslator } from "./touchEvents";
 import { VugelStage } from "../wrapper";
 import { focusEventTranslator, SupportedFocusEvents } from "./focusEvents";

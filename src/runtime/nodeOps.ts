@@ -1,4 +1,4 @@
-import types from "./nodes/types";
+import { types } from "./nodes/types";
 import { Base } from "./nodes/Base";
 import { Comment } from "./nodes/Comment";
 import { RendererOptions } from "@vue/runtime-core";
@@ -21,7 +21,7 @@ export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "p
         }
     },
 
-    createElement: (tag, isSVG) => {
+    createElement: (tag: keyof typeof types, isSVG) => {
         const type = types[tag];
         return new type(stage);
     },
