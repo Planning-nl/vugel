@@ -4,7 +4,6 @@ import {
     MouseEventState,
     RegisterEventDispatcher,
     SupportedMouseEvents,
-    TranslatedEvent,
     VueEventsOfType,
     VugelMouseEvent,
 } from "./index";
@@ -25,22 +24,20 @@ const translateEvent: EventTranslator<TouchEvent, VugelMouseEvent> = (stage, e) 
     const currentNode = currentElement?.element.data;
 
     return {
-        event: {
-            cancelBubble: false,
+        cancelBubble: false,
 
-            // Event
-            type: e.type as SupportedMouseEvents,
-            currentTarget: currentNode ?? null,
-            target: currentNode ?? null,
+        // Event
+        type: e.type as SupportedMouseEvents,
+        currentTarget: currentNode ?? null,
+        target: currentNode ?? null,
 
-            // MouseEvent
-            canvasOffsetX: canvasOffsetX,
-            canvasOffsetY: canvasOffsetY,
-            elementOffsetX: currentElement?.offsetX ?? 0,
-            elementOffsetY: currentElement?.offsetY ?? 0,
+        // MouseEvent
+        canvasOffsetX: canvasOffsetX,
+        canvasOffsetY: canvasOffsetY,
+        elementOffsetX: currentElement?.offsetX ?? 0,
+        elementOffsetY: currentElement?.offsetY ?? 0,
 
-            originalEvent: e,
-        },
+        originalEvent: e,
         currentElement: currentElement,
     };
 };
@@ -64,11 +61,9 @@ const dispatchTouchEvent = (stage: VugelStage, eventState: MouseEventState) => {
                 break;
         }
 
-        const translatedMouseEvent: TranslatedEvent<VugelMouseEvent> = {
-            event: {
-                ...translatedEvent.event,
-                type: correspondingMouseEvent,
-            },
+        const translatedMouseEvent: VugelMouseEvent = {
+            ...translatedEvent,
+            type: correspondingMouseEvent,
             currentElement: translatedEvent.currentElement,
         };
 

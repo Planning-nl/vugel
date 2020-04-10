@@ -5,8 +5,13 @@ import { ElementCoordinatesInfo } from "tree2d/lib";
 import { SupportedTouchEvents, touchEventTranslator } from "./touchEvents";
 import { VugelStage } from "../wrapper";
 import { focusEventTranslator, SupportedFocusEvents } from "./focusEvents";
+import { keyboardEventTranslator, SupportedKeyboardEvents } from "./keyboardEvents";
 
-export type SupportedEvents = SupportedMouseEvents | SupportedTouchEvents | SupportedFocusEvents;
+export type SupportedEvents =
+    | SupportedMouseEvents
+    | SupportedTouchEvents
+    | SupportedFocusEvents
+    | SupportedKeyboardEvents;
 
 export interface VugelEvent<T extends Event | undefined = undefined> {
     cancelBubble: boolean;
@@ -20,20 +25,13 @@ export const eventTranslators = {
     ...mouseEventTranslator,
     ...touchEventTranslator,
     ...focusEventTranslator,
+    ...keyboardEventTranslator,
 } as const;
 
 // Type helpers
 export type RegisterEventDispatcher = (canvasElement: HTMLCanvasElement, stage: VugelStage) => any;
 
-export type TranslatedEvent<V extends VugelEvent<Event>> = {
-    event: V;
-    currentElement: ElementCoordinatesInfo<Node> | undefined;
-};
-
-export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (
-    stage: VugelStage,
-    event: O,
-) => TranslatedEvent<V>;
+export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (stage: VugelStage, event: O) => V;
 
 export type VugelEventListener<T extends VugelEvent<any>> = (event: T) => any;
 

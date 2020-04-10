@@ -1,13 +1,15 @@
 import { Node } from "../runtime/nodes/Node";
-import { EventTranslator, RegisterEventDispatcher, TranslatedEvent, VueEventsOfType, VugelEvent } from "./index";
+import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import { getCommonAncestor, getCurrentContext } from "./utils";
 import { VugelStage } from "../wrapper";
+import { ElementCoordinatesInfo } from "tree2d/lib";
 
 export interface VugelMouseEvent extends VugelEvent<MouseEvent | TouchEvent> {
     readonly canvasOffsetX: number;
     readonly canvasOffsetY: number;
     readonly elementOffsetX: number;
     readonly elementOffsetY: number;
+    readonly currentElement: ElementCoordinatesInfo<Node> | undefined;
 }
 
 export type MouseEventState = {
@@ -19,33 +21,22 @@ const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) 
     const currentNode = currentElement?.element.data;
 
     return {
-        event: {
-            cancelBubble: false,
+        cancelBubble: false,
 
-            // Event
-            type: e.type as SupportedMouseEvents,
-            currentTarget: currentNode ?? null,
-            target: currentNode ?? null,
+        // Event
+        type: e.type as SupportedMouseEvents,
+        currentTarget: currentNode ?? null,
+        target: currentNode ?? null,
 
-            // MouseEvent
-            canvasOffsetX: canvasOffsetX,
-            canvasOffsetY: canvasOffsetY,
-            elementOffsetX: currentElement?.offsetX ?? 0,
-            elementOffsetY: currentElement?.offsetY ?? 0,
-
-            originalEvent: e,
-        },
+        // MouseEvent
+        canvasOffsetX: canvasOffsetX,
+        canvasOffsetY: canvasOffsetY,
+        elementOffsetX: currentElement?.offsetX ?? 0,
+        elementOffsetY: currentElement?.offsetY ?? 0,
         currentElement: currentElement,
-    };
-};
 
-const isNodeInTree = (nodeToFind: Node, leafNode: Node): boolean => {
-    let currentNode: Node | undefined = leafNode;
-    while (currentNode != undefined) {
-        if (currentNode == nodeToFind) return true;
-        currentNode = currentNode.parent as Node | undefined;
-    }
-    return false;
+        originalEvent: e,
+    };
 };
 
 // https://www.w3.org/TR/uievents/#events-mouse-types
@@ -56,21 +47,18 @@ const dispatchMouseEvent = (stage: VugelStage, eventState: MouseEventState) => {
     };
 };
 
-export const dispatchVugelMouseEvent = (
-    translatedEvent: TranslatedEvent<VugelMouseEvent>,
-    eventState: MouseEventState,
-) => {
+export const dispatchVugelMouseEvent = (translatedEvent: VugelMouseEvent, eventState: MouseEventState) => {
     const prevNode = eventState.activeNode;
     const currentNode = translatedEvent.currentElement?.element.data;
 
-    switch (translatedEvent.event.type as SupportedMouseEvents) {
+    switch (translatedEvent.type as SupportedMouseEvents) {
         case "auxclick":
         case "click":
         case "contextmenu":
         case "dblclick":
         case "mousedown":
         case "mouseup": {
-            currentNode?.dispatchBubbledEvent(translatedEvent.event);
+            currentNode?.dispatchBubbledEvent(translatedEvent);
             break;
         }
         case "mouseenter": {
@@ -79,10 +67,15 @@ export const dispatchVugelMouseEvent = (
             if (currentNode) {
                 eventState.activeNode = currentNode;
 
-                currentNode.dispatchEvent({
-                    ...translatedEvent.event,
-                    target: currentNode,
-                });
+                // Mouseleave and mouseenter, though not bubbeling events, need to be called recursively until the common ancestor.
+                currentNode.dispatchBubbledEvent(
+                    {
+                        ...translatedEvent,
+                        currentTarget: prevNode ?? null,
+                    },
+                    getCommonAncestor(prevNode, currentNode),
+                    false,
+                );
             }
 
             break;
@@ -93,79 +86,69 @@ export const dispatchVugelMouseEvent = (
             if (currentNode) {
                 eventState.activeNode = currentNode;
 
-                currentNode?.dispatchBubbledEvent(
-                    {
-                        ...translatedEvent.event,
-                        target: currentNode,
-                    },
-                    getCommonAncestor(prevNode, currentNode),
-                );
+                currentNode?.dispatchBubbledEvent({
+                    ...translatedEvent
+                });
             }
 
             break;
         }
         case "mouseleave": {
-            prevNode?.dispatchEvent({
-                ...translatedEvent.event,
-                target: prevNode,
-            });
-            break;
-        }
-        case "mouseout": {
             prevNode?.dispatchBubbledEvent(
                 {
-                    ...translatedEvent.event,
+                    ...translatedEvent,
                     target: prevNode,
                 },
                 getCommonAncestor(prevNode, currentNode),
+                false,
             );
+            break;
+        }
+        case "mouseout": {
+            prevNode?.dispatchBubbledEvent({
+                ...translatedEvent,
+                target: prevNode,
+            });
 
             break;
         }
         case "mousemove": {
             if (currentNode) {
                 const commonAncestor = getCommonAncestor(prevNode, currentNode);
-
                 if (prevNode != currentNode) {
+                    prevNode?.dispatchBubbledEvent({
+                        ...translatedEvent,
+                        type: "mouseout",
+                        target: prevNode,
+                    });
+
                     prevNode?.dispatchBubbledEvent(
                         {
-                            ...translatedEvent.event,
-                            type: "mouseout",
-                            target: currentNode,
+                            ...translatedEvent,
+                            type: "mouseleave",
+                            target: prevNode,
                         },
                         commonAncestor,
+                        false,
                     );
-                }
 
-                if (prevNode && !isNodeInTree(prevNode, currentNode)) {
-                    prevNode.dispatchEvent({
-                        ...translatedEvent.event,
-                        type: "mouseleave",
-                        target: currentNode,
+                    currentNode.dispatchBubbledEvent({
+                        ...translatedEvent,
+                        type: "mouseover",
                     });
-                }
 
-                if (prevNode != currentNode) {
                     currentNode.dispatchBubbledEvent(
                         {
-                            ...translatedEvent.event,
-                            type: "mouseover",
-                            target: currentNode,
+                            ...translatedEvent,
+                            type: "mouseenter",
                         },
                         commonAncestor,
+                        false,
                     );
-                }
-
-                if (!prevNode || !isNodeInTree(currentNode, prevNode)) {
-                    currentNode.dispatchEvent({
-                        ...translatedEvent.event,
-                        type: "mouseenter",
-                        target: currentNode,
-                    });
                 }
 
                 // Mousemove
-                currentNode.dispatchBubbledEvent(translatedEvent.event);
+                currentNode.dispatchBubbledEvent(translatedEvent);
 
                 eventState.activeNode = currentNode;
             }

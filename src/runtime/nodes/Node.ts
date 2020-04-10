@@ -6,6 +6,7 @@ import {
     VugelEvent,
     VugelEventListener,
     VugelFocusEvent,
+    VugelKeyboardEvent,
     VugelMouseEvent,
 } from "../../events";
 import {
@@ -38,6 +39,10 @@ export type NodeEvents = {
     onFocusout?: VugelEventListener<VugelFocusEvent>;
     onFocus?: VugelEventListener<VugelFocusEvent>;
     onBlur?: VugelEventListener<VugelFocusEvent>;
+
+    onKeypress?: VugelEventListener<VugelKeyboardEvent>;
+    onKeydown?: VugelEventListener<VugelKeyboardEvent>;
+    onKeyup?: VugelEventListener<VugelKeyboardEvent>;
 };
 
 export class Node extends Base {
@@ -72,7 +77,11 @@ export class Node extends Base {
         });
     }
 
-    dispatchBubbledEvent<T extends Event | undefined>(event: VugelEvent<T>, cancelBubbleAt?: Base) {
+    dispatchBubbledEvent<T extends Event | undefined>(
+        event: VugelEvent<T>,
+        cancelBubbleAt: Base | undefined = undefined,
+        cancelable: boolean = true,
+    ) {
         const vueEventType = eventTranslators[event.type as SupportedEvents];
 
         let currentNode: Base | undefined = this;
@@ -85,7 +94,7 @@ export class Node extends Base {
 
             eventHandler?.(newEvent);
 
-            if (newEvent.cancelBubble) {
+            if (cancelable && newEvent.cancelBubble) {
                 return;
             }
 
@@ -405,6 +414,36 @@ export class Node extends Base {
 
     set onTouchstart(e: VugelEventListener<VugelMouseEvent> | undefined) {
         this.nodeEvents.onTouchstart = e;
+    }
+
+    // FocusEvent
+    set onFocusin(e: VugelEventListener<VugelFocusEvent> | undefined) {
+        this.nodeEvents.onFocusin = e;
+    }
+
+    set onFocusout(e: VugelEventListener<VugelFocusEvent> | undefined) {
+        this.nodeEvents.onFocusout = e;
+    }
+
+    set onFocus(e: VugelEventListener<VugelFocusEvent> | undefined) {
+        this.nodeEvents.onFocus = e;
+    }
+
+    set onBlur(e: VugelEventListener<VugelFocusEvent> | undefined) {
+        this.nodeEvents.onBlur = e;
+    }
+
+    // KeyboardEvent
+    set onKeypress(e: VugelEventListener<VugelKeyboardEvent> | undefined) {
+        this.nodeEvents.onKeypress = e;
+    }
+
+    set onKeydown(e: VugelEventListener<VugelKeyboardEvent> | undefined) {
+        this.nodeEvents.onKeydown = e;
+    }
+
+    set onKeyup(e: VugelEventListener<VugelKeyboardEvent> | undefined) {
+        this.nodeEvents.onKeyup = e;
     }
 }
 

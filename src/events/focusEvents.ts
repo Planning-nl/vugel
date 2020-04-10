@@ -13,6 +13,10 @@ export class FocusEvents {
         this.canvasElement.addEventListener("blur", (e) => this.onCanvasBlur(e));
     }
 
+    getFocusedNode(): Node | undefined {
+        return this.focusedNode;
+    }
+
     private ensureCanvasFocusable() {
         if (!this.canvasElement.hasAttribute("tabindex")) {
             this.canvasElement.setAttribute("tabindex", "-1");
@@ -45,6 +49,8 @@ export class FocusEvents {
 
         const prevFocusedNode = this.focusedNode;
         const commonAncestor = getCommonAncestor(this.focusedNode, newFocusedNode);
+
+        this.focusedNode = newFocusedNode;
 
         // Use event order as specified in https://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
 
