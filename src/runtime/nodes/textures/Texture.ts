@@ -1,6 +1,6 @@
 import { Node } from "../Node";
 import { Texture as Tree2dTexture } from "tree2d";
-import { Constructor } from "tree2d/lib/util/types";
+import { Constructor } from "../../utils/types";
 
 export class Texture extends Node {
     set type(v: Constructor<Tree2dTexture>) {

@@ -1,5 +1,4 @@
-type Constructor<T> = new (...args: any[]) => T;
-type AnyClass = Constructor<any>;
+import { AnyClass } from "./types";
 
 export default class Delegator {
     public static delegate<T extends AnyClass, U extends AnyClass>(base: T, delegate: U, property: string) {
