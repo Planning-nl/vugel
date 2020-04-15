@@ -1,29 +1,21 @@
-import { ensureFloat, Node } from "../Node";
 import { Element } from "tree2d/lib";
 import SvgTexture, { SvgOptions } from "tree2d/lib/textures/SvgTexture";
-import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
 import { VugelStage } from "../../../wrapper";
+import { DynamicSizeTexture } from "./DynamicSizeTexture";
 
-export class Svg extends Node {
+export class Svg extends DynamicSizeTexture {
     private options: SvgOptions = { w: 0, h: 0, src: "" };
 
     private svgTexture = new SvgTexture(this.stage);
 
     constructor(stage: VugelStage) {
         super(stage);
-
-        this.el.texture = this.svgTexture;
-
-        this.el.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
+        this.textureElement.texture = this.svgTexture;
     }
 
     set src(v: string) {
         this.options.src = v;
         this.updateTextureOptions();
-    }
-
-    set pixelRatio(v: number) {
-        this.el.texture!.pixelRatio = ensureFloat(v);
     }
 
     private updateDimensions(w: number, h: number) {
@@ -36,11 +28,7 @@ export class Svg extends Node {
         this.svgTexture.options = this.options;
     }
 
-    set onResize(v: ElementResizeEventCallback | undefined) {
-        console.warn("You can't set onResize on a <svg>");
-    }
-
-    private handleResize(element: Element, w: number, h: number) {
+    protected handleResize(element: Element, w: number, h: number) {
         if (this.options) {
             this.updateDimensions(w, h);
         }

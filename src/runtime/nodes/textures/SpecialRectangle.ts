@@ -1,34 +1,17 @@
 import { ensureBoolean, ensureColor, ensureFloat, ensureInt } from "../Node";
-import { Element, Texture } from "tree2d/lib";
+import { Element } from "tree2d/lib";
 import RoundRectTexture, { RoundRectOptions } from "tree2d/lib/textures/RoundRectTexture";
-import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
+import { DynamicSizeTexture } from "./DynamicSizeTexture";
 import { VugelStage } from "../../../wrapper";
-import { Container } from "../Container";
 
-export class SpecialRectangle extends Container {
+export class SpecialRectangle extends DynamicSizeTexture {
     private options: Partial<RoundRectOptions> = {};
 
-    private subject = new Element(this.stage);
-
-    private roundRectTexture = new RoundRectTexture(this.stage);
+    private roundRectTexture: RoundRectTexture = new RoundRectTexture(this.stage);
 
     constructor(stage: VugelStage) {
         super(stage);
-
-        this.el.childList.add(this.subject);
-
-        this.subject.texture = this.roundRectTexture;
-
-        this.containerElement = this.subject;
-
-        this.el.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
-        this.subject.onTextureLoaded = ({ element, texture }) => this.handleTextureLoaded(element, texture);
-
-        this.subject.skipInLayout = true;
-    }
-
-    set pixelRatio(v: number) {
-        this.subject.texture!.pixelRatio = ensureFloat(v);
+        this.textureElement.texture = this.roundRectTexture;
     }
 
     set radius(radius: number) {
@@ -83,19 +66,9 @@ export class SpecialRectangle extends Container {
         this.roundRectTexture.options = this.options;
     }
 
-    set onResize(v: ElementResizeEventCallback | undefined) {
-        console.warn("You can't set onResize on a <special-rectangle>");
-    }
-
-    private handleResize(element: Element, w: number, h: number) {
+    protected handleResize(element: Element, w: number, h: number) {
         if (this.options) {
             this.updateDimensions(w, h);
         }
-    }
-
-    private handleTextureLoaded(element: Element, texture: Texture) {
-        const renderInfo = texture.getSource()?.getRenderInfo();
-        this.subject.x = -(renderInfo?.offsetX || 0);
-        this.subject.y = -(renderInfo?.offsetY || 0);
     }
 }

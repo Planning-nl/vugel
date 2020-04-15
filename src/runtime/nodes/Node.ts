@@ -63,6 +63,11 @@ export class Node extends Base {
         return this.element!;
     }
 
+    // Returns the element containing the texture. Texture clipping and tinting will be applied to this element.
+    get textureElement(): Element {
+        return this.element!;
+    }
+
     focus() {
         this.stage.eventHelpers.focusManager.setFocus(this);
     }
@@ -174,40 +179,71 @@ export class Node extends Base {
     }
 
     set colorUl(v: number) {
-        this.el.colorUl = ensureColor(v);
+        this.textureElement.colorUl = ensureColor(v);
     }
 
     set colorUr(v: number) {
-        this.el.colorUr = ensureColor(v);
+        this.textureElement.colorUr = ensureColor(v);
     }
 
     set colorBl(v: number) {
-        this.el.colorUl = ensureColor(v);
+        this.textureElement.colorUl = ensureColor(v);
     }
 
     set colorBr(v: number) {
-        this.el.colorUr = ensureColor(v);
+        this.textureElement.colorUr = ensureColor(v);
     }
 
     set colorTop(v: number) {
-        this.el.colorTop = ensureColor(v);
+        this.textureElement.colorTop = ensureColor(v);
     }
 
     set colorBottom(v: number) {
-        this.el.colorBottom = ensureColor(v);
+        this.textureElement.colorBottom = ensureColor(v);
     }
 
     set colorLeft(v: number) {
-        this.el.colorLeft = ensureColor(v);
+        this.textureElement.colorLeft = ensureColor(v);
     }
 
     set colorRight(v: number) {
-        this.el.colorRight = ensureColor(v);
+        this.textureElement.colorRight = ensureColor(v);
     }
 
     set color(v: number) {
-        this.el.color = ensureColor(v);
+        this.textureElement.color = ensureColor(v);
     }
+
+    set textureClipX(v: number) {
+        if (this.textureElement.texture) {
+            this.textureElement.texture.x = v;
+        }
+    }
+
+    set textureClipY(v: number) {
+        if (this.textureElement.texture) {
+            this.textureElement.texture.y = v;
+        }
+    }
+
+    set textureClipW(v: number) {
+        if (this.textureElement.texture) {
+            this.textureElement.texture.w = v;
+        }
+    }
+
+    set textureClipH(v: number) {
+        if (this.textureElement.texture) {
+            this.textureElement.texture.h = v;
+        }
+    }
+
+    set texturePixelRatio(v: number) {
+        if (this.textureElement.texture) {
+            this.textureElement.texture.pixelRatio = ensureFloat(v);
+        }
+    }
+
 
     set zIndex(v: number) {
         this.el.zIndex = ensureFloat(v);
@@ -231,14 +267,6 @@ export class Node extends Base {
 
     set boundsMarginBottom(v: number) {
         this.el.boundsMarginBottom = ensureFloat(v);
-    }
-
-    set mw(v: number) {
-        this.el.mw = ensureFloat(v);
-    }
-
-    set mh(v: number) {
-        this.el.mh = ensureFloat(v);
     }
 
     set flexItem(v: boolean) {
@@ -291,6 +319,10 @@ export class Node extends Base {
 
     set maxHeight(v: number) {
         this.el.maxHeight = ensureFloat(v);
+    }
+
+    set skipInLayout(v: boolean) {
+        this.el.skipInLayout = ensureBoolean(v);
     }
 
     get nodeEvents(): NodeEvents {
