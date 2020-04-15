@@ -1529,10 +1529,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-flexbox.js@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/flexbox.js/-/flexbox.js-1.0.10.tgz#c4b6e357ce6e048c7eeadf28242b4d49eb8ee67c"
-  integrity sha512-EpgIlZyMnjnEmwukuZY2RMXF+BoVIAoHZ335h7w9SgthOQUusRmTdc2xr1BB78IbyBskyj06rqZa/S7GPJlVBQ==
+flexbox.js@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/flexbox.js/-/flexbox.js-1.0.11.tgz#c4c9e49d775069fd0c2060e4c4f0644c0f02aedd"
+  integrity sha512-jMHs7tkq38oZrPDfMdIBnTcYwG4DzJv8ruNFXOoFOm7SCabyaUKvz5lA7Wv4ZAmh53ZdXSrMXI3ud4l3tP+xSA==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -3515,12 +3515,12 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tree2d@^1.0.0-alpha.14:
-  version "1.0.0-alpha.14"
-  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.14.tgz#e1e4bc8dba95525434b950a0fbc89aa8beb3dfdd"
-  integrity sha512-JyOpz4jKEOb2/+LE83oJMCELojGImKpiXxOY5X+9LDRserpoIsb3m+7ReopSum0skpRWtjUI2M//daVHeUhanw==
+tree2d@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0.tgz#b2788327663ecb6c42f9a5d5ef06f2687708766d"
+  integrity sha512-SsDmX34re3144gKvKb7OFT6pWRqGAtKglPs9n3pV2fywbMfxeplW4eQy4gy0WfRuKkA4nFTsjx+WDEmH1W4lrA==
   dependencies:
-    flexbox.js "^1.0.10"
+    flexbox.js "^1.0.11"
 
 ts-loader@^6.2.2:
   version "6.2.2"
