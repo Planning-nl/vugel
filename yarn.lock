@@ -37,10 +37,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@planning.nl/eslint-config@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.3.tgz#915f9190fde8448bcad54b4bb2ed6f2a591c201b"
-  integrity sha512-BJ1Ru0CqB9k9phxPp3hV9jUe8Hf67F+RbMS251/0cXf82J0JWcBwu4JVzWTMBKXTMP+QQvECcUAv9CLkBnPoBw==
+"@planning.nl/eslint-config@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.5.tgz#45566fff968a9e2c003128631e5857350a91272e"
+  integrity sha512-UKnK5aSQEmSaloLZUJKRNLWvvJmAmiXOccRWscIvSLfnpRqS3+n5bTJ9tIRKdOaA4qh1wNcUgp6ZSGgbwOf67w==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.25.0"
     "@typescript-eslint/parser" "^2.25.0"
@@ -1529,10 +1529,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-flexbox.js@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/flexbox.js/-/flexbox.js-1.0.8.tgz#f3abf6392d1b6e27d74a8c96b17cd8350d420796"
-  integrity sha512-d18YiG0dtE+nai0WFRgXzBJOdD+YiSyXXwahC/JG43xSybgziDJOwiR5Fk2BjXR9Jqb+y4ZSBUq7505DnVgJRw==
+flexbox.js@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/flexbox.js/-/flexbox.js-1.0.10.tgz#c4b6e357ce6e048c7eeadf28242b4d49eb8ee67c"
+  integrity sha512-EpgIlZyMnjnEmwukuZY2RMXF+BoVIAoHZ335h7w9SgthOQUusRmTdc2xr1BB78IbyBskyj06rqZa/S7GPJlVBQ==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -3515,12 +3515,12 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tree2d@^1.0.0-alpha.13:
-  version "1.0.0-alpha.13"
-  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.13.tgz#6d6b70ca3a180267dd9714e95c2beed85e5a6672"
-  integrity sha512-4XN9STC/OUA4q9ZakYAn9z18RxhdrFzHYBtGL5yuysCR5cw2OvglKXv4/AwhBxpBbOkZML0pkJ8j/y7xrN3SAQ==
+tree2d@^1.0.0-alpha.14:
+  version "1.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0-alpha.14.tgz#e1e4bc8dba95525434b950a0fbc89aa8beb3dfdd"
+  integrity sha512-JyOpz4jKEOb2/+LE83oJMCELojGImKpiXxOY5X+9LDRserpoIsb3m+7ReopSum0skpRWtjUI2M//daVHeUhanw==
   dependencies:
-    flexbox.js "^1.0.8"
+    flexbox.js "^1.0.10"
 
 ts-loader@^6.2.2:
   version "6.2.2"

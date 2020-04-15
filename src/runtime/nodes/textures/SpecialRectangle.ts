@@ -1,10 +1,11 @@
-import { ensureBoolean, ensureColor, ensureFloat, ensureInt, Node } from "../Node";
-import { Element, Texture } from "tree2d";
+import { ensureBoolean, ensureColor, ensureFloat, ensureInt } from "../Node";
+import { Element, Texture } from "tree2d/lib";
 import RoundRectTexture, { RoundRectOptions } from "tree2d/lib/textures/RoundRectTexture";
 import { ElementResizeEventCallback } from "tree2d/lib/tree/ElementListeners";
 import { VugelStage } from "../../../wrapper";
+import { Container } from "../Container";
 
-export class SpecialRectangle extends Node {
+export class SpecialRectangle extends Container {
     private options: Partial<RoundRectOptions> = {};
 
     private subject = new Element(this.stage);
@@ -18,8 +19,12 @@ export class SpecialRectangle extends Node {
 
         this.subject.texture = this.roundRectTexture;
 
+        this.containerElement = this.subject;
+
         this.el.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
         this.subject.onTextureLoaded = ({ element, texture }) => this.handleTextureLoaded(element, texture);
+
+        this.subject.skipInLayout = true;
     }
 
     set pixelRatio(v: number) {

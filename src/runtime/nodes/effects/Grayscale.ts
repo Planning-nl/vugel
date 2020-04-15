@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { GrayscaleShader } from "tree2d";
+import { GrayscaleShader } from "tree2d/lib";
 import { ensureFloat } from "../Node";
 import { VugelStage } from "../../../wrapper";
 

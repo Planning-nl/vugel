@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { ImageTexture } from "tree2d";
+import { ImageTexture } from "tree2d/lib";
 import { ensureFloat } from "../Node";
 import { VugelStage } from "../../../wrapper";
 

@@ -8,7 +8,7 @@
         "email": "support@planning.nl"
     },
     "dependencies": {
-        "tree2d": "^1.0.0-alpha.13"
+        "tree2d": "^1.0.0-alpha.14"
     },
     "devDependencies": {
         "@planning.nl/eslint-config": "^1.0.5",

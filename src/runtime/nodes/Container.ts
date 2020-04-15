@@ -3,7 +3,7 @@ import { Element } from "tree2d/lib";
 import { Base } from "./Base";
 
 export class Container extends Node {
-    public readonly containerElement: Element = this.el;
+    protected containerElement: Element = this.el;
 
     appendChild(child: Base) {
         super.appendChild(child);

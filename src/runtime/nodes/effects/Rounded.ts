@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { RoundedRectangleShader } from "tree2d";
+import { RoundedRectangleShader } from "tree2d/lib";
 import { ensureFloat } from "../Node";
 import { VugelStage } from "../../../wrapper";
 

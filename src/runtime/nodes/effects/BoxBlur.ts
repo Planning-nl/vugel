@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { BoxBlurShader } from "tree2d";
+import { BoxBlurShader } from "tree2d/lib";
 import { VugelStage } from "../../../wrapper";
 
 export class BoxBlur extends Container {

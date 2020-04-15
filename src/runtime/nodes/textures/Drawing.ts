@@ -1,5 +1,5 @@
 import { Node } from "../Node";
-import { Element, Texture } from "tree2d";
+import { Element, Texture } from "tree2d/lib";
 import DrawingTexture, { DrawingFunction } from "tree2d/lib/textures/DrawingTexture";
 import { VugelStage } from "../../../wrapper";
 
