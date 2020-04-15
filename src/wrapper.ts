@@ -2,9 +2,8 @@ import { createRendererForStage, VugelRender } from "./runtime/runtime";
 import {
     ComponentPublicInstance,
     defineComponent,
-    effect,
     Fragment,
-    getCurrentInstance,
+    watchEffect,
     h,
     onMounted,
     Ref,
@@ -33,31 +32,28 @@ export const Vugel: {
             let stage: VugelStage;
             let stageRoot: Root;
 
-            const currentInstance = getCurrentInstance();
-            if (currentInstance) {
-                currentInstance.update = effect(() => {
-                    if (!rendered && elRef.value) {
-                        rendered = true;
+            watchEffect(() => {
+                if (!rendered && elRef.value) {
+                    rendered = true;
 
-                        stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
-                        stage.eventHelpers = setupEvents(elRef.value, stage);
+                    stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
+                    stage.eventHelpers = setupEvents(elRef.value, stage);
 
-                        vugelRenderer = createRendererForStage(stage);
-                        stageRoot = new Root(stage, stage.root);
+                    vugelRenderer = createRendererForStage(stage);
+                    stageRoot = new Root(stage, stage.root);
 
-                        // Auto-inherit dimensions.
-                        stageRoot.w = (w: number) => w;
-                        stageRoot.h = (h: number) => h;
-                    }
+                    // Auto-inherit dimensions.
+                    stageRoot.w = (w: number) => w;
+                    stageRoot.h = (h: number) => h;
+                }
 
-                    const defaultSlot = setupContext.slots.default;
-                    if (defaultSlot) {
-                        vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
-                    } else {
-                        console.warn("No default slot is defined");
-                    }
-                });
-            }
+                const defaultSlot = setupContext.slots.default;
+                if (defaultSlot) {
+                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
+                } else {
+                    console.warn("No default slot is defined");
+                }
+            });
         });
 
         return () =>
