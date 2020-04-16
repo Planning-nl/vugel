@@ -3515,10 +3515,10 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tree2d@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.0.tgz#b2788327663ecb6c42f9a5d5ef06f2687708766d"
-  integrity sha512-SsDmX34re3144gKvKb7OFT6pWRqGAtKglPs9n3pV2fywbMfxeplW4eQy4gy0WfRuKkA4nFTsjx+WDEmH1W4lrA==
+tree2d@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.1.tgz#2be1f97537445cd9116798b72f2bd339365269c5"
+  integrity sha512-ZbRgkFNU6u3xXeUoFIA3QcTQjxNHPnVinckKfjRjbla536EsYvMdLwuVqZqbwi+d+RiwreRJn8CvMtawne3NMQ==
   dependencies:
     flexbox.js "^1.0.11"
 
