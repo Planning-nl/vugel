@@ -12,7 +12,6 @@ module.exports = require("@planning.nl/webpack-config")({
     externals: {
         vue: { ...vueExternals },
         "@vue/runtime-core": { ...vueExternals },
-        "@vue/compiler-core": { ...vueExternals },
         "@vue/reactivity": { ...vueExternals },
     },
 });
