@@ -19,6 +19,7 @@ export const types: Record<string, new (stage: VugelStage) => Base> = {
 
     // textures
     image: Image,
+    img: Image, // Use alias because <template> tag seems to replace image with img automatically.
     rectangle: Rectangle,
     text: Text,
     "special-rectangle": SpecialRectangle,
