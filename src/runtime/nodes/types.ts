@@ -1,4 +1,4 @@
-import { Image } from "./textures";
+import { Picture } from "./textures";
 import { Rectangle } from "./textures";
 import { Text } from "./textures";
 import { Base } from "./Base";
@@ -18,8 +18,7 @@ export const types: Record<string, new (stage: VugelStage) => Base> = {
     container: Container,
 
     // textures
-    image: Image,
-    img: Image, // Use alias because <template> tag seems to replace image with img automatically.
+    picture: Picture,
     rectangle: Rectangle,
     text: Text,
     "special-rectangle": SpecialRectangle,

@@ -1,4 +1,4 @@
-export { Image } from "./Image";
+export { Picture } from "./Picture";
 export { Rectangle } from "./Rectangle";
 export { Text } from "./Text";
 export { SpecialRectangle } from "./SpecialRectangle";

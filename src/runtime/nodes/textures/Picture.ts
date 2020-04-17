@@ -2,7 +2,7 @@ import { Container } from "../Container";
 import { ImageTexture } from "tree2d/lib";
 import { VugelStage } from "../../../wrapper";
 
-export class Image extends Container {
+export class Picture extends Container {
     private tex: ImageTexture;
 
     constructor(stage: VugelStage) {
