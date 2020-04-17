@@ -11,12 +11,12 @@ class Paragraph extends Node {
     private _lineHeight: number = 0;
     private _fontColor: number = 0xff000000;
 
-    set lineHeight(v: number) {
+    set "line-height"(v: number) {
         this._lineHeight = ensureFloat(v);
         this.update();
     }
 
-    set fontColor(v: number) {
+    set "font-color"(v: number) {
         this._fontColor = ensureInt(v);
         this.update();
     }

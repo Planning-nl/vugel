@@ -66,7 +66,7 @@ export class Container extends Node {
         this.containerElement.childList.clear();
     }
 
-    set forceZIndexContext(v: boolean) {
+    set "force-z-index-context"(v: boolean) {
         this.el.forceZIndexContext = ensureBoolean(v);
     }
 
@@ -78,19 +78,19 @@ export class Container extends Node {
         this.el.clipbox = ensureBoolean(v);
     }
 
-    set renderToTexture(v: boolean) {
+    set "render-to-texture"(v: boolean) {
         this.el.renderToTexture = ensureBoolean(v);
     }
 
-    set renderToTextureLazy(v: boolean) {
+    set "render-to-texture-lazy"(v: boolean) {
         this.el.renderToTextureLazy = ensureBoolean(v);
     }
 
-    set renderToTextureOffscreen(v: boolean) {
+    set "render-to-texture-offscreen"(v: boolean) {
         this.el.renderToTextureOffscreen = ensureBoolean(v);
     }
 
-    set renderToTextureColorize(v: boolean) {
+    set "render-to-texture-colorize"(v: boolean) {
         this.el.renderToTextureColorize = ensureBoolean(v);
     }
 
@@ -98,25 +98,25 @@ export class Container extends Node {
         this.el.flex = ensureBoolean(v);
     }
 
-    set flexDirection(v: "row" | "row-reverse" | "column" | "column-reverse") {
+    set "flex-direction"(v: "row" | "row-reverse" | "column" | "column-reverse") {
         this.el.flexDirection = v;
     }
 
-    set flexWrap(v: boolean) {
+    set "flex-wrap"(v: boolean) {
         this.el.flexWrap = ensureBoolean(v);
     }
 
-    set flexAlignItems(v: "flex-start" | "flex-end" | "center" | "stretch") {
+    set "flex-align-items"(v: "flex-start" | "flex-end" | "center" | "stretch") {
         this.el.flexAlignItems = v;
     }
 
-    set flexJustifyContent(
+    set "flex-justify-content"(
         v: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly",
     ) {
         this.el.flexJustifyContent = v;
     }
 
-    set flexAlignContent(
+    set "flex-align-content"(
         v: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | "stretch",
     ) {
         this.el.flexAlignContent = v;
@@ -126,19 +126,19 @@ export class Container extends Node {
         this.el.padding = ensureFloat(v);
     }
 
-    set paddingLeft(v: number) {
+    set "padding-left"(v: number) {
         this.el.paddingLeft = ensureFloat(v);
     }
 
-    set paddingRight(v: number) {
+    set "padding-right"(v: number) {
         this.el.paddingRight = ensureFloat(v);
     }
 
-    set paddingTop(v: number) {
+    set "padding-top"(v: number) {
         this.el.paddingTop = ensureFloat(v);
     }
 
-    set paddingBottom(v: number) {
+    set "padding-bottom"(v: number) {
         this.el.paddingBottom = ensureFloat(v);
     }
 }

@@ -13,3 +13,5 @@ export function createRendererForStage(stage: VugelStage): VugelRender {
 
     return render as VugelRender;
 }
+
+export * from "@vue/runtime-core";

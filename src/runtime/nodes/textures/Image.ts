@@ -1,6 +1,5 @@
 import { Container } from "../Container";
 import { ImageTexture } from "tree2d/lib";
-import { ensureFloat } from "../Node";
 import { VugelStage } from "../../../wrapper";
 
 export class Image extends Container {
@@ -14,9 +13,5 @@ export class Image extends Container {
 
     set src(value: string) {
         this.tex.src = value;
-    }
-
-    set pixelRatio(v: number) {
-        this.el.texture!.pixelRatio = ensureFloat(v);
     }
 }

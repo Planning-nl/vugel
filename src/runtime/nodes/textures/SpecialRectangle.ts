@@ -19,11 +19,11 @@ export class SpecialRectangle extends DynamicSizeTexture {
         this.setOption("radius", [r, r, r, r]);
     }
 
-    set strokeWidth(v: number) {
+    set "stroke-width"(v: number) {
         this.setOption("strokeWidth", ensureInt(v));
     }
 
-    set strokeColor(v: number) {
+    set "stroke-color"(v: number) {
         this.setOption("strokeWidth", ensureColor(v));
     }
 
@@ -31,23 +31,23 @@ export class SpecialRectangle extends DynamicSizeTexture {
         this.setOption("fill", ensureBoolean(v));
     }
 
-    set fillColor(v: number) {
+    set "fill-color"(v: number) {
         this.setOption("fillColor", ensureColor(v));
     }
 
-    set shadowBlur(v: number) {
+    set "shadow-blur"(v: number) {
         this.setOption("shadowBlur", ensureFloat(v));
     }
 
-    set shadowColor(v: number) {
+    set "shadow-color"(v: number) {
         this.setOption("shadowColor", ensureColor(v));
     }
 
-    set shadowOffsetX(v: number) {
+    set "shadow-offset-x"(v: number) {
         this.setOption("shadowOffsetX", ensureFloat(v));
     }
 
-    set shadowOffsetY(v: number) {
+    set "shadow-offset-y"(v: number) {
         this.setOption("shadowOffsetY", ensureFloat(v));
     }
 

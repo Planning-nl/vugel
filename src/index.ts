@@ -5,4 +5,4 @@ export { VugelEventListener, VugelMouseEvent, VugelEvent } from "./events";
 
 export { compile, parse } from "./compiler/compile";
 
-export * from "./runtime/nodes";
+export * from "./runtime/index";

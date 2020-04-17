@@ -1,4 +1,4 @@
-import { createRendererForStage, VugelRender } from "./runtime/runtime";
+import { createRendererForStage, VugelRender } from "./runtime";
 import {
     ComponentPublicInstance,
     defineComponent,

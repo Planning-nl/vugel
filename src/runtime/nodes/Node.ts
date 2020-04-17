@@ -130,11 +130,11 @@ export class Node extends Base {
         this.el.h = convertRelValue(v, "h");
     }
 
-    set scaleX(v: number) {
+    set "scale-x"(v: number) {
         this.el.scaleX = ensureFloat(v);
     }
 
-    set scaleY(v: number) {
+    set "scale-y"(v: number) {
         this.el.scaleY = ensureFloat(v);
     }
 
@@ -142,11 +142,11 @@ export class Node extends Base {
         this.el.scale = ensureFloat(v);
     }
 
-    set pivotX(v: number) {
+    set "pivot-x"(v: number) {
         this.el.pivotX = ensureFloat(v);
     }
 
-    set pivotY(v: number) {
+    set "pivot-y"(v: number) {
         this.el.pivotY = ensureFloat(v);
     }
 
@@ -154,11 +154,11 @@ export class Node extends Base {
         this.el.pivot = ensureFloat(v);
     }
 
-    set mountX(v: number) {
+    set "mount-x"(v: number) {
         this.el.mountX = ensureFloat(v);
     }
 
-    set mountY(v: number) {
+    set "mount-y"(v: number) {
         this.el.mountY = ensureFloat(v);
     }
 
@@ -178,35 +178,35 @@ export class Node extends Base {
         this.el.visible = ensureBoolean(v);
     }
 
-    set colorUl(v: number) {
+    set "color-upper-left"(v: number) {
         this.textureElement.colorUl = ensureColor(v);
     }
 
-    set colorUr(v: number) {
+    set "color-upper-right"(v: number) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
-    set colorBl(v: number) {
+    set "color-bottom-left"(v: number) {
         this.textureElement.colorUl = ensureColor(v);
     }
 
-    set colorBr(v: number) {
+    set "color-bottom-right"(v: number) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
-    set colorTop(v: number) {
+    set "color-top"(v: number) {
         this.textureElement.colorTop = ensureColor(v);
     }
 
-    set colorBottom(v: number) {
+    set "color-bottom"(v: number) {
         this.textureElement.colorBottom = ensureColor(v);
     }
 
-    set colorLeft(v: number) {
+    set "color-left"(v: number) {
         this.textureElement.colorLeft = ensureColor(v);
     }
 
-    set colorRight(v: number) {
+    set "color-right"(v: number) {
         this.textureElement.colorRight = ensureColor(v);
     }
 
@@ -214,74 +214,74 @@ export class Node extends Base {
         this.textureElement.color = ensureColor(v);
     }
 
-    set textureClipX(v: number) {
+    set "clip-x"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.x = v;
         }
     }
 
-    set textureClipY(v: number) {
+    set "clip-y"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.y = v;
         }
     }
 
-    set textureClipW(v: number) {
+    set "clip-w"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.w = v;
         }
     }
 
-    set textureClipH(v: number) {
+    set "clip-h"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.h = v;
         }
     }
 
-    set texturePixelRatio(v: number) {
+    set "pixel-ratio"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.pixelRatio = ensureFloat(v);
         }
     }
 
 
-    set zIndex(v: number) {
+    set "z-index"(v: number) {
         this.el.zIndex = ensureFloat(v);
     }
 
-    set boundsMargin(v: number) {
+    set "bounds-margin"(v: number) {
         this.el.boundsMargin = ensureFloat(v);
     }
 
-    set boundsMarginLeft(v: number) {
+    set "bounds-marginleft"(v: number) {
         this.el.boundsMarginLeft = ensureFloat(v);
     }
 
-    set boundsMarginTop(v: number) {
+    set "bounds-margin-top"(v: number) {
         this.el.boundsMarginTop = ensureFloat(v);
     }
 
-    set boundsMarginRight(v: number) {
+    set "bounds-margin-right"(v: number) {
         this.el.boundsMarginRight = ensureFloat(v);
     }
 
-    set boundsMarginBottom(v: number) {
+    set "bounds-margin-bottom"(v: number) {
         this.el.boundsMarginBottom = ensureFloat(v);
     }
 
-    set flexItem(v: boolean) {
+    set "flex-item"(v: boolean) {
         this.el.flexItem = ensureBoolean(v);
     }
 
-    set flexGrow(v: number) {
+    set "flex-grow"(v: number) {
         this.el.flexGrow = ensureFloat(v);
     }
 
-    set flexShrink(v: number) {
+    set "flex-shrink"(v: number) {
         this.el.flexShrink = ensureFloat(v);
     }
 
-    set flexAlignSelf(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
+    set "flex-alignSelf"(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
         this.el.flexAlignSelf = v;
     }
 
@@ -289,39 +289,39 @@ export class Node extends Base {
         this.el.margin = ensureFloat(v);
     }
 
-    set marginLeft(v: number) {
+    set "margin-left"(v: number) {
         this.el.marginLeft = ensureFloat(v);
     }
 
-    set marginRight(v: number) {
+    set "margin-right"(v: number) {
         this.el.marginRight = ensureFloat(v);
     }
 
-    set marginTop(v: number) {
+    set "margin-top"(v: number) {
         this.el.marginTop = ensureFloat(v);
     }
 
-    set marginBottom(v: number) {
+    set "margin-bottom"(v: number) {
         this.el.marginBottom = ensureFloat(v);
     }
 
-    set minWidth(v: number) {
+    set "min-width"(v: number) {
         this.el.minWidth = ensureFloat(v);
     }
 
-    set minHeight(v: number) {
+    set "min-height"(v: number) {
         this.el.minHeight = ensureFloat(v);
     }
 
-    set maxWidth(v: number) {
+    set "max-width"(v: number) {
         this.el.maxWidth = ensureFloat(v);
     }
 
-    set maxHeight(v: number) {
+    set "max-height"(v: number) {
         this.el.maxHeight = ensureFloat(v);
     }
 
-    set skipInLayout(v: boolean) {
+    set "skip-in-layout"(v: boolean) {
         this.el.skipInLayout = ensureBoolean(v);
     }
 
