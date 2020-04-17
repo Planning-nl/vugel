@@ -281,7 +281,7 @@ export class Node extends Base {
         this.el.flexShrink = ensureFloat(v);
     }
 
-    set "flex-alignSelf"(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
+    set "flex-align-self"(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
         this.el.flexAlignSelf = v;
     }
 
