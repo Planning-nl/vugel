@@ -21,7 +21,7 @@ export const types: Record<string, new (stage: VugelStage) => Base> = {
     picture: Picture,
     rectangle: Rectangle,
     text: TextTexture,
-    "special-rectangle": StyledRectangle,
+    "styled-rectangle": StyledRectangle,
     drawing: Drawing,
     texture: Texture,
     svg: Svg,

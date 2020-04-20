@@ -5,7 +5,7 @@ import { VugelStage } from "../wrapper";
 
 export function getCanvasOffset(e: PageCoordinates, stage: VugelStage): { x: number; y: number } {
     const rect = stage.getCanvas().getBoundingClientRect();
-    return { x: e.pageX - (rect.left + window.scrollX), y: e.pageY - (rect.top + window.scrollY)};
+    return { x: e.pageX - (rect.left + window.scrollX), y: e.pageY - (rect.top + window.scrollY) };
 }
 
 export function getCurrentContext(
@@ -20,7 +20,7 @@ export function getCurrentContext(
 
     const elementsAtCanvasCoordinates = stage.getElementsAtCoordinates<Node>(canvasX, canvasY);
     return {
-        currentElement: elementsAtCanvasCoordinates.find((v) => v.element.data?.pointerEvents == true),
+        currentElement: elementsAtCanvasCoordinates.find((v) => v.element.data?.capturePointerEvents()),
         canvasOffsetX: canvasX,
         canvasOffsetY: canvasY,
     };

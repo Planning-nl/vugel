@@ -49,7 +49,7 @@ export class Node extends Base {
     public readonly stage: VugelStage;
 
     public _nodeEvents?: NodeEvents;
-    public pointerEvents = true;
+    private pointerEvents: boolean | undefined = undefined;
 
     constructor(stage: VugelStage, base?: Element) {
         super(base || new Element(stage));
@@ -59,8 +59,29 @@ export class Node extends Base {
         }
     }
 
+    getParentNode(): Node | undefined {
+        let current = this.parent;
+        while (current && !(current as any).el) {
+            current = current.parent;
+        }
+        return current as Node;
+    }
+
     get el(): Element {
         return this.element!;
+    }
+
+    public set "pointer-events"(v: boolean | undefined) {
+        this.pointerEvents = v;
+    }
+
+    public capturePointerEvents(): boolean {
+        return (this.pointerEvents || (this.pointerEvents === undefined && this.getParentCapturePointerEvents()));
+    }
+
+    private getParentCapturePointerEvents() {
+        const parentNode = this.getParentNode();
+        return parentNode ? parentNode.capturePointerEvents() : true;
     }
 
     // Returns the element containing the texture. Texture clipping and tinting will be applied to this element.
@@ -243,7 +264,6 @@ export class Node extends Base {
             this.textureElement.texture.pixelRatio = ensureFloat(v);
         }
     }
-
 
     set "z-index"(v: number) {
         this.el.zIndex = ensureFloat(v);
