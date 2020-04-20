@@ -35,7 +35,5 @@ export abstract class DynamicSizeTexture extends Container {
         const renderInfo = texture.getSource()?.getRenderInfo();
         this.background.x = -(renderInfo?.offsetX || 0);
         this.background.y = -(renderInfo?.offsetY || 0);
-        console.log('set offset')
-        console.log(this.background.stage.root.core.hasUpdates());
     }
 }
