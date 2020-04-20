@@ -56,10 +56,21 @@ export const Vugel: {
             });
         });
 
+        // We need to use a wrapper for flexible size layouting to work with tree2d pixelRatio canvas auto-resizing.
         return () =>
-            h("canvas", {
-                class: "custom-renderer",
-                ref: elRef,
-            });
+            h(
+                "div",
+                {
+                    class: "custom-renderer-wrapper",
+                    style: { position: "relative" },
+                },
+                [
+                    h("canvas", {
+                        class: "custom-renderer",
+                        style: { position: "absolute", width: "100%", height: "100%" },
+                        ref: elRef,
+                    }),
+                ],
+            );
     },
 });
