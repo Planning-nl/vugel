@@ -27,7 +27,7 @@ export class Container extends Node {
             if (baseAnchor) {
                 const insertBefore = baseAnchor.element!;
                 const index = this.containerElement.childList.getIndex(insertBefore);
-                if (index > 0) {
+                if (index >= 0) {
                     this.containerElement.childList.addAt(item, index);
                 } else {
                     throw new Error("Can't find anchor in tree2d child list: " + insertBefore.getLocationString());

@@ -28,7 +28,7 @@ class Paragraph extends Node {
     }
 
     setElementText(text: string) {
-        this.text = text;
+        this.text = text.trim();
         this.update();
     }
 

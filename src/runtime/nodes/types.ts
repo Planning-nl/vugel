@@ -1,10 +1,10 @@
 import { Picture } from "./textures";
 import { Rectangle } from "./textures";
-import { Text } from "./textures";
+import { TextTexture } from "./textures";
 import { Base } from "./Base";
 import { Paragraph } from "./Paragraph";
 import { Container } from "./Container";
-import { SpecialRectangle } from "./textures";
+import { StyledRectangle } from "./textures";
 import { Drawing } from "./textures";
 import { Texture } from "./textures";
 import { Svg } from "./textures";
@@ -20,8 +20,8 @@ export const types: Record<string, new (stage: VugelStage) => Base> = {
     // textures
     picture: Picture,
     rectangle: Rectangle,
-    text: Text,
-    "special-rectangle": SpecialRectangle,
+    text: TextTexture,
+    "special-rectangle": StyledRectangle,
     drawing: Drawing,
     texture: Texture,
     svg: Svg,

@@ -1,7 +1,7 @@
 export { Picture } from "./Picture";
 export { Rectangle } from "./Rectangle";
-export { Text } from "./Text";
-export { SpecialRectangle } from "./SpecialRectangle";
+export { TextTexture } from "./TextTexture";
+export { StyledRectangle } from "./StyledRectangle";
 export { Drawing } from "./Drawing";
 export { Texture } from "./Texture";
 export { Svg } from "./Svg";

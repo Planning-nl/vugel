@@ -4,7 +4,7 @@ import RoundRectTexture, { RoundRectOptions } from "tree2d/lib/textures/RoundRec
 import { DynamicSizeTexture } from "./DynamicSizeTexture";
 import { VugelStage } from "../../../wrapper";
 
-export class SpecialRectangle extends DynamicSizeTexture {
+export class StyledRectangle extends DynamicSizeTexture {
     private options: Partial<RoundRectOptions> = {};
 
     private roundRectTexture: RoundRectTexture = new RoundRectTexture(this.stage);
@@ -24,7 +24,7 @@ export class SpecialRectangle extends DynamicSizeTexture {
     }
 
     set "stroke-color"(v: number) {
-        this.setOption("strokeWidth", ensureColor(v));
+        this.setOption("strokeColor", ensureColor(v));
     }
 
     set fill(v: boolean) {

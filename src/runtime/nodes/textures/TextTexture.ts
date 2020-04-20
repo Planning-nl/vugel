@@ -1,11 +1,11 @@
 import { Node } from "../Node";
-import { TextTexture } from "tree2d/lib";
+import { TextTexture as Tree2dTextTexture } from "tree2d/lib";
 import { TextTextureSettings } from "./TextTextureSettings";
 import Delegator from "../../utils/Delegator";
 import { VugelStage } from "../../../wrapper";
 
-class Text extends Node {
-    private texture = new TextTexture(this.stage);
+class TextTexture extends Node {
+    private texture = new Tree2dTextTexture(this.stage);
 
     private settings = new TextTextureSettings(() => this.update());
 
@@ -15,7 +15,7 @@ class Text extends Node {
     }
 
     setElementText(text: string) {
-        this.texture.text = text;
+        this.texture.text = text.trim();
     }
 
     private update() {
@@ -23,7 +23,7 @@ class Text extends Node {
     }
 }
 
-Delegator.delegate(Text, TextTextureSettings, "settings");
+Delegator.delegate(TextTexture, TextTextureSettings, "settings");
 interface Text extends TextTextureSettings {}
 
-export { Text };
+export { TextTexture };
