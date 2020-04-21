@@ -14,6 +14,11 @@ class TextTexture extends Node {
         this.el.texture = this.texture;
     }
 
+    set text(text: string) {
+        this.texture.text = text;
+        this.update();
+    }
+
     setElementText(text: string) {
         this.texture.text = text.trim();
     }
