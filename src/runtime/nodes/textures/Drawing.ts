@@ -21,4 +21,8 @@ export class Drawing extends DynamicSizeTexture {
         this.drawingTexture.canvasWidth = w;
         this.drawingTexture.canvasHeight = h;
     }
+
+    update() {
+        this.drawingTexture._changed();
+    }
 }
