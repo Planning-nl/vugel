@@ -44,6 +44,9 @@ const dispatchMouseEvent = (stage: VugelStage, eventState: MouseEventState) => {
     return (e: MouseEvent) => {
         const translatedEvent = translateEvent(stage, e);
         dispatchVugelMouseEvent(translatedEvent, eventState);
+
+        // Prevent selecting nearby text when double-clicking on the canvas.
+        e.preventDefault();
     };
 };
 
