@@ -1,5 +1,5 @@
-import { Element } from "tree2d/lib";
-import DrawingTexture, { DrawingFunction } from "tree2d/lib/textures/DrawingTexture";
+import { Element } from "tree2d";
+import { DrawingFunction, DrawingTexture } from "tree2d";
 import { DynamicSizeTexture } from "./DynamicSizeTexture";
 import { VugelStage } from "../../../wrapper";
 

@@ -1,10 +1,10 @@
 import { Container } from "../Container";
-import { GrayscaleShader } from "tree2d/lib";
+import { WebGLGrayscaleShader } from "tree2d";
 import { ensureFloat } from "../Node";
 import { VugelStage } from "../../../wrapper";
 
 export class Grayscale extends Container {
-    private shader = new GrayscaleShader(this.stage.context);
+    private shader = new WebGLGrayscaleShader(this.stage.context);
 
     constructor(stage: VugelStage) {
         super(stage);

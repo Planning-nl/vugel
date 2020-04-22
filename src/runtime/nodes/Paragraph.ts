@@ -1,7 +1,7 @@
 import { Node, ensureFloat, ensureInt } from "./Node";
-import { Element, TextTexture } from "tree2d/lib";
+import { Element, TextTexture } from "tree2d";
 import { TextTextureSettings } from "./textures/TextTextureSettings";
-import Delegator from "../utils/Delegator";
+import { Delegator } from "../utils/Delegator";
 import { VugelStage } from "../../wrapper";
 
 class Paragraph extends Node {

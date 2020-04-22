@@ -1,4 +1,4 @@
-import { Element, Texture } from "tree2d/lib";
+import { Element, Texture } from "tree2d";
 import { VugelStage } from "../../../wrapper";
 import { Container } from "../Container";
 

@@ -1,5 +1,5 @@
 import { Base } from "./Base";
-import { Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d/lib";
+import { Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d";
 import {
     eventTranslators,
     SupportedEvents,
@@ -14,7 +14,7 @@ import {
     ElementResizeEventCallback,
     ElementTextureEventCallback,
     ElementTextureErrorEventCallback,
-} from "tree2d/lib/tree/ElementListeners";
+} from "tree2d";
 import { VugelStage } from "../../wrapper";
 
 export type NodeEvents = {

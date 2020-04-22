@@ -1,6 +1,6 @@
 import { ensureBoolean, ensureColor, ensureFloat, ensureInt } from "../Node";
-import { Element } from "tree2d/lib";
-import RoundRectTexture, { RoundRectOptions } from "tree2d/lib/textures/RoundRectTexture";
+import { Element } from "tree2d";
+import { RoundRectTexture, RoundRectOptions } from "tree2d";
 import { DynamicSizeTexture } from "./DynamicSizeTexture";
 import { VugelStage } from "../../../wrapper";
 

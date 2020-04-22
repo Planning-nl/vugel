@@ -1,7 +1,7 @@
 import { Node } from "../Node";
-import { TextTexture as Tree2dTextTexture } from "tree2d/lib";
+import { TextTexture as Tree2dTextTexture } from "tree2d";
 import { TextTextureSettings } from "./TextTextureSettings";
-import Delegator from "../../utils/Delegator";
+import { Delegator } from "../../utils/Delegator";
 import { VugelStage } from "../../../wrapper";
 
 class TextTexture extends Node {

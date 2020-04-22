@@ -1,5 +1,5 @@
-import { Element } from "tree2d/lib";
-import SvgTexture, { SvgOptions } from "tree2d/lib/textures/SvgTexture";
+import { Element } from "tree2d";
+import { SvgTexture, SvgOptions } from "tree2d";
 import { VugelStage } from "../../../wrapper";
 import { DynamicSizeTexture } from "./DynamicSizeTexture";
 

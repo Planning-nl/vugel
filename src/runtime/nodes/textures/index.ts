@@ -1,7 +1,9 @@
-export { Picture } from "./Picture";
-export { Rectangle } from "./Rectangle";
-export { TextTexture } from "./TextTexture";
-export { StyledRectangle } from "./StyledRectangle";
-export { Drawing } from "./Drawing";
-export { Texture } from "./Texture";
-export { Svg } from "./Svg";
+export * from "./Drawing";
+export * from "./DynamicSizeTexture";
+export * from "./Picture";
+export * from "./Rectangle";
+export * from "./StyledRectangle";
+export * from "./Svg";
+export * from "./TextTexture";
+export * from "./TextTextureSettings";
+export * from "./Texture";

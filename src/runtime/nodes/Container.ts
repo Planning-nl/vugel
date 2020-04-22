@@ -1,5 +1,5 @@
 import { ensureBoolean, ensureFloat, Node } from "./Node";
-import { Element } from "tree2d/lib";
+import { Element } from "tree2d";
 import { Base } from "./Base";
 
 export class Container extends Node {

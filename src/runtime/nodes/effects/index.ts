@@ -1,4 +1,4 @@
-export { Grayscale } from "./Grayscale";
-export { Rounded } from "./Rounded";
-export { BoxBlur } from "./BoxBlur";
-export { Shader } from "./Shader";
+export * from "./Grayscale";
+export * from "./Rounded";
+export * from "./BoxBlur";
+export * from "./Shader";

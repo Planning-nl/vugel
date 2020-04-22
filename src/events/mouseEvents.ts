@@ -2,7 +2,7 @@ import { Node } from "../runtime/nodes/Node";
 import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import { getCommonAncestor, getCurrentContext } from "./utils";
 import { VugelStage } from "../wrapper";
-import { ElementCoordinatesInfo } from "tree2d/lib";
+import { ElementCoordinatesInfo } from "tree2d";
 
 export interface VugelMouseEvent extends VugelEvent<MouseEvent | TouchEvent> {
     readonly canvasOffsetX: number;

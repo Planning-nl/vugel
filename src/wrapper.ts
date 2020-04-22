@@ -9,7 +9,7 @@ import {
     Ref,
     ref,
 } from "@vue/runtime-core";
-import { Stage, StageOptions } from "tree2d/lib";
+import { Stage, StageOptions } from "tree2d";
 import { EventHelpers, setupEvents } from "./events";
 import { Root } from "./runtime/nodes/Root";
 

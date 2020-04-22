@@ -1,6 +1,6 @@
 import { AnyClass } from "./types";
 
-export default class Delegator {
+export class Delegator {
     public static delegate<T extends AnyClass, U extends AnyClass>(base: T, delegate: U, property: string) {
         const descriptors = Object.getOwnPropertyDescriptors(delegate.prototype);
         const names = Object.keys(descriptors);

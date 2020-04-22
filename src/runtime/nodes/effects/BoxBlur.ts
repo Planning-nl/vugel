@@ -1,9 +1,9 @@
 import { Container } from "../Container";
-import { BoxBlurShader } from "tree2d/lib";
+import { WebGLBoxBlurShader } from "tree2d";
 import { VugelStage } from "../../../wrapper";
 
 export class BoxBlur extends Container {
-    private shader = new BoxBlurShader(this.stage.context);
+    private shader = new WebGLBoxBlurShader(this.stage.context);
 
     constructor(stage: VugelStage) {
         super(stage);

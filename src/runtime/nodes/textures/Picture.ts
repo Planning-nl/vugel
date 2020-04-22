@@ -1,5 +1,5 @@
 import { Container } from "../Container";
-import { ImageTexture } from "tree2d/lib";
+import { ImageTexture } from "tree2d";
 import { VugelStage } from "../../../wrapper";
 
 export class Picture extends Container {

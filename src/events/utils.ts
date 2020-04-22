@@ -1,4 +1,4 @@
-import { ElementCoordinatesInfo } from "tree2d/lib";
+import { ElementCoordinatesInfo } from "tree2d";
 import { Node } from "../runtime/nodes/Node";
 import { Base } from "../runtime/nodes/Base";
 import { VugelStage } from "../wrapper";

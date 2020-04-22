@@ -1,4 +1,4 @@
-import { Element } from "tree2d/lib";
+import { Element } from "tree2d";
 
 export class Base {
     public element?: Element;

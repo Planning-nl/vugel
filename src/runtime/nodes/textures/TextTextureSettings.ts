@@ -1,7 +1,6 @@
 import { ensureFloat } from "../Node";
-import { TextSettings } from "tree2d/lib/textures/text/TextSettings";
+import { TextSettings } from "tree2d";
 
-export { TextSettings };
 export class TextTextureSettings {
     public readonly textSettings: Partial<TextSettings> = {};
 
