@@ -20,7 +20,6 @@
     },
     "files": [
         "lib/**",
-        "dist/**",
         "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/vugel#readme",
@@ -30,7 +29,6 @@
     "module": "lib/index.js",
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
-    "browser": "dist/vugel.js",
     "peerDependencies": {
         "vue": "^3.0.0-beta.1"
     },
@@ -43,7 +41,6 @@
         "lint": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
         "prepublish": "npm run bundle",
-        "prepublishOnly": "npm test",
         "version": "npm run lint"
     },
     "types": "lib/index.d.ts"
