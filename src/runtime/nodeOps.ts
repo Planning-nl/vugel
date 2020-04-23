@@ -34,7 +34,9 @@ export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "p
         return new Comment(text);
     },
 
-    setText: (node, text) => {},
+    setText: (node, text) => {
+        // Noop
+    },
 
     setElementText: (node, text) => {
         node.setElementText(text);

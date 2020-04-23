@@ -11,7 +11,9 @@ export function compileVugel(template: string | HTMLElement, options?: CompilerO
             template = template.innerHTML;
         } else {
             warn(`invalid template option: `, template);
-            return () => {};
+            return () => {
+                // Noop
+            };
         }
     }
 

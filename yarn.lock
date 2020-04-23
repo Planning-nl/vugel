@@ -37,10 +37,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@planning.nl/eslint-config@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.5.tgz#45566fff968a9e2c003128631e5857350a91272e"
-  integrity sha512-UKnK5aSQEmSaloLZUJKRNLWvvJmAmiXOccRWscIvSLfnpRqS3+n5bTJ9tIRKdOaA4qh1wNcUgp6ZSGgbwOf67w==
+"@planning.nl/eslint-config@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@planning.nl/eslint-config/-/eslint-config-1.0.6.tgz#da60c6efef9ce1eb005c5c5bfaf4d00d2f8211a4"
+  integrity sha512-JwHUTuGBKrhzi+SkTmGrpMJ9bSx7PK2bqJ/7EAgu04xBeCBCzQU9RwRGff9tKFErYLBzYATWIt2LevDIomheQQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.25.0"
     "@typescript-eslint/parser" "^2.25.0"
@@ -3515,10 +3515,10 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tree2d@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.5.tgz#71ce790368e1ed10f9fe7790dd2f8cc02f48ab25"
-  integrity sha512-pq0AkoVcANsEnZsh7PWYL7kRcFiMgXrbZW06Z9S9qkCA65uEcqMt+nGHFkDm+BDipRJUItTmX+emoZnjRcy0Ew==
+tree2d@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.6.tgz#125b7419d8f1331091cf8bd8e2f2cc1e72b58d9c"
+  integrity sha512-grqvhySFCyhaaNlyCf71pH2TykTlA5VrbEy3mfHs/U2BLm70TBVoOE/QX2UBpcsLSr/Sk8QJsaGvG4UDJ4wP6A==
   dependencies:
     flexbox.js "^1.0.13"
 

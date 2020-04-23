@@ -9,10 +9,10 @@
         "email": "support@planning.nl"
     },
     "dependencies": {
-        "tree2d": "^1.0.5"
+        "tree2d": "^1.0.6"
     },
     "devDependencies": {
-        "@planning.nl/eslint-config": "^1.0.5",
+        "@planning.nl/eslint-config": "^1.0.6",
         "@planning.nl/webpack-config": "^1.0.4",
         "eslint": "^6.8.0",
         "ts-loader": "^6.2.2",
@@ -32,7 +32,7 @@
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
-        "vue": "^3.0.0-beta.1"
+        "vue": "^3.0.0-beta.3"
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {
@@ -40,7 +40,7 @@
         "watch_build": "tsc --watch",
         "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
         "bundle": "NODE_ENV=production webpack --progress --display-error-details",
-        "lint": "eslint -c .eslintrc.js src/**/*.ts",
+        "lint": "eslint -c .eslintrc.js 'src/**/*.ts'",
         "lint:fix": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
         "prepublish": "npm run bundle",
