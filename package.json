@@ -40,7 +40,8 @@
         "watch_build": "tsc --watch",
         "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
         "bundle": "NODE_ENV=production webpack --progress --display-error-details",
-        "lint": "eslint --fix -c .eslintrc.js **/*.ts",
+        "lint": "eslint -c .eslintrc.js src/**/*.ts",
+        "lint:fix": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
         "prepublish": "npm run bundle",
         "version": "npm run lint"

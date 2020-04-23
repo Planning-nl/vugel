@@ -5,6 +5,7 @@ node_js:
 stages:
     - build
     - test
+    - verify
 
 install:
     - yarn install
@@ -14,4 +15,14 @@ matrix:
         -   name: build
             stage: build
             script:
-                - yarn build
+                - yarn run build
+
+        -   name: build_bundle
+            stage: build
+            script:
+                - yarn run bundle
+
+        -   name: lint
+            stage: verify
+            script:
+                - yarn run lint

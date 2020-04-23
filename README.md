@@ -1,5 +1,8 @@
 # Vugel
 
+[![Build Status](https://img.shields.io/travis/Planning-nl/vugel/master.svg)](https://travis-ci.org/Planning-nl/vugel) 
+[![NPM Version](https://img.shields.io/npm/v/vugel)](https://www.npmjs.com/package/vugel)
+
 > WebGL runtime for Vue3
 
 - [Documentation](https://vugel.planning.nl)
