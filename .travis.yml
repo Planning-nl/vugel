@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - "11"
+
+stages:
+    - build
+    - test
+
+install:
+    - yarn install
+
+matrix:
+    include:
+        -   name: build
+            stage: build
+            script:
+                - yarn build
