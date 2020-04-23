@@ -136,6 +136,11 @@ export class Node extends Base {
         }
     }
 
+    // Converts the world (canvas) coordinates to an offset w.r.t. to this Node
+    getLocalOffset(worldX: number, worldY: number) {
+        return this.el.core.convertWorldCoordsToLocal(worldX, worldY);
+    }
+
     set x(v: number | FunctionX | string) {
         this.el.x = convertRelValue(v, "w");
     }
