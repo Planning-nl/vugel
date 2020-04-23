@@ -1,6 +1,6 @@
 import { Container } from "../Container";
 import { WebGLRoundedRectangleShader } from "tree2d";
-import { ensureFloat } from "../Node";
+import { ensureFloat } from "../../utils/TypeUtils";
 import { VugelStage } from "../../../wrapper";
 
 export class Rounded extends Container {

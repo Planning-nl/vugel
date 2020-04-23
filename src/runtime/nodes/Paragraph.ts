@@ -1,6 +1,7 @@
-import { Node, ensureFloat, ensureInt } from "./Node";
+import { Node } from "./Node";
+import { ensureColor, ensureFloat } from "../utils/TypeUtils";
 import { Element, TextTexture } from "tree2d";
-import { TextTextureSettings } from "./textures/TextTextureSettings";
+import { TextTextureSettings } from "./textures";
 import { Delegator } from "../utils/Delegator";
 import { VugelStage } from "../../wrapper";
 
@@ -16,8 +17,8 @@ class Paragraph extends Node {
         this.update();
     }
 
-    set "font-color"(v: number) {
-        this._fontColor = ensureInt(v);
+    set "font-color"(v: number | string) {
+        this._fontColor = ensureColor(v);
         this.update();
     }
 

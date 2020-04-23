@@ -1,4 +1,4 @@
-import { AnyClass } from "./types";
+import { AnyClass } from "./TypeUtils";
 
 export class Delegator {
     public static delegate<T extends AnyClass, U extends AnyClass>(base: T, delegate: U, property: string) {

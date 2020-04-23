@@ -1,4 +1,4 @@
-import { ensureBoolean, ensureColor, ensureFloat, ensureInt } from "../Node";
+import { ensureBoolean, ensureColor, ensureFloat, ensureInt } from "../../utils/TypeUtils";
 import { Element } from "tree2d";
 import { RoundRectTexture, RoundRectOptions } from "tree2d";
 import { DynamicSizeTexture } from "./DynamicSizeTexture";
@@ -23,7 +23,7 @@ export class StyledRectangle extends DynamicSizeTexture {
         this.setOption("strokeWidth", ensureInt(v));
     }
 
-    set "stroke-color"(v: number) {
+    set "stroke-color"(v: number | string) {
         this.setOption("strokeColor", ensureColor(v));
     }
 
@@ -31,7 +31,7 @@ export class StyledRectangle extends DynamicSizeTexture {
         this.setOption("fill", ensureBoolean(v));
     }
 
-    set "fill-color"(v: number) {
+    set "fill-color"(v: number | string) {
         this.setOption("fillColor", ensureColor(v));
     }
 
@@ -39,7 +39,7 @@ export class StyledRectangle extends DynamicSizeTexture {
         this.setOption("shadowBlur", ensureFloat(v));
     }
 
-    set "shadow-color"(v: number) {
+    set "shadow-color"(v: number | string) {
         this.setOption("shadowColor", ensureColor(v));
     }
 

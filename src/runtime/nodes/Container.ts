@@ -1,4 +1,5 @@
-import { ensureBoolean, ensureFloat, Node } from "./Node";
+import { Node } from "./Node";
+import { ensureBoolean, ensureFloat } from "../utils/TypeUtils";
 import { Element } from "tree2d";
 import { Base } from "./Base";
 

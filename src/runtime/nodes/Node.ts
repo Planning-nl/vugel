@@ -16,6 +16,7 @@ import {
     ElementTextureErrorEventCallback,
 } from "tree2d";
 import { VugelStage } from "../../wrapper";
+import { ensureBoolean, ensureColor, ensureFloat, isString, parseFloatStrict } from "../utils/TypeUtils";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -76,7 +77,7 @@ export class Node extends Base {
     }
 
     public capturePointerEvents(): boolean {
-        return (this.pointerEvents || (this.pointerEvents === undefined && this.getParentCapturePointerEvents()));
+        return this.pointerEvents || (this.pointerEvents === undefined && this.getParentCapturePointerEvents());
     }
 
     private getParentCapturePointerEvents() {
@@ -199,39 +200,39 @@ export class Node extends Base {
         this.el.visible = ensureBoolean(v);
     }
 
-    set "color-upper-left"(v: number) {
+    set "color-upper-left"(v: number | string) {
         this.textureElement.colorUl = ensureColor(v);
     }
 
-    set "color-upper-right"(v: number) {
+    set "color-upper-right"(v: number | string) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
-    set "color-bottom-left"(v: number) {
+    set "color-bottom-left"(v: number | string) {
         this.textureElement.colorUl = ensureColor(v);
     }
 
-    set "color-bottom-right"(v: number) {
+    set "color-bottom-right"(v: number | string) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
-    set "color-top"(v: number) {
+    set "color-top"(v: number | string) {
         this.textureElement.colorTop = ensureColor(v);
     }
 
-    set "color-bottom"(v: number) {
+    set "color-bottom"(v: number | string) {
         this.textureElement.colorBottom = ensureColor(v);
     }
 
-    set "color-left"(v: number) {
+    set "color-left"(v: number | string) {
         this.textureElement.colorLeft = ensureColor(v);
     }
 
-    set "color-right"(v: number) {
+    set "color-right"(v: number | string) {
         this.textureElement.colorRight = ensureColor(v);
     }
 
-    set color(v: number) {
+    set color(v: number | string) {
         this.textureElement.color = ensureColor(v);
     }
 
@@ -504,39 +505,6 @@ export class Node extends Base {
     set onKeyup(e: VugelEventListener<VugelKeyboardEvent> | undefined) {
         this.nodeEvents.onKeyup = e;
     }
-}
-
-export function ensureColor(v: any): number {
-    return ensureInt(v);
-}
-
-export function ensureInt(v: any): number {
-    if (typeof v === "number") {
-        return v;
-    } else {
-        return parseInt(v as any) || 0;
-    }
-}
-
-export function ensureFloat(v: any): number {
-    if (typeof v === "number") {
-        return v;
-    } else {
-        return parseFloat(v as any) || 0.0;
-    }
-}
-
-export function ensureBoolean(v: any): boolean {
-    return v !== "false" && !!v;
-}
-
-export function isString(value: any): value is string {
-    return typeof value === "string";
-}
-
-export function parseFloatStrict(value: string) {
-    if (/^(-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) return Number(value);
-    return NaN;
 }
 
 export function convertRelValue(v: number | RelFunction | string, argName: string) {

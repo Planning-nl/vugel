@@ -1,6 +1,6 @@
 import { Container } from "../Container";
 import { Shader as Tree2dShader } from "tree2d";
-import { Constructor } from "../../utils/types";
+import { Constructor } from "../../utils/TypeUtils";
 
 export class Shader extends Container {
     set type(v: Constructor<Tree2dShader>) {
