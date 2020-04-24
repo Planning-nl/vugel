@@ -43,8 +43,8 @@ export const Vugel: {
                     stageRoot = new Root(stage, stage.root);
 
                     // Auto-inherit dimensions.
-                    stageRoot.w = (w: number) => w;
-                    stageRoot.h = (h: number) => h;
+                    stageRoot["func-w"] = (w: number) => w;
+                    stageRoot["func-h"] = (w: number, h: number) => h;
                 }
 
                 const defaultSlot = setupContext.slots.default;

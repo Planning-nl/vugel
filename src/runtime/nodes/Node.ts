@@ -1,5 +1,5 @@
 import { Base } from "./Base";
-import { Element, FunctionH, FunctionW, FunctionX, FunctionY } from "tree2d";
+import { Element, RelativeFunction } from "tree2d";
 import {
     eventTranslators,
     SupportedEvents,
@@ -16,7 +16,7 @@ import {
     ElementTextureErrorEventCallback,
 } from "tree2d";
 import { VugelStage } from "../../wrapper";
-import { ensureBoolean, ensureColor, ensureFloat, isString, parseFloatStrict } from "../utils/TypeUtils";
+import { ensureBoolean, ensureColor, ensureFloat, isString } from "../utils/TypeUtils";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -141,20 +141,36 @@ export class Node extends Base {
         return this.el.core.convertWorldCoordsToLocal(worldX, worldY);
     }
 
-    set x(v: number | FunctionX | string) {
-        this.el.x = convertRelValue(v, "w");
+    set x(v: number) {
+        this.el.x = ensureFloat(v);
     }
 
-    set y(v: number | FunctionY | string) {
-        this.el.y = convertRelValue(v, "h");
+    set "func-x"(v: RelativeFunction | string | undefined) {
+        this.el.funcX = ensureRelativeFunction(v);
     }
 
-    set w(v: number | FunctionW | string) {
-        this.el.w = convertRelValue(v, "w");
+    set y(v: number) {
+        this.el.y = v;
     }
 
-    set h(v: number | FunctionH) {
-        this.el.h = convertRelValue(v, "h");
+    set "func-y"(v: RelativeFunction | string | undefined) {
+        this.el.funcY = ensureRelativeFunction(v);
+    }
+
+    set w(v: number) {
+        this.el.w = v;
+    }
+
+    set "func-w"(v: RelativeFunction | string | undefined) {
+        this.el.funcW = ensureRelativeFunction(v);
+    }
+
+    set h(v: number) {
+        this.el.h = v;
+    }
+
+    set "func-h"(v: RelativeFunction | string | undefined) {
+        this.el.funcH = ensureRelativeFunction(v);
     }
 
     set "scale-x"(v: number) {
@@ -512,24 +528,23 @@ export class Node extends Base {
     }
 }
 
-export function convertRelValue(v: number | RelFunction | string, argName: string) {
+function ensureRelativeFunction(v: RelativeFunction | string | undefined) {
     if (isString(v)) {
-        const floatValue = parseFloatStrict(v);
-        if (isNaN(floatValue)) {
-            // Convert to function.
-            return convertToRelFunction(v, argName);
-        } else {
-            return floatValue;
-        }
+        // Convert to function.
+        return convertRelativeFunction(v);
     } else {
-        return isFunction(v) ? v : ensureFloat(v);
+        return v;
     }
 }
 
-export function convertToRelFunction(body: string, argName: string): RelFunction {
-    return new Function(argName, `return ${body}`) as RelFunction;
+// We hold a cache because string-based vue properties will otherwise result in a new relative function on every vnode
+//  update, with performance implications.
+const cachedRelFunctions = new Map<string, RelativeFunction>();
+function convertRelativeFunction(body: string): RelativeFunction {
+    let fn = cachedRelFunctions.get(body);
+    if (!fn) {
+        fn = new Function("w", "h", `return ${body}`) as RelativeFunction;
+        cachedRelFunctions.set(body, fn);
+    }
+    return fn;
 }
-
-type RelFunction = (v: number) => number;
-
-const isFunction = (val: unknown): val is Function => typeof val === "function";

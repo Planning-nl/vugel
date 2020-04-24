@@ -56,7 +56,7 @@ class Paragraph extends Node {
                 const el = new Element(this.stage);
                 if (word === Paragraph.newlinePattern) {
                     // Force line break.
-                    el.w = (w: number) => w;
+                    el.funcW = (w: number) => w;
                     el.h = 0;
                 } else {
                     const texture = new TextTexture(this.stage);

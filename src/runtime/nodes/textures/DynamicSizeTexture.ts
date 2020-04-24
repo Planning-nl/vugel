@@ -16,8 +16,8 @@ export abstract class DynamicSizeTexture extends Container {
         this.background.skipInLayout = true;
 
         this.wrapper.skipInLayout = true;
-        this.wrapper.w = (w: number) => w;
-        this.wrapper.h = (h: number) => h;
+        this.wrapper.funcW = (w: number) => w;
+        this.wrapper.funcH = (w: number, h: number) => h;
         this.containerElement = this.wrapper;
 
         this.wrapper.onResize = ({ element, w, h }) => this.handleResize(element, w, h);
