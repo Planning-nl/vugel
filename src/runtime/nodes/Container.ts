@@ -4,67 +4,31 @@ import { Element } from "tree2d";
 import { Base } from "./Base";
 
 export class Container extends Node {
-    protected containerElement: Element = this.el;
+    public containerElement: Element = this.el;
 
-    appendChild(child: Base) {
-        super.appendChild(child);
-        if (child.element) {
-            this.containerElement.childList.add(child.element);
-        }
-    }
-
-    removeChild(child: Base) {
-        super.removeChild(child);
-        if (child.element) {
-            this.containerElement.childList.remove(child.element);
-        }
-    }
-
-    insertBefore(child: Base, anchor: Base) {
-        super.insertBefore(child, anchor);
-        const item = child.element;
-        if (item) {
-            const baseAnchor = this.getBaseAnchor(anchor);
-            if (baseAnchor) {
-                const insertBefore = baseAnchor.element!;
-                const index = this.containerElement.childList.getIndex(insertBefore);
-                if (index >= 0) {
-                    this.containerElement.childList.addAt(item, index);
-                } else {
-                    throw new Error("Can't find anchor in tree2d child list: " + insertBefore.getLocationString());
-                }
-            } else {
-                this.containerElement.childList.add(item);
+    getChildren(): Node[] {
+        let c = this.firstChild;
+        const items: Node[] = [];
+        while (c) {
+            if (c.element) {
+                items.push(c as Node);
             }
+            c = c.nextSibling;
         }
+        return items;
     }
 
-    /**
-     * Returns the nearest base that has an element.
-     * @param anchor
-     */
-    private getBaseAnchor(anchor: Base): Base | undefined {
-        if (anchor.element) {
-            return anchor;
-        } else {
-            // // In case of a v-for with a lot of elements, lastIndexOf will perform faster.
-            // const hasAnchor = this.children.has(anchor);
-            // if (hasAnchor) {
-            //     const n = this.children.size;
-            //     while (++index < n) {
-            //         if (this.children[index].element) {
-            //             return this.children[index];
-            //         }
-            //     }
-            // }
-            return undefined;
+    syncWithTree2d() {
+        super.syncWithTree2d();
+        const items: Element[] = [];
+        let c = this.firstChild;
+        while (c) {
+            if (c.element) {
+                items.push(c.element);
+            }
+            c = c.nextSibling;
         }
-    }
-
-    clearChildren() {
-        this.children.forEach((child) => (child.parent = undefined));
-        this.containerElement.childList.clear();
-        super.clearChildren();
+        this.containerElement.childList.setItems(items);
     }
 
     set "force-z-index-context"(v: boolean) {
