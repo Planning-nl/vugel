@@ -47,16 +47,16 @@ export class Container extends Node {
         if (anchor.element) {
             return anchor;
         } else {
-            // In case of a v-for with a lot of elements, lastIndexOf will perform faster.
-            let index = this.children.lastIndexOf(anchor);
-            if (index !== -1) {
-                const n = this.children.length;
-                while (++index < n) {
-                    if (this.children[index].element) {
-                        return this.children[index];
-                    }
-                }
-            }
+            // // In case of a v-for with a lot of elements, lastIndexOf will perform faster.
+            // const hasAnchor = this.children.has(anchor);
+            // if (hasAnchor) {
+            //     const n = this.children.size;
+            //     while (++index < n) {
+            //         if (this.children[index].element) {
+            //             return this.children[index];
+            //         }
+            //     }
+            // }
             return undefined;
         }
     }

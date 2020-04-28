@@ -3,10 +3,11 @@ import { Element } from "tree2d";
 export class Base {
     public element?: Element = undefined;
 
-    protected children: Base[] = [];
+    protected children = new Set<Base>();
 
     public parent?: Base = undefined;
 
+    public prevSibling: Base | null = null;
     public nextSibling: Base | null = null;
 
     constructor(element: Element | undefined) {
@@ -15,27 +16,35 @@ export class Base {
 
     appendChild(child: Base) {
         child.parent = this;
-        this.children.push(child);
+        this.children.add(child);
         child.nextSibling = null;
     }
 
     removeChild(child: Base) {
         child.parent = undefined;
-        const index = this.children.indexOf(child);
-        if (index > 0) {
-            this.children[index - 1].nextSibling = child.nextSibling;
+
+        if (child.prevSibling) {
+            child.prevSibling.nextSibling = child.nextSibling;
         }
-        this.children.splice(index, 1);
+
+        if (child.nextSibling) {
+            child.nextSibling.prevSibling = child.prevSibling;
+        }
+
+        this.children.delete(child);
         child.nextSibling = null;
     }
 
     insertBefore(child: Base, anchor: Base) {
         child.parent = this;
-        const index = this.children.lastIndexOf(anchor);
-        if (index > 0) {
-            this.children[index - 1].nextSibling = child;
+
+        if (anchor.prevSibling) {
+            anchor.prevSibling.nextSibling = child;
         }
-        this.children.splice(index, 0, child);
+
+        anchor.prevSibling = child;
+
+        this.children.add(child);
         child.nextSibling = anchor;
     }
 
@@ -44,11 +53,7 @@ export class Base {
             child.parent = undefined;
             child.nextSibling = null;
         });
-        this.children = [];
-    }
-
-    getChildren(): Base[] {
-        return this.children || [];
+        this.children = new Set<Base>();
     }
 
     setElementText(text: string) {
