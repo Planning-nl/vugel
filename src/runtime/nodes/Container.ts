@@ -63,8 +63,8 @@ export class Container extends Node {
 
     clearChildren() {
         this.children.forEach((child) => (child.parent = undefined));
-        this.children = [];
         this.containerElement.childList.clear();
+        super.clearChildren();
     }
 
     set "force-z-index-context"(v: boolean) {

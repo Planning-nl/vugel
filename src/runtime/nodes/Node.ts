@@ -49,7 +49,7 @@ export type NodeEvents = {
 export class Node extends Base {
     public readonly stage: VugelStage;
 
-    public _nodeEvents?: NodeEvents;
+    public _nodeEvents?: NodeEvents = undefined;
     private pointerEvents: boolean | undefined = undefined;
 
     constructor(stage: VugelStage, base?: Element) {

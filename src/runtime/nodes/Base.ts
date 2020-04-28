@@ -1,7 +1,7 @@
 import { Element } from "tree2d";
 
 export class Base {
-    public element?: Element;
+    public element?: Element = undefined;
 
     protected children: Base[] = [];
 
@@ -45,6 +45,10 @@ export class Base {
             child.nextSibling = null;
         });
         this.children = [];
+    }
+
+    getChildren(): Base[] {
+        return this.children || [];
     }
 
     setElementText(text: string) {
