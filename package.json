@@ -1,7 +1,7 @@
 {
     "name": "vugel",
     "description": "Vue3 webgl renderer",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "author": "Bas van Meurs, Robbin Baauw, Planning.nl",
     "email": "bas@planning.nl",
     "bugs": {
