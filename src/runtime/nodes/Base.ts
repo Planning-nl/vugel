@@ -121,24 +121,25 @@ export class Base {
     }
 }
 
-let awaitingChanges = false;
-let changed: Base[] = [];
+let pendingSyncBase: Base | undefined = undefined;
+
 const registerUpdatedBase = (base: Base) => {
-    changed.push(base);
-    if (!awaitingChanges) {
-        awaitingChanges = true;
+    if (pendingSyncBase && pendingSyncBase !== base) {
+        pendingSyncBase.syncWithTree2d();
+    }
+
+    if (!pendingSyncBase) {
         nextTick().then(() => {
             flushChanges();
         });
     }
+
+    pendingSyncBase = base;
 };
 
 const flushChanges = () => {
-    changed.forEach((base) => {
-        base.syncWithTree2d();
-    });
-
-    changed = [];
-
-    awaitingChanges = false;
+    if (pendingSyncBase) {
+        pendingSyncBase.syncWithTree2d();
+    }
+    pendingSyncBase = undefined;
 };

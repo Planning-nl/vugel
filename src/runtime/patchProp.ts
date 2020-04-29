@@ -1,5 +1,5 @@
 import { ComponentInternalInstance, SuspenseBoundary, VNode } from "@vue/runtime-core";
-import { patchElProp } from "./modules/props";
+import { Element } from "tree2d";
 
 export function patchProp(
     el: Element,
@@ -12,5 +12,16 @@ export function patchProp(
     parentSuspense?: SuspenseBoundary,
     unmountChildren?: any,
 ) {
-    patchElProp(el, key, nextValue, prevChildren, parentComponent, parentSuspense, unmountChildren);
+    getSetter(key)(el, nextValue);
 }
+
+type SetterFunction = (el: any, value: any) => void;
+
+const obj: Record<string, SetterFunction> = {};
+
+const getSetter = (key: string) => {
+    if (!obj[key]) {
+        obj[key] = new Function("el", "value", `el["${key}"] = value`) as SetterFunction;
+    }
+    return obj[key];
+};
