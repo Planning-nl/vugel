@@ -1,8 +1,8 @@
 import { ComponentInternalInstance, SuspenseBoundary, VNode } from "@vue/runtime-core";
-import { Element } from "tree2d";
+import { Base } from "./nodes/Base";
 
 export function patchProp(
-    el: Element,
+    el: Base,
     key: string,
     prevValue: any,
     nextValue: any,
@@ -15,7 +15,7 @@ export function patchProp(
     getSetter(key)(el, nextValue);
 }
 
-type SetterFunction = (el: any, value: any) => void;
+type SetterFunction = (el: Base, value: any) => void;
 
 const obj: Record<string, SetterFunction> = {};
 
