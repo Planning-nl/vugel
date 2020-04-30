@@ -72,11 +72,19 @@ export class Node extends Base {
         return this.element!;
     }
 
-    public set "pointer-events"(v: boolean | undefined) {
+    get id() {
+        return this.el.id;
+    }
+
+    set id(v: string | undefined) {
+        this.el.id = v;
+    }
+
+    set "pointer-events"(v: boolean | undefined) {
         this.pointerEvents = v;
     }
 
-    public capturePointerEvents(): boolean {
+    capturePointerEvents(): boolean {
         return this.pointerEvents || (this.pointerEvents === undefined && this.getParentCapturePointerEvents());
     }
 
@@ -526,6 +534,23 @@ export class Node extends Base {
     set onKeyup(e: VugelEventListener<VugelKeyboardEvent> | undefined) {
         this.nodeEvents.onKeyup = e;
     }
+
+    getLayoutX() {
+        return this.el.layoutX;
+    }
+
+    getLayoutY() {
+        return this.el.layoutY;
+    }
+
+    getLayoutW() {
+        return this.el.layoutW;
+    }
+
+    getLayoutH() {
+        return this.el.layoutH;
+    }
+
 }
 
 function ensureRelativeFunction(v: RelativeFunction | string | undefined) {

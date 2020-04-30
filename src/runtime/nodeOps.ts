@@ -46,11 +46,10 @@ export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "p
 
     nextSibling: (node) => node.nextSibling,
 
-    querySelector: (selector) => null,
-
-    setScopeId(el, id) {
-        if (el.element) {
-            el.element.ref = id;
+    querySelector: (selector) => {
+        if (selector.startsWith("#")) {
+            selector = selector.substr(1);
         }
+        return stage.getById(selector)?.data || null;
     },
 });
