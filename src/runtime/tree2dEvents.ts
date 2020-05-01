@@ -16,20 +16,20 @@ export function augmentTree2dElementEvent<T extends Tree2dElementEventObjectBase
     return { ...e, node, stage };
 }
 
-type Tree2dElementEventObjectBase = { element: Element };
-
-type Tree2dElementEventCallback<EventObject extends Tree2dElementEventObjectBase> = (e: EventObject) => void;
-
 type AugmentedElementEventObject<T extends Tree2dElementEventObjectBase = Tree2dElementEventObjectBase> = T & {
     stage: VugelStage;
     node: Node;
 };
+
+type Tree2dElementEventObjectBase = { element: Element };
+
+type Tree2dElementEventCallback<EventObject extends Tree2dElementEventObjectBase> = (e: EventObject) => void;
+
 export type GetVugelNodeEventListener<T = ElementEventCallback> = T extends Tree2dElementEventCallback<infer EventArg>
     ? (event: AugmentedElementEventObject<EventArg>) => void
     : never;
 
-export type VugelNodeEventListener = (event: { element: Element; node: Node; stage: VugelStage }) => void;
-
+export type VugelNodeEventListener = GetVugelNodeEventListener<ElementEventCallback>;
 export type VugelTextureErrorEventListener = GetVugelNodeEventListener<ElementTextureErrorEventCallback>;
 export type VugelTextureEventListener = GetVugelNodeEventListener<ElementTextureEventCallback>;
 export type VugelResizeEventListener = GetVugelNodeEventListener<ElementResizeEventCallback>;
