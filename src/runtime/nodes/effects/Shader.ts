@@ -2,7 +2,7 @@ import { Container } from "../Container";
 import { Shader as Tree2dShader } from "tree2d";
 import { CoreContext } from "tree2d";
 
-export type ShaderFactory = (context: CoreContext) => { shader: Tree2dShader; reusable: boolean }
+export type ShaderFactory = (context: CoreContext) => { shader: Tree2dShader; reusable: boolean; }
 
 const factories = new Map<ShaderFactory, Tree2dShader>();
 
