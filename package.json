@@ -9,7 +9,7 @@
         "email": "support@planning.nl"
     },
     "dependencies": {
-        "tree2d": "^1.0.8"
+        "tree2d": "^1.0.9"
     },
     "devDependencies": {
         "@planning.nl/eslint-config": "^1.0.6",
@@ -17,7 +17,7 @@
         "eslint": "^6.8.0",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
-        "vue": "^3.0.0-beta.3"
+        "vue": "^3.0.0-beta.5"
     },
     "files": [
         "lib/**",
@@ -32,7 +32,7 @@
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
-        "vue": "^3.0.0-beta.3"
+        "vue": "^3.0.0-beta.5"
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {

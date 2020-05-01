@@ -1,5 +1,5 @@
 import { Element } from "tree2d";
-import { nextTick } from "../..";
+import { queuePostFlushCb } from "../..";
 
 export class Base {
     public element?: Element = undefined;
@@ -129,7 +129,7 @@ const registerUpdatedBase = (base: Base) => {
     }
 
     if (!pendingSyncBase) {
-        nextTick().then(() => {
+        queuePostFlushCb(() => {
             flushChanges();
         });
     }
