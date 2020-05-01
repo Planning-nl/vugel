@@ -9,14 +9,24 @@ import {
     VugelKeyboardEvent,
     VugelMouseEvent,
 } from "../../events";
-import {
-    ElementEventCallback,
-    ElementResizeEventCallback,
-    ElementTextureEventCallback,
-    ElementTextureErrorEventCallback,
-} from "tree2d";
+
 import { VugelStage } from "../../wrapper";
 import { ensureBoolean, ensureColor, ensureFloat, isString } from "../utils/TypeUtils";
+
+export {
+    VugelNodeEventListener,
+    VugelTextureErrorEventListener,
+    VugelTextureEventListener,
+    VugelResizeEventListener,
+} from "../tree2dEvents";
+
+import {
+    VugelNodeEventListener,
+    VugelTextureErrorEventListener,
+    VugelTextureEventListener,
+    VugelResizeEventListener,
+    augmentTree2dElementEvent,
+} from "../tree2dEvents";
 
 export type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
@@ -387,60 +397,60 @@ export class Node extends Base {
     }
 
     // Setters for NodeEvents
-    set onSetup(v: ElementEventCallback | undefined) {
-        this.el.onSetup = v;
+    set onSetup(v: VugelNodeEventListener | undefined) {
+        this.el.onSetup = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onAttach(v: ElementEventCallback | undefined) {
-        this.el.onAttach = v;
+    set onAttach(v: VugelNodeEventListener | undefined) {
+        this.el.onAttach = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onDetach(v: ElementEventCallback | undefined) {
-        this.el.onDetach = v;
+    set onDetach(v: VugelNodeEventListener | undefined) {
+        this.el.onDetach = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onEnabled(v: ElementEventCallback | undefined) {
-        this.el.onEnabled = v;
+    set onEnabled(v: VugelNodeEventListener | undefined) {
+        this.el.onEnabled = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onDisabled(v: ElementEventCallback | undefined) {
-        this.el.onDisabled = v;
+    set onDisabled(v: VugelNodeEventListener | undefined) {
+        this.el.onDisabled = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onActive(v: ElementEventCallback | undefined) {
-        this.el.onActive = v;
+    set onActive(v: VugelNodeEventListener | undefined) {
+        this.el.onActive = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onInactive(v: ElementEventCallback | undefined) {
-        this.el.onInactive = v;
+    set onInactive(v: VugelNodeEventListener | undefined) {
+        this.el.onInactive = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onTextureError(v: ElementTextureErrorEventCallback | undefined) {
-        this.el.onTextureError = v;
+    set onTextureError(v: VugelTextureErrorEventListener | undefined) {
+        this.el.onTextureError = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onTextureLoaded(v: ElementTextureEventCallback | undefined) {
-        this.el.onTextureLoaded = v;
+    set onTextureLoaded(v: VugelTextureEventListener | undefined) {
+        this.el.onTextureLoaded = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onTextureUnloaded(v: ElementTextureEventCallback | undefined) {
-        this.el.onTextureUnloaded = v;
+    set onTextureUnloaded(v: VugelTextureEventListener | undefined) {
+        this.el.onTextureUnloaded = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onResize(v: ElementResizeEventCallback | undefined) {
-        this.el.onResize = v;
+    set onResize(v: VugelResizeEventListener | undefined) {
+        this.el.onResize = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onUpdate(v: ElementEventCallback | undefined) {
-        this.el.onUpdate = v;
+    set onUpdate(v: VugelNodeEventListener | undefined) {
+        this.el.onUpdate = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onAfterCalcs(v: ElementEventCallback | undefined) {
-        this.el.onAfterCalcs = v;
+    set onAfterCalcs(v: VugelNodeEventListener | undefined) {
+        this.el.onAfterCalcs = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
-    set onAfterUpdate(v: ElementEventCallback | undefined) {
-        this.el.onAfterUpdate = v;
+    set onAfterUpdate(v: VugelNodeEventListener | undefined) {
+        this.el.onAfterUpdate = v ? (e) => v(augmentTree2dElementEvent(e)) : undefined;
     }
 
     // MouseEvent
@@ -550,7 +560,6 @@ export class Node extends Base {
     getLayoutH() {
         return this.el.layoutH;
     }
-
 }
 
 function ensureRelativeFunction(v: RelativeFunction | string | undefined) {
