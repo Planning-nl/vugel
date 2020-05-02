@@ -19,7 +19,7 @@ export class Base {
         this.element = element;
     }
 
-    appendChild(child: Base) {
+    _appendChild(child: Base) {
         child.unlinkSiblings();
 
         child.parent = this;
@@ -59,7 +59,7 @@ export class Base {
         this.nextSibling = null;
     }
 
-    removeChild(child: Base) {
+    _removeChild(child: Base) {
         child.unlinkSiblings();
 
         child.parent = undefined;
@@ -69,7 +69,7 @@ export class Base {
         this.registerSync();
     }
 
-    insertBefore(child: Base, anchor: Base) {
+    _insertBefore(child: Base, anchor: Base) {
         child.unlinkSiblings();
 
         child.parent = this;
@@ -87,19 +87,6 @@ export class Base {
         }
 
         this.children.add(child);
-
-        this.registerSync();
-    }
-
-    clearChildren() {
-        this.children.forEach((child) => {
-            child.parent = undefined;
-            child.prevSibling = null;
-            child.nextSibling = null;
-        });
-        this.children = new Set<Base>();
-        this.firstChild = null;
-        this.lastChild = null;
 
         this.registerSync();
     }

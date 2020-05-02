@@ -8,16 +8,16 @@ import { VugelStage } from "../wrapper";
 export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "patchProp"> => ({
     insert: (child, parent, anchor) => {
         if (anchor != null) {
-            parent.insertBefore(child, anchor);
+            parent._insertBefore(child, anchor);
         } else {
-            parent.appendChild(child);
+            parent._appendChild(child);
         }
     },
 
     remove: (child) => {
         const parent = child.parent;
         if (parent != null) {
-            parent.removeChild(child);
+            parent._removeChild(child);
         }
     },
 
