@@ -13,6 +13,7 @@ import { Rounded } from "./effects";
 import { Shader } from "./effects";
 import { BoxBlur } from "./effects";
 import { VugelStage } from "../../wrapper";
+import { DirectContainer } from "./DirectContainer";
 
 export const types: Record<string, new (stage: VugelStage) => Base> = {
     container: Container,
@@ -34,4 +35,5 @@ export const types: Record<string, new (stage: VugelStage) => Base> = {
 
     // advanced
     paragraph: Paragraph,
+    "direct-container": DirectContainer,
 } as const;

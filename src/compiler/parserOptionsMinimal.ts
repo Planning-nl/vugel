@@ -10,6 +10,6 @@ export const parserOptionsMinimal: ParserOptions = {
 };
 
 const TREE2D_TAGS =
-    "container,rectangle,picture,text,paragraph,styled-rectangle,drawing,texture,svg,grayscale,rounded,shader,box-blur";
+    "container,direct-container,rectangle,picture,text,paragraph,styled-rectangle,drawing,texture,svg,grayscale,rounded,shader,box-blur";
 
 export const isTree2dTag = makeMap(TREE2D_TAGS);
