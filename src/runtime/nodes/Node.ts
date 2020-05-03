@@ -90,6 +90,10 @@ export class Node extends Base {
         this.el.id = v;
     }
 
+    get "pointer-events"() {
+        return this.pointerEvents;
+    }
+
     set "pointer-events"(v: boolean | undefined) {
         this.pointerEvents = v;
     }
@@ -159,120 +163,240 @@ export class Node extends Base {
         return this.el.core.convertWorldCoordsToLocal(worldX, worldY);
     }
 
+    get x() {
+        return this.el.x;
+    }
+
     set x(v: number) {
         this.el.x = ensureFloat(v);
+    }
+
+    get "func-x"() {
+        return this.el.funcX;
     }
 
     set "func-x"(v: RelativeFunction | string | undefined) {
         this.el.funcX = ensureRelativeFunction(v);
     }
 
+    get y() {
+        return this.el.y;
+    }
+
     set y(v: number) {
         this.el.y = v;
+    }
+
+    get "func-y"() {
+        return this.el.funcY;
     }
 
     set "func-y"(v: RelativeFunction | string | undefined) {
         this.el.funcY = ensureRelativeFunction(v);
     }
 
+    get w() {
+        return this.el.w;
+    }
+
     set w(v: number) {
         this.el.w = v;
+    }
+
+    get "func-w"() {
+        return this.el.funcW;
     }
 
     set "func-w"(v: RelativeFunction | string | undefined) {
         this.el.funcW = ensureRelativeFunction(v);
     }
 
+    get h() {
+        return this.el.h;
+    }
+
     set h(v: number) {
         this.el.h = v;
+    }
+
+    get "func-h"() {
+        return this.el.funcH;
     }
 
     set "func-h"(v: RelativeFunction | string | undefined) {
         this.el.funcH = ensureRelativeFunction(v);
     }
 
+    get "scale-x"() {
+        return this.el.scaleX;
+    }
+
     set "scale-x"(v: number) {
         this.el.scaleX = ensureFloat(v);
+    }
+
+    get "scale-y"() {
+        return this.el.scaleY;
     }
 
     set "scale-y"(v: number) {
         this.el.scaleY = ensureFloat(v);
     }
 
+    get scale() {
+        return this.el.scale;
+    }
+
     set scale(v: any) {
         this.el.scale = ensureFloat(v);
+    }
+
+    get "pivot-x"() {
+        return this.el.pivotX;
     }
 
     set "pivot-x"(v: number) {
         this.el.pivotX = ensureFloat(v);
     }
 
+    get "pivot-y"() {
+        return this.el.pivotY;
+    }
+
     set "pivot-y"(v: number) {
         this.el.pivotY = ensureFloat(v);
+    }
+
+    get pivot() {
+        return this.el.pivot;
     }
 
     set pivot(v: any) {
         this.el.pivot = ensureFloat(v);
     }
 
+    get "mount-x"() {
+        return this.el.mountX;
+    }
+
     set "mount-x"(v: number) {
         this.el.mountX = ensureFloat(v);
+    }
+
+    get "mount-y"() {
+        return this.el.mountY;
     }
 
     set "mount-y"(v: number) {
         this.el.mountY = ensureFloat(v);
     }
 
+    get mount() {
+        return this.el.mount;
+    }
+
     set mount(v: any) {
         this.el.mount = ensureFloat(v);
+    }
+
+    get rotation() {
+        return this.el.rotation;
     }
 
     set rotation(v: number) {
         this.el.rotation = ensureFloat(v);
     }
 
+    get alpha() {
+        return this.el.alpha;
+    }
+
     set alpha(v: number) {
         this.el.alpha = ensureFloat(v);
+    }
+
+    get visible() {
+        return this.el.visible;
     }
 
     set visible(v: boolean) {
         this.el.visible = ensureBoolean(v);
     }
 
+    get "color-upper-left"() {
+        return this.textureElement.colorUl;
+    }
+
     set "color-upper-left"(v: number | string) {
         this.textureElement.colorUl = ensureColor(v);
+    }
+
+    get "color-upper-right"() {
+        return this.textureElement.colorUr;
     }
 
     set "color-upper-right"(v: number | string) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
+    get "color-bottom-left"() {
+        return this.textureElement.colorBl;
+    }
+
     set "color-bottom-left"(v: number | string) {
-        this.textureElement.colorUl = ensureColor(v);
+        this.textureElement.colorBl = ensureColor(v);
+    }
+
+    get "color-bottom-right"() {
+        return this.textureElement.colorBr;
     }
 
     set "color-bottom-right"(v: number | string) {
-        this.textureElement.colorUr = ensureColor(v);
+        this.textureElement.colorBr = ensureColor(v);
+    }
+
+    get "color-top"() {
+        return this.textureElement.colorTop;
     }
 
     set "color-top"(v: number | string) {
         this.textureElement.colorTop = ensureColor(v);
     }
 
+    get "color-bottom"() {
+        return this.textureElement.colorBottom;
+    }
+
     set "color-bottom"(v: number | string) {
         this.textureElement.colorBottom = ensureColor(v);
+    }
+
+    get "color-left"() {
+        return this.textureElement.colorLeft;
     }
 
     set "color-left"(v: number | string) {
         this.textureElement.colorLeft = ensureColor(v);
     }
 
+    get "color-right"() {
+        return this.textureElement.colorRight;
+    }
+
     set "color-right"(v: number | string) {
         this.textureElement.colorRight = ensureColor(v);
     }
 
+    get color() {
+        return this.textureElement.color;
+    }
+
     set color(v: number | string) {
         this.textureElement.color = ensureColor(v);
+    }
+
+    get "clip-x"() {
+        return this.textureElement.texture?.x || 0;
     }
 
     set "clip-x"(v: number) {
@@ -281,10 +405,18 @@ export class Node extends Base {
         }
     }
 
+    get "clip-y"() {
+        return this.textureElement.texture?.y || 0;
+    }
+
     set "clip-y"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.y = v;
         }
+    }
+
+    get "clip-w"() {
+        return this.textureElement.texture?.w || 0;
     }
 
     set "clip-w"(v: number) {
@@ -293,10 +425,18 @@ export class Node extends Base {
         }
     }
 
+    get "clip-h"() {
+        return this.textureElement.texture?.h || 0;
+    }
+
     set "clip-h"(v: number) {
         if (this.textureElement.texture) {
             this.textureElement.texture.h = v;
         }
+    }
+
+    get "pixel-ratio"() {
+        return this.textureElement.texture?.pixelRatio || 1;
     }
 
     set "pixel-ratio"(v: number) {
@@ -305,95 +445,171 @@ export class Node extends Base {
         }
     }
 
+    get "z-index"() {
+        return this.el.zIndex;
+    }
+
     set "z-index"(v: number) {
         this.el.zIndex = ensureFloat(v);
     }
 
-    set "bounds-margin"(v: number) {
+    get "bounds-margin"() {
+        return this.el.boundsMargin;
+    }
+
+    set "bounds-margin"(v: number | undefined) {
         this.el.boundsMargin = ensureFloat(v);
     }
 
-    set "bounds-marginleft"(v: number) {
+    get "bounds-margin-left"() {
+        return this.el.boundsMarginLeft;
+    }
+
+    set "bounds-margin-left"(v: number) {
         this.el.boundsMarginLeft = ensureFloat(v);
+    }
+
+    get "bounds-margin-top"() {
+        return this.el.boundsMarginTop;
     }
 
     set "bounds-margin-top"(v: number) {
         this.el.boundsMarginTop = ensureFloat(v);
     }
 
+    get "bounds-margin-right"() {
+        return this.el.boundsMarginRight;
+    }
+
     set "bounds-margin-right"(v: number) {
         this.el.boundsMarginRight = ensureFloat(v);
+    }
+
+    get "bounds-margin-bottom"() {
+        return this.el.boundsMarginBottom;
     }
 
     set "bounds-margin-bottom"(v: number) {
         this.el.boundsMarginBottom = ensureFloat(v);
     }
 
+    get "flex-item"() {
+        return this.el.flexItem;
+    }
+
     set "flex-item"(v: boolean) {
         this.el.flexItem = ensureBoolean(v);
+    }
+
+    get "flex-grow"() {
+        return this.el.flexGrow;
     }
 
     set "flex-grow"(v: number) {
         this.el.flexGrow = ensureFloat(v);
     }
 
+    get "flex-shrink"() {
+        return this.el.flexShrink;
+    }
+
     set "flex-shrink"(v: number) {
         this.el.flexShrink = ensureFloat(v);
+    }
+
+    get "flex-align-self"() {
+        return this.el.flexAlignSelf;
     }
 
     set "flex-align-self"(v: "flex-start" | "flex-end" | "center" | "stretch" | undefined) {
         this.el.flexAlignSelf = v;
     }
 
+    get margin() {
+        return this.el.margin;
+    }
+
     set margin(v: number) {
         this.el.margin = ensureFloat(v);
+    }
+
+    get "margin-left"() {
+        return this.el.marginLeft;
     }
 
     set "margin-left"(v: number) {
         this.el.marginLeft = ensureFloat(v);
     }
 
+    get "margin-right"() {
+        return this.el.marginRight;
+    }
+
     set "margin-right"(v: number) {
         this.el.marginRight = ensureFloat(v);
+    }
+
+    get "margin-top"() {
+        return this.el.marginTop;
     }
 
     set "margin-top"(v: number) {
         this.el.marginTop = ensureFloat(v);
     }
 
+    get "margin-bottom"() {
+        return this.el.marginBottom;
+    }
+
     set "margin-bottom"(v: number) {
         this.el.marginBottom = ensureFloat(v);
+    }
+
+    get "min-width"() {
+        return this.el.minWidth;
     }
 
     set "min-width"(v: number) {
         this.el.minWidth = ensureFloat(v);
     }
 
+    get "min-height"() {
+        return this.el.minHeight;
+    }
+
     set "min-height"(v: number) {
         this.el.minHeight = ensureFloat(v);
+    }
+
+    get "max-width"() {
+        return this.el.maxWidth;
     }
 
     set "max-width"(v: number) {
         this.el.maxWidth = ensureFloat(v);
     }
 
+    get "max-height"() {
+        return this.el.maxHeight;
+    }
+
     set "max-height"(v: number) {
         this.el.maxHeight = ensureFloat(v);
+    }
+
+    get "skip-in-layout"() {
+        return this.el.skipInLayout;
     }
 
     set "skip-in-layout"(v: boolean) {
         this.el.skipInLayout = ensureBoolean(v);
     }
 
-    get nodeEvents(): NodeEvents {
+    private get nodeEvents(): NodeEvents {
         if (!this._nodeEvents) {
             this._nodeEvents = {};
         }
         return this._nodeEvents;
-    }
-
-    set nodeEvents(value: NodeEvents) {
-        this._nodeEvents = value;
     }
 
     // Setters for NodeEvents
