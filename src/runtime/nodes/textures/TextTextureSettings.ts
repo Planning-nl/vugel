@@ -6,9 +6,17 @@ export class TextTextureSettings {
 
     constructor(private onChange: () => void) {}
 
+    get "font-size"() {
+        return this.textSettings.fontSize || 40;
+    }
+
     set "font-size"(v: number) {
         this.textSettings.fontSize = ensureFloat(v);
         this.onChange();
+    }
+
+    get "font-style"() {
+        return this.textSettings.fontStyle || "normal";
     }
 
     set "font-style"(v: string) {
@@ -16,9 +24,17 @@ export class TextTextureSettings {
         this.onChange();
     }
 
+    get "font-weight"() {
+        return this.textSettings.fontWeight || 400;
+    }
+
     set "font-weight"(v: number) {
         this.textSettings.fontWeight = ensureFloat(v);
         this.onChange();
+    }
+
+    get "font-face"() {
+        return this.textSettings.fontFace || [];
     }
 
     set "font-face"(v: string | string[]) {
@@ -26,26 +42,6 @@ export class TextTextureSettings {
             v = [v];
         }
         this.textSettings.fontFace = v;
-        this.onChange();
-    }
-
-    set "cut-start-x"(v: number) {
-        this.textSettings.cutSx = ensureFloat(v);
-        this.onChange();
-    }
-
-    set "cut-start-y"(v: number) {
-        this.textSettings.cutSy = ensureFloat(v);
-        this.onChange();
-    }
-
-    set "cut-end-x"(v: number) {
-        this.textSettings.cutEx = ensureFloat(v);
-        this.onChange();
-    }
-
-    set "cut-end-y"(v: number) {
-        this.textSettings.cutEy = ensureFloat(v);
         this.onChange();
     }
 }

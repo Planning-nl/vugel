@@ -11,7 +11,11 @@ export class Picture extends Container {
         this.el.texture = this.tex;
     }
 
-    set src(value: string) {
+    get src() {
+        return this.tex.src;
+    }
+
+    set src(value: string | undefined) {
         this.tex.src = value;
     }
 }

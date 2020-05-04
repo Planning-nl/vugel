@@ -12,6 +12,10 @@ export class Grayscale extends Container {
         this.el.shader = this.shader;
     }
 
+    get amount() {
+        return this.shader.amount;
+    }
+
     set amount(v: number) {
         this.shader.amount = ensureFloat(v);
     }

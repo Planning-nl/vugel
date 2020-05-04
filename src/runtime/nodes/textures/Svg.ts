@@ -13,6 +13,10 @@ export class Svg extends DynamicSizeTexture {
         this.textureElement.texture = this.svgTexture;
     }
 
+    get src() {
+        return this.options.src;
+    }
+
     set src(v: string) {
         this.options.src = v;
         this.updateTextureOptions();

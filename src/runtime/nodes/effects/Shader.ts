@@ -5,6 +5,10 @@ import { CoreContext } from "tree2d";
 export type ShaderFactory = (context: CoreContext) => Tree2dShader | undefined;
 
 export class Shader extends Container {
+    get shader() {
+        return this.el.shader;
+    }
+
     set shader(v: Tree2dShader | undefined) {
         this.el.shader = v;
     }

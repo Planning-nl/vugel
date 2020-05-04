@@ -12,6 +12,10 @@ export class Rounded extends Container {
         this.el.renderToTexture = true;
     }
 
+    get radius() {
+        return this.shader.radius;
+    }
+
     set radius(v: number) {
         this.shader.radius = ensureFloat(v);
     }

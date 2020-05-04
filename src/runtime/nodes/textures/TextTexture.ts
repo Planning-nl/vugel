@@ -14,6 +14,10 @@ class TextTexture extends Node {
         this.el.texture = this.texture;
     }
 
+    get text() {
+        return this.texture.text;
+    }
+
     set text(text: string) {
         this.texture.text = text;
         this.update();

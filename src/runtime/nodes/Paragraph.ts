@@ -12,9 +12,23 @@ class Paragraph extends Node {
     private _lineHeight: number = 0;
     private _fontColor: number = 0xffffffff;
 
+    constructor(stage: VugelStage) {
+        super(stage);
+        this.el.flex = true;
+        this.el.flexWrap = true;
+    }
+
+    get "line-height"() {
+        return this._lineHeight;
+    }
+
     set "line-height"(v: number) {
         this._lineHeight = ensureFloat(v);
         this.update();
+    }
+
+    get "font-color"() {
+        return this._fontColor;
     }
 
     set "font-color"(v: number | string) {
@@ -22,10 +36,8 @@ class Paragraph extends Node {
         this.update();
     }
 
-    constructor(stage: VugelStage) {
-        super(stage);
-        this.el.flex = true;
-        this.el.flexWrap = true;
+    get text() {
+        return this._text;
     }
 
     set text(text: string) {
