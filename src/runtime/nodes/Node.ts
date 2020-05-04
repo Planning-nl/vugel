@@ -778,6 +778,12 @@ export class Node extends Base {
     }
 }
 
+/**
+ * Do not proxify Nodes when using template refs.
+ * See https://github.com/vuejs/vue-next/pull/1060
+ */
+(Node.prototype as any)["__v_skip"] = true;
+
 function ensureRelativeFunction(v: RelativeFunction | string | undefined) {
     if (isString(v)) {
         // Convert to function.
