@@ -323,19 +323,19 @@ export class Node extends Base {
         this.el.visible = ensureBoolean(v);
     }
 
-    get "color-upper-left"() {
+    get "color-top-left"() {
         return this.textureElement.colorUl;
     }
 
-    set "color-upper-left"(v: number | string) {
+    set "color-top-left"(v: number | string) {
         this.textureElement.colorUl = ensureColor(v);
     }
 
-    get "color-upper-right"() {
+    get "color-top-right"() {
         return this.textureElement.colorUr;
     }
 
-    set "color-upper-right"(v: number | string) {
+    set "color-top-right"(v: number | string) {
         this.textureElement.colorUr = ensureColor(v);
     }
 
