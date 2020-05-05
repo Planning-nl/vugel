@@ -22,7 +22,11 @@ export const nodeOps = (stage: VugelStage): Omit<RendererOptions<Base, Base>, "p
     },
 
     createElement: (tag: keyof typeof types, isSVG) => {
-        const type = types[tag];
+        let type = types[tag];
+        if (!type) {
+            console.warn(`Unknown native tag: ${tag}`);
+            type = types["container"];
+        }
         return new type(stage);
     },
 
