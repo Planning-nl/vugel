@@ -1,5 +1,5 @@
-import { EventTranslator, VueEventsOfType, VugelEvent } from "./index";
-import { Node } from "../runtime/nodes/Node";
+import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
+import { Node } from "../runtime/nodes";
 import { VugelStage } from "../wrapper";
 
 export interface VugelKeyboardEvent extends VugelEvent<KeyboardEvent> {}
@@ -46,8 +46,8 @@ export const keyboardEventTranslator: {
     keyup: "onKeyup",
 } as const;
 
-export const setupKeyboardEvents = (canvasElement: HTMLCanvasElement, stage: VugelStage) => {
+export const setupKeyboardEvents: RegisterEventDispatcher = (targetElement, stage) => {
     for (const key in keyboardEventTranslator) {
-        canvasElement.addEventListener(key, dispatchKeyboardEvent(stage) as EventListener);
+        targetElement.addEventListener(key, dispatchKeyboardEvent(stage) as EventListener);
     }
 };

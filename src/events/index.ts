@@ -8,11 +8,11 @@ export type EventHelpers = {
     focusManager: FocusEvents;
 };
 
-export const setupEvents = (canvasElement: HTMLCanvasElement, stage: VugelStage): EventHelpers => {
-    setupMouseEvents(canvasElement, stage);
-    setupTouchEvents(canvasElement, stage);
-    const focusManager = setupFocusEvents(canvasElement, stage);
-    setupKeyboardEvents(canvasElement, stage);
+export const setupEvents = (targetElement: HTMLElement, stage: VugelStage): EventHelpers => {
+    setupMouseEvents(targetElement, stage);
+    setupTouchEvents(targetElement, stage);
+    const focusManager = setupFocusEvents(targetElement, stage);
+    setupKeyboardEvents(targetElement, stage);
     return { focusManager };
 };
 

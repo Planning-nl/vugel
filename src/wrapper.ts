@@ -37,7 +37,7 @@ export const Vugel: {
                     rendered = true;
 
                     stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
-                    stage.eventHelpers = setupEvents(elRef.value, stage);
+                    stage.eventHelpers = setupEvents(props.settings?.eventsTarget || elRef.value, stage);
 
                     vugelRenderer = createRendererForStage(stage);
                     stageRoot = new Root(stage, stage.root);

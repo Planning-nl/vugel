@@ -1,16 +1,16 @@
 import { Node } from "../runtime/nodes/Node";
 import { getCommonAncestor, getCurrentContext } from "./utils";
-import { VugelEvent } from "./types";
+import { RegisterEventDispatcher, VugelEvent } from "./types";
 import { VugelStage } from "../wrapper";
 
 export class FocusEvents {
     private focusedNode?: Node = undefined;
     private updatingFocusPath: boolean = false;
 
-    constructor(private canvasElement: HTMLCanvasElement, private stage: VugelStage) {
+    constructor(private targetElement: HTMLElement, private stage: VugelStage) {
         this.ensureCanvasFocusable();
-        this.canvasElement.addEventListener("click", (e) => this.onCanvasClick(e));
-        this.canvasElement.addEventListener("blur", (e) => this.onCanvasBlur(e));
+        this.targetElement.addEventListener("click", (e) => this.onCanvasClick(e));
+        this.targetElement.addEventListener("blur", (e) => this.onCanvasBlur(e));
     }
 
     getFocusedNode(): Node | undefined {
@@ -18,8 +18,8 @@ export class FocusEvents {
     }
 
     private ensureCanvasFocusable() {
-        if (!this.canvasElement.hasAttribute("tabindex")) {
-            this.canvasElement.setAttribute("tabindex", "-1");
+        if (!this.targetElement.hasAttribute("tabindex")) {
+            this.targetElement.setAttribute("tabindex", "-1");
         }
     }
 
@@ -114,6 +114,6 @@ export const focusEventTranslator: {
     blur: "onBlur",
 } as const;
 
-export const setupFocusEvents = (canvasElement: HTMLCanvasElement, stage: VugelStage) => {
-    return new FocusEvents(canvasElement, stage);
+export const setupFocusEvents: RegisterEventDispatcher = (targetElement: HTMLElement, stage: VugelStage) => {
+    return new FocusEvents(targetElement, stage);
 };

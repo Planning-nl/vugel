@@ -167,10 +167,10 @@ export const mouseEventTranslator: {
     mouseup: "onMouseup",
 } as const;
 
-export const setupMouseEvents: RegisterEventDispatcher = (canvasElement, stage) => {
+export const setupMouseEvents: RegisterEventDispatcher = (targetElement, stage) => {
     const eventState: MouseEventState = {};
 
     for (const key in mouseEventTranslator) {
-        canvasElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
+        targetElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
     }
 };

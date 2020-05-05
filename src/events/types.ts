@@ -28,7 +28,7 @@ export const eventTranslators = {
 } as const;
 
 // Type helpers
-export type RegisterEventDispatcher = (canvasElement: HTMLCanvasElement, stage: VugelStage) => any;
+export type RegisterEventDispatcher = (targetElement: HTMLElement, stage: VugelStage) => any;
 
 export type EventTranslator<O extends Event, V extends VugelEvent<Event>> = (stage: VugelStage, event: O) => V;
 
