@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/Planning-nl/vugel/master.svg)](https://travis-ci.org/Planning-nl/vugel) 
 [![NPM Version](https://img.shields.io/npm/v/vugel)](https://www.npmjs.com/package/vugel)
 
-> WebGL runtime for Vue3
+> Fast Vue3 renderer powered by WebGL
 
 - [Documentation](https://vugel.planning.nl)
 - [Example](https://vugel-example.planning.nl)
