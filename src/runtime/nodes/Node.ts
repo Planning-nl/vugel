@@ -18,7 +18,11 @@ export {
     VugelTextureErrorEventListener,
     VugelTextureEventListener,
     VugelResizeEventListener,
-} from "../tree2dEvents";
+    VugelNodeEventObject,
+    VugelTextureErrorEventObject,
+    VugelTextureEventObject,
+    VugelResizeEventObject,
+} from "./tree2dEvents";
 
 import {
     VugelNodeEventListener,
@@ -26,9 +30,9 @@ import {
     VugelTextureEventListener,
     VugelResizeEventListener,
     augmentTree2dElementEvent,
-} from "../tree2dEvents";
+} from "./tree2dEvents";
 
-export type NodeEvents = {
+type NodeEvents = {
     onAuxclick?: VugelEventListener<VugelMouseEvent>;
     onClick?: VugelEventListener<VugelMouseEvent>;
     onContextmenu?: VugelEventListener<VugelMouseEvent>;
