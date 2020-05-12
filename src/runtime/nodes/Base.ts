@@ -1,5 +1,5 @@
 import { Element } from "tree2d";
-import { queuePostFlushCb } from "../..";
+import { queuePostFlushCb } from "vue";
 
 export class Base {
     public element?: Element = undefined;
