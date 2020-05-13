@@ -1,5 +1,5 @@
 import { Base } from "./Base";
-import { Element, RelativeFunction } from "tree2d";
+import { Element, RelativeFunction, Stage } from "tree2d";
 import {
     eventTranslators,
     SupportedEvents,
@@ -92,6 +92,11 @@ export class Node extends Base {
 
     set id(v: string | undefined) {
         this.el.id = v;
+    }
+
+    set "direct-ref"(v: string | undefined) {
+        // The direct ref can be used to reference children in direct containers.
+        this.el.ref = v;
     }
 
     get "pointer-events"() {
@@ -213,6 +218,11 @@ export class Node extends Base {
 
     set "func-w"(v: RelativeFunction | string | undefined) {
         this.el.funcW = ensureRelativeFunction(v);
+    }
+
+    // This can be used to apply properties directly to this node. Can be handy when the setting relies on the stage.
+    set "apply-direct"(v: (e: {node: Node}) => void) {
+        v({node: this});
     }
 
     get h() {
