@@ -15,13 +15,10 @@ import { Root } from "./runtime/nodes/Root";
 
 export type VugelStage = Stage & { eventHelpers: EventHelpers };
 
-export const Vugel: {
-    new (): ComponentPublicInstance<Partial<StageOptions>>;
-} = defineComponent({
+export const Vugel = defineComponent({
     props: {
-        settings: {
-            type: Object,
-        },
+        settings: {type: Object},
+        position: {type: String, default: "relative"}
     },
     setup(props, setupContext) {
         const elRef: Ref<HTMLCanvasElement | undefined> = ref();
@@ -68,7 +65,7 @@ export const Vugel: {
                 "div",
                 {
                     class: "custom-renderer-wrapper",
-                    style: { position: "relative", maxWidth: maxWidth.value, maxHeight: maxHeight.value },
+                    style: { position: props.position, maxWidth: maxWidth.value, maxHeight: maxHeight.value },
                 },
                 [
                     h("canvas", {
