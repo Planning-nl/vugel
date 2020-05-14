@@ -25,6 +25,8 @@ export const Vugel: {
     },
     setup(props, setupContext) {
         const elRef: Ref<HTMLCanvasElement | undefined> = ref();
+        const maxWidth = ref(4096);
+        const maxHeight = ref(4096);
 
         onMounted(() => {
             let rendered = false;
@@ -45,6 +47,10 @@ export const Vugel: {
                     // Auto-inherit dimensions.
                     stageRoot["func-w"] = (w: number) => w;
                     stageRoot["func-h"] = (w: number, h: number) => h;
+
+                    const maxTextureSize = stage.getMaxTextureSize();
+                    maxWidth.value = maxTextureSize / stage.pixelRatio;
+                    maxHeight.value = maxTextureSize / stage.pixelRatio;
                 }
 
                 const defaultSlot = setupContext.slots.default;
@@ -62,7 +68,7 @@ export const Vugel: {
                 "div",
                 {
                     class: "custom-renderer-wrapper",
-                    style: { position: "relative" },
+                    style: { position: "relative", maxWidth: maxWidth.value, maxHeight: maxHeight.value },
                 },
                 [
                     h("canvas", {
