@@ -94,6 +94,10 @@ export class Node extends Base {
         this.el.id = v;
     }
 
+    get "direct-ref"() {
+        return this.el.ref;
+    }
+
     set "direct-ref"(v: string | undefined) {
         // The direct ref can be used to reference children in direct containers.
         this.el.ref = v;

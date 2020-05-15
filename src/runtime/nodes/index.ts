@@ -5,3 +5,4 @@ export { DirectContainer } from "./DirectContainer";
 
 export * from "./textures";
 export * from "./effects";
+export * from "./direct"
