@@ -33,6 +33,6 @@ class TextTexture extends Node {
 }
 
 Delegator.delegate(TextTexture, TextTextureSettings, "settings");
-interface Text extends TextTextureSettings {}
+interface TextTexture extends TextTextureSettings {}
 
 export { TextTexture };
