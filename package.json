@@ -9,7 +9,7 @@
         "email": "support@planning.nl"
     },
     "dependencies": {
-        "tree2d": "^1.0.9"
+        "tree2d": "^1.0.10"
     },
     "devDependencies": {
         "@planning.nl/eslint-config": "^1.0.6",
