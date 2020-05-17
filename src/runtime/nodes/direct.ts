@@ -53,6 +53,10 @@ export class DirectContainerMixin extends Container {
         return this.containerElement.childList.getIndex(item.el);
     }
 
+    getByRef(ref: string): DirectNode | undefined {
+        return this.containerElement.childList.getByRef(ref)?.data;
+    }
+
     remove(item: DirectNode) {
         item.parent = undefined;
         this.containerElement.childList.remove(item.el);
@@ -63,8 +67,17 @@ export class DirectContainerMixin extends Container {
         item.data.parent = undefined;
     }
 
+    clear() {
+        this.containerElement.childList.getItems().forEach((item) => (item.data.parent = undefined));
+        this.containerElement.childList.clear();
+    }
+
     getChildren(): Node[] {
         return this.containerElement.childList.getItems().map((element: Element) => element.data as DirectNode);
+    }
+
+    getDirectChildren(): DirectNode[] {
+        return this.getChildren() as DirectNode[];
     }
 
     setItems(items: DirectNode[]) {
