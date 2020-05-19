@@ -80,9 +80,15 @@ export class DirectContainerMixin extends Container {
         return this.getChildren() as DirectNode[];
     }
 
-    setItems(items: DirectNode[]) {
-        this.containerElement.childList.setItems(items.map((item) => item.el));
+    setItems(items: DirectNode[]): DirectNode[][] {
+        const [removed, added] = this.containerElement.childList.setItems(items.map((item) => item.el));
+
         items.forEach((item) => (item.parent = this));
+
+        return [
+            removed.map(e => e.data as DirectNode),
+            added.map(e => e.data as DirectNode),
+        ]
     }
     
 }
