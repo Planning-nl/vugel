@@ -45,6 +45,7 @@ export const Vugel = defineComponent({
                     stageRoot["func-w"] = (w: number) => w;
                     stageRoot["func-h"] = (w: number, h: number) => h;
 
+                    // Keep correct aspect-ratio issues when the page is zoomed out.
                     const maxTextureSize = stage.getMaxTextureSize();
                     maxWidth.value = maxTextureSize / stage.pixelRatio;
                     maxHeight.value = maxTextureSize / stage.pixelRatio;

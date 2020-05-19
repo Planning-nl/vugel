@@ -16,8 +16,8 @@
         "@planning.nl/webpack-config": "^1.0.4",
         "eslint": "^6.8.0",
         "ts-loader": "^6.2.2",
-        "typescript": "^3.8.3",
-        "vue": "^3.0.0-beta.13"
+        "typescript": "3.8.3",
+        "vue": "3.0.0-beta.13"
     },
     "files": [
         "lib/**",
@@ -32,7 +32,7 @@
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
-        "vue": "^3.0.0-beta.13"
+        "vue": "3.0.0-beta.13"
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {
