@@ -1,8 +1,8 @@
-export *  from "./Node";
+export * from "./Node";
 export { Container } from "./Container";
 export { Paragraph } from "./Paragraph";
 export { DirectContainer } from "./DirectContainer";
 
 export * from "./textures";
 export * from "./effects";
-export * from "./direct"
+export * from "./direct";

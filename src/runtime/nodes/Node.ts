@@ -225,8 +225,8 @@ export class Node extends Base {
     }
 
     // This can be used to apply properties directly to this node. Can be handy when the setting relies on the stage.
-    set "apply-direct"(v: (e: {node: Node}) => void) {
-        v({node: this});
+    set "apply-direct"(v: (e: { node: Node }) => void) {
+        v({ node: this });
     }
 
     get h() {

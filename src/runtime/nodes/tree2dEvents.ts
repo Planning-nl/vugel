@@ -34,9 +34,8 @@ export type VugelTextureErrorEventObject = GetVugelNodeEventObject<ElementTextur
 export type VugelTextureEventObject = GetVugelNodeEventObject<ElementTextureEventCallback>;
 export type VugelResizeEventObject = GetVugelNodeEventObject<ElementResizeEventCallback>;
 
-type GetVugelNodeEventListener<EventObject> = (event: EventObject) => void
+type GetVugelNodeEventListener<EventObject> = (event: EventObject) => void;
 export type VugelNodeEventListener = GetVugelNodeEventListener<VugelNodeEventObject>;
 export type VugelTextureErrorEventListener = GetVugelNodeEventListener<VugelTextureErrorEventObject>;
 export type VugelTextureEventListener = GetVugelNodeEventListener<VugelTextureEventObject>;
 export type VugelResizeEventListener = GetVugelNodeEventListener<VugelResizeEventObject>;
-

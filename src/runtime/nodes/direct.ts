@@ -1,11 +1,11 @@
-import {Node} from "./Node";
-import {Base} from "./Base";
-import {Element} from "tree2d";
-import {Constructor} from "../utils/TypeUtils";
-import {mixin} from "../utils/mixin";
-import {DirectContainer} from "./DirectContainer";
-import {Rectangle, TextTexture} from "./textures";
-import {Container} from "./Container";
+import { Node } from "./Node";
+import { Base } from "./Base";
+import { Element } from "tree2d";
+import { Constructor } from "../utils/TypeUtils";
+import { mixin } from "../utils/mixin";
+import { DirectContainer } from "./DirectContainer";
+import { Rectangle, TextTexture } from "./textures";
+import { Container } from "./Container";
 import { Paragraph } from "./Paragraph";
 
 export class DirectContainerMixin extends Container {
@@ -85,12 +85,8 @@ export class DirectContainerMixin extends Container {
 
         items.forEach((item) => (item.parent = this));
 
-        return [
-            removed.map(e => e.data as DirectNode),
-            added.map(e => e.data as DirectNode),
-        ]
+        return [removed.map((e) => e.data as DirectNode), added.map((e) => e.data as DirectNode)];
     }
-    
 }
 
 export type Direct<T extends Node> = T & DirectContainer;
@@ -101,7 +97,7 @@ export function getDirectType<T extends Node>(nodeType: Constructor<T>): Constru
     if (nodeType.prototype instanceof Container) {
         if (!(nodeType as any).__direct) {
             // Create subclass.
-            const directType = (class extends (nodeType as any) {}) as Constructor<T>;
+            const directType = class extends (nodeType as any) {} as Constructor<T>;
             mixin(directType, DirectContainer);
             (nodeType as any).__direct = directType;
         }
