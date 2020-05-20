@@ -9,7 +9,7 @@
         "email": "support@planning.nl"
     },
     "dependencies": {
-        "tree2d": "^1.0.11"
+        "tree2d": "^1.0.12"
     },
     "devDependencies": {
         "@planning.nl/eslint-config": "^1.0.6",
@@ -46,5 +46,8 @@
         "prepublish": "npm run bundle",
         "version": "npm run lint"
     },
-    "types": "lib/index.d.ts"
+    "types": "lib/index.d.ts",
+    "engines": {
+        "node": ">=8.0.0"
+    }
 }
