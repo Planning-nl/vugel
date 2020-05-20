@@ -17,8 +17,8 @@ export type VugelStage = Stage & { eventHelpers: EventHelpers };
 
 export const Vugel = defineComponent({
     props: {
-        settings: {type: Object},
-        position: {type: String, default: "relative"}
+        settings: { type: Object },
+        position: { type: String, default: "relative" },
     },
     setup(props, setupContext) {
         const elRef: Ref<HTMLCanvasElement | undefined> = ref();
