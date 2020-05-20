@@ -3581,7 +3581,7 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tree2d@^1.0.10:
+tree2d@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/tree2d/-/tree2d-1.0.11.tgz#81a5438d9d4e0ab4650d08f6ee10528d3cc068d9"
   integrity sha512-UoT2GcCQ5OS1TUVsPEm/d/L6fYdOTIf/q9nu/nP7qJ7XdTfQiv3JP5O2GSYfC/9+CP2+oH7WD64I/C03kztj5w==
