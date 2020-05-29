@@ -1,15 +1,6 @@
 import { createRendererForStage, VugelRender } from "./runtime";
-import {
-    ComponentPublicInstance,
-    defineComponent,
-    Fragment,
-    watchEffect,
-    h,
-    onMounted,
-    Ref,
-    ref,
-} from "@vue/runtime-core";
-import { Stage, StageOptions } from "tree2d";
+import { defineComponent, Fragment, watchEffect, h, onMounted, Ref, ref } from "@vue/runtime-core";
+import { Stage } from "tree2d";
 import { EventHelpers, setupEvents } from "./events";
 import { Root } from "./runtime/nodes/Root";
 
