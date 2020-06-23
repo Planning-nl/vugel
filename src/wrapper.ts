@@ -1,5 +1,5 @@
 import { createRendererForStage, VugelRender } from "./runtime";
-import { defineComponent, Fragment, watchEffect, h, onMounted, Ref, ref } from "@vue/runtime-core";
+import { defineComponent, Fragment, watchEffect, h, onMounted, Ref, ref, getCurrentInstance } from "@vue/runtime-core";
 import { Stage } from "tree2d";
 import { EventHelpers, setupEvents } from "./events";
 import { Root } from "./runtime/nodes/Root";
@@ -13,8 +13,11 @@ export const Vugel = defineComponent({
     },
     setup(props, setupContext) {
         const elRef: Ref<HTMLCanvasElement | undefined> = ref();
+
         const maxWidth = ref(4096);
         const maxHeight = ref(4096);
+
+        const vugelComponentInstance = getCurrentInstance()!;
 
         onMounted(() => {
             let rendered = false;
@@ -44,12 +47,36 @@ export const Vugel = defineComponent({
 
                 const defaultSlot = setupContext.slots.default;
                 if (defaultSlot) {
-                    vugelRenderer(h(Fragment, defaultSlot()), stageRoot);
+                    const node = h(Connector, defaultSlot);
+                    vugelRenderer(node, stageRoot);
                 } else {
                     console.warn("No default slot is defined");
                 }
             });
         });
+
+        /**
+         * Since vugel uses its own renderer, the ancestor vue's appContext, root and provides would
+         * normally be lost in the slot-specified vugel component.
+         *
+         * By overriding the component's parent before rendering the slot contents, we can make sure that
+         * these features will propagate into the user-specified vugel component.
+         */
+        const Connector = defineComponent({
+            setup(props, setupContext) {
+                const instance = getCurrentInstance()!;
+
+                // @see runtime-core createComponentInstance
+                instance.parent = vugelComponentInstance;
+                instance.appContext = vugelComponentInstance.appContext;
+                instance.root = vugelComponentInstance.root;
+                (instance as any).provides = (vugelComponentInstance as any).provides;
+
+                const defaultSlot = setupContext.slots.default!;
+                return () => h(Fragment, defaultSlot());
+            },
+        });
+
 
         // We need to use a wrapper for flexible size layouting to work with tree2d pixelRatio canvas auto-resizing.
         return () =>
