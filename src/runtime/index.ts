@@ -3,15 +3,13 @@ import { nodeOps } from "./nodeOps";
 import { patchProp } from "./patchProp";
 import { VugelStage } from "../wrapper";
 
-export type VugelRender = RootRenderFunction;
-
-export function createRendererForStage(stage: VugelStage): VugelRender {
+export function createRendererForStage(stage: VugelStage): RootRenderFunction {
     const { render } = createRenderer({
         patchProp,
         ...nodeOps(stage),
     });
 
-    return render as VugelRender;
+    return render;
 }
 
 export * from "./nodes";

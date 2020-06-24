@@ -1,5 +1,15 @@
-import { createRendererForStage, VugelRender } from "./runtime";
-import { defineComponent, Fragment, watchEffect, h, onMounted, Ref, ref, getCurrentInstance } from "@vue/runtime-core";
+import { createRendererForStage } from "./runtime";
+import {
+    defineComponent,
+    Fragment,
+    watchEffect,
+    h,
+    onMounted,
+    Ref,
+    ref,
+    getCurrentInstance,
+    RootRenderFunction,
+} from "@vue/runtime-core";
 import { Stage } from "tree2d";
 import { EventHelpers, setupEvents } from "./events";
 import { Root } from "./runtime/nodes/Root";
@@ -21,7 +31,7 @@ export const Vugel = defineComponent({
 
         onMounted(() => {
             let rendered = false;
-            let vugelRenderer: VugelRender;
+            let vugelRenderer: RootRenderFunction;
             let stage: VugelStage;
             let stageRoot: Root;
 
@@ -56,11 +66,11 @@ export const Vugel = defineComponent({
         });
 
         /**
-         * Since vugel uses its own renderer, the ancestor vue's appContext, root and provides would
-         * normally be lost in the slot-specified vugel component.
+         * Since vugel uses its own renderer, the ancestor vue's appContext, root and provides would normally be lost in
+         * the vugel components.
          *
-         * By overriding the component's parent before rendering the slot contents, we can make sure that
-         * these features will propagate into the user-specified vugel component.
+         * We can fix this by overriding the component's parent, root, appContext and provides before rendering the slot
+         * contents.
          */
         const Connector = defineComponent({
             setup(props, setupContext) {
@@ -76,7 +86,6 @@ export const Vugel = defineComponent({
                 return () => h(Fragment, defaultSlot());
             },
         });
-
 
         // We need to use a wrapper for flexible size layouting to work with tree2d pixelRatio canvas auto-resizing.
         return () =>
