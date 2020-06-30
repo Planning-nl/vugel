@@ -17,11 +17,6 @@ matrix:
             script:
                 - yarn run build
 
-        -   name: build_bundle
-            stage: build
-            script:
-                - yarn run bundle
-
         -   name: lint
             stage: verify
             script:

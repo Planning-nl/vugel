@@ -20,15 +20,16 @@
         "vue": "^3.0.0-beta.14"
     },
     "files": [
-        "lib/**",
+        "esm/**",
+        "cjs/**",
         "dist/**",
         "src/**"
     ],
     "homepage": "https://github.com/Planning-nl/vugel#readme",
     "keywords": [],
     "license": "apache",
-    "main": "lib/index.js",
-    "module": "lib/index.js",
+    "main": "cjs/index.js",
+    "module": "cjs/index.js",
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
@@ -36,14 +37,14 @@
     },
     "repository": "github:Planning-nl/vugel",
     "scripts": {
-        "build": "tsc",
-        "watch_build": "tsc --watch",
-        "watch_bundle": "NODE_ENV=production webpack --watch --progress --display-error-details",
-        "bundle": "NODE_ENV=production webpack --progress --display-error-details",
+        "build": "npm run build:cjs & npm run build:esm & npm run build:umd",
+        "build:cjs": "tsc --module commonjs --outDir cjs",
+        "build:esm": "tsc --module es2015 --outDir esm",
+        "build:umd": "NODE_ENV=production webpack --progress --display-error-details",
         "lint": "eslint -c .eslintrc.js 'src/**/*.ts'",
         "lint:fix": "eslint --fix -c .eslintrc.js **/*.ts",
         "prepare": "npm run build",
-        "prepublish": "npm run bundle",
+        "prepublish": "npm run build",
         "version": "npm run lint"
     },
     "types": "lib/index.d.ts",
