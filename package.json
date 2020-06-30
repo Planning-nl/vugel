@@ -29,7 +29,7 @@
     "keywords": [],
     "license": "apache",
     "main": "cjs/index.js",
-    "module": "cjs/index.js",
+    "module": "esm/index.js",
     "jsdelivr": "dist/vugel.js",
     "unpkg": "dist/vugel.js",
     "peerDependencies": {
@@ -47,7 +47,7 @@
         "prepublish": "npm run build",
         "version": "npm run lint"
     },
-    "types": "cjs/index.d.ts",
+    "types": "dist/index.d.ts",
     "engines": {
         "node": ">=8.0.0"
     }
