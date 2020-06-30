@@ -47,7 +47,7 @@
         "prepublish": "npm run build",
         "version": "npm run lint"
     },
-    "types": "lib/index.d.ts",
+    "types": "cjs/index.d.ts",
     "engines": {
         "node": ">=8.0.0"
     }
