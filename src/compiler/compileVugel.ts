@@ -1,4 +1,5 @@
 import { RenderFunction, warn } from "@vue/runtime-core";
+import * as runtimeVue from "@vue/runtime-core";
 import { CompilerError, CompilerOptions } from "@vue/compiler-core";
 import { compile } from "./compile";
 import * as runtimeVugel from "../runtime";
@@ -41,6 +42,9 @@ export function compileVugel(template: string | HTMLElement, options?: CompilerO
         ...options,
     });
 
-    const render = new Function("Vue", code)(runtimeVugel) as RenderFunction;
+    const render = new Function("Vue", code)({
+        ...runtimeVugel,
+        ...runtimeVue,
+    }) as RenderFunction;
     return (compileCache[key] = render);
 }
