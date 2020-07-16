@@ -31,42 +31,37 @@ export const Vugel = defineComponent({
         const vugelComponentInstance = getCurrentInstance()!;
 
         onMounted(() => {
-            let rendered = false;
             let vugelRenderer: RootRenderFunction;
             let stage: VugelStage;
             let stageRoot: Root;
 
-            watchEffect(() => {
-                if (!rendered && elRef.value) {
-                    rendered = true;
+            if (elRef.value) {
+                stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
+                stage.eventHelpers = setupEvents(props.settings?.eventsTarget || elRef.value, stage);
 
-                    stage = new Stage(elRef.value, { ...props.settings }) as VugelStage;
-                    stage.eventHelpers = setupEvents(props.settings?.eventsTarget || elRef.value, stage);
+                vugelRenderer = createRendererForStage(stage);
+                stageRoot = new Root(stage, stage.root);
 
-                    vugelRenderer = createRendererForStage(stage);
-                    stageRoot = new Root(stage, stage.root);
+                // Auto-inherit dimensions.
+                stageRoot["func-w"] = (w: number) => w;
+                stageRoot["func-h"] = (w: number, h: number) => h;
 
-                    // Auto-inherit dimensions.
-                    stageRoot["func-w"] = (w: number) => w;
-                    stageRoot["func-h"] = (w: number, h: number) => h;
+                // Keep correct aspect-ratio issues when the page is zoomed out.
+                const maxTextureSize = stage.getMaxTextureSize();
+                maxWidth.value = maxTextureSize / stage.pixelRatio;
+                maxHeight.value = maxTextureSize / stage.pixelRatio;
+            }
 
-                    // Keep correct aspect-ratio issues when the page is zoomed out.
-                    const maxTextureSize = stage.getMaxTextureSize();
-                    maxWidth.value = maxTextureSize / stage.pixelRatio;
-                    maxHeight.value = maxTextureSize / stage.pixelRatio;
-                }
-
-                const defaultSlot = setupContext.slots.default;
-                if (defaultSlot) {
-                    // We must wait until nextTick to prevent interference in the effect queue.
-                    nextTick().then(() => {
-                        const node = h(Connector, defaultSlot);
-                        vugelRenderer(node, stageRoot);
-                    });
-                } else {
-                    console.warn("No default slot is defined");
-                }
-            });
+            const defaultSlot = setupContext.slots.default;
+            if (defaultSlot) {
+                // We must wait until nextTick to prevent interference in the effect queue.
+                nextTick().then(() => {
+                    const node = h(Connector, defaultSlot);
+                    vugelRenderer(node, stageRoot);
+                });
+            } else {
+                console.warn("No default slot is defined");
+            }
         });
 
         /**
