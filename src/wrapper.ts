@@ -13,6 +13,7 @@ import {
 import { Stage } from "tree2d";
 import { EventHelpers, setupEvents } from "./events";
 import { Root } from "./runtime/nodes/Root";
+import { nextTick } from "vue";
 
 export type VugelStage = Stage & { eventHelpers: EventHelpers };
 
@@ -57,8 +58,11 @@ export const Vugel = defineComponent({
 
                 const defaultSlot = setupContext.slots.default;
                 if (defaultSlot) {
-                    const node = h(Connector, defaultSlot);
-                    vugelRenderer(node, stageRoot);
+                    // We must wait until nextTick to prevent interference in the effect queue.
+                    nextTick().then(() => {
+                        const node = h(Connector, defaultSlot);
+                        vugelRenderer(node, stageRoot);
+                    });
                 } else {
                     console.warn("No default slot is defined");
                 }
