@@ -66,6 +66,11 @@ export class Node extends Base {
     public _nodeEvents?: NodeEvents = undefined;
     private pointerEvents: boolean | undefined = undefined;
 
+    /**
+     * CSS cursor type to be displayed when this node is being hovered.
+     */
+    public "cursor-type": string | undefined = undefined;
+
     constructor(stage: VugelStage, base?: Element) {
         super(base || new Element(stage));
         this.stage = stage;

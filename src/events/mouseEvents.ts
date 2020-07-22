@@ -1,4 +1,4 @@
-import { Node } from "../runtime/nodes/Node";
+import { Node } from "../runtime/nodes";
 import { EventTranslator, RegisterEventDispatcher, VueEventsOfType, VugelEvent } from "./index";
 import { getCommonAncestor, getCurrentContext } from "./utils";
 import { VugelStage } from "../wrapper";
@@ -16,7 +16,7 @@ export type MouseEventState = {
     activeNode?: Node;
 };
 
-const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) => {
+export const translateEvent: EventTranslator<MouseEvent, VugelMouseEvent> = (stage, e) => {
     const { currentElement, canvasOffsetX, canvasOffsetY } = getCurrentContext(e, stage);
     const currentNode = currentElement?.element.data;
 
@@ -173,4 +173,5 @@ export const setupMouseEvents: RegisterEventDispatcher = (targetElement, stage) 
     for (const key in mouseEventTranslator) {
         targetElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
     }
+
 };
