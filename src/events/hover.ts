@@ -8,7 +8,7 @@ export const setupHover = (targetElement: HTMLElement, stage: VugelStage) => {
     function handleNewHoveredNode(lastHoveredTarget: Node | null, newHoveredTarget: Node | null) {
         if (newHoveredTarget) {
             const cursorType = getCursorType(newHoveredTarget);
-            targetElement.style.cursor = cursorType || "auto";
+            targetElement.style.cursor = cursorType || "";
         }
     }
 
