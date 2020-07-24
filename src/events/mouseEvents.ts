@@ -173,5 +173,4 @@ export const setupMouseEvents: RegisterEventDispatcher = (targetElement, stage) 
     for (const key in mouseEventTranslator) {
         targetElement.addEventListener(key, dispatchMouseEvent(stage, eventState) as EventListener);
     }
-
 };
