@@ -23,7 +23,8 @@
         "esm/**",
         "cjs/**",
         "dist/**",
-        "src/**"
+        "src/**",
+        "types/**"
     ],
     "homepage": "https://github.com/Planning-nl/vugel#readme",
     "keywords": [],
@@ -49,7 +50,7 @@
         "prepublish": "npm run build",
         "version": "npm run lint"
     },
-    "types": "dist/index.d.ts",
+    "types": "types/index.d.ts",
     "engines": {
         "node": ">=8.0.0"
     }
