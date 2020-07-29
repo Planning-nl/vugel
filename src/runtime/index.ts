@@ -13,3 +13,4 @@ export function createRendererForStage(stage: VugelStage): RootRenderFunction {
 }
 
 export * from "./nodes";
+export * from "./utils";
