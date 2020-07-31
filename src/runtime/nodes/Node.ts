@@ -628,7 +628,7 @@ export class Node extends Base {
         this.el.skipInLayout = ensureBoolean(v);
     }
 
-    private get nodeEvents(): NodeEvents {
+    public get nodeEvents(): NodeEvents {
         if (!this._nodeEvents) {
             this._nodeEvents = {};
         }
